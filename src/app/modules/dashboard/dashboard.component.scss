@@ -1,0 +1,32 @@
+@import '/src/app/core/scss/theme.scss';
+
+:host {
+  .dashboard-container {
+    height: calc(100% - 64px);
+  }
+
+  @media (max-width: 599px) {
+    .dashboard-container {
+      height: calc(100% - 56px);
+    }
+  }
+
+  .link-label-space {
+    padding-left: 16px;;
+  }
+
+  .content-container {
+    padding: 32px;
+    box-sizing: border-box;
+  }
+
+  .temperature-link-section {
+    padding-left: 32px;
+    padding-bottom: 8px;
+  }
+
+  .active-link {
+    background: mat-color($app-primary);
+  }
+}
+

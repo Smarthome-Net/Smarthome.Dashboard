@@ -1,0 +1,17 @@
+@import '@angular/material/theming';
+@include mat-core();
+
+$app-primary:     mat-palette($mat-green);
+$app-accent:      mat-palette($mat-cyan);
+$app-warn:        mat-palette($mat-red);
+
+$smarthome-app-theme: mat-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  )
+));
+
+
+@include angular-material-theme($smarthome-app-theme);

@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Smarthome Dashboard</span>
+</mat-toolbar>
+<mat-sidenav-container class="dashboard-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list class="mb-auto">
+        <a mat-list-item [routerLink]="['index']" [routerLinkActive]="'active-link'">
+          <mat-icon>home</mat-icon>
+          <span class="link-label-space">Home</span>
+        </a>
+        <a mat-list-item [routerLink]="['temperature']" routerLinkActive #temperatureLinkActive="routerLinkActive" [routerLinkActive]="'active-link'">
+          <mat-icon>thermostat</mat-icon>
+          <span class="link-label-space">Temperatur</span>
+        </a>
+      <div *ngIf="temperatureLinkActive.isActive">
+        <mat-divider></mat-divider>
+        <div class="temperature-link-section">
+          <mat-nav-list>
+              <a mat-list-item  [routerLink]="['temperature/value']" [routerLinkActive]="'active-link'">
+                <mat-icon>show_chart</mat-icon>
+                <span class="link-label-space">Werte</span>
+              </a>
+              <a mat-list-item  [routerLink]="['temperature/statistic']" [routerLinkActive]="'active-link'">
+                <mat-icon>bar_chart</mat-icon>
+                <span class="link-label-space">Statistik</span>
+              </a>
+          </mat-nav-list>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+        <a mat-list-item [routerLink]="['device-setting']" [routerLinkActive]="'active-link'">
+          <mat-icon>devices</mat-icon>
+          <span class="link-label-space">Geräteeinstellung</span>
+        </a>
+   </mat-nav-list>
+   <mat-nav-list>
+     <mat-list-item>
+      <a>
+        <mat-icon>arrow_back</mat-icon>
+        <span class="link-label-space">Einklappen</span>
+      </a>
+     </mat-list-item>
+   </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content-container">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
