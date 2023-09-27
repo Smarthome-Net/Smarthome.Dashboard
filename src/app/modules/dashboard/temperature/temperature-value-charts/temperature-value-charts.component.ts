@@ -1,42 +1,20 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ChartSettings, Series, Temperature } from 'src/app/core/models';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Temperature } from 'src/app/core/models';
 import { TemperatureChartRequest } from 'src/app/core/models/temperature-chart-request';
 import { Scope } from "src/app/core/models/scope";
 import { TemperatureChartService } from 'src/app/core/services/temperature-chart-service';
 import { PageEvent } from '@angular/material/paginator';
 import { FilterService, ScopeFilter } from 'src/app/core/services';
-import { curveCardinal, curveBumpX } from 'd3-shape';
 import { TemperatureChartHubService } from 'src/app/core/services/temperature-chart-hub/temperature-chart-hub.service';
-import { LegendPosition } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-temperature-value-charts',
   templateUrl: './temperature-value-charts.component.html',
   styleUrls: ['./temperature-value-charts.component.scss']
 })
-export class TemperatureValueChartsComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   public data: Temperature[] = [];
-
-  public lastWidth = 1;
-
-  @ViewChild('parentContainer')
-  public parentContainerElement?: ElementRef;
-
-  // chart configuration
-  public chartSetting: ChartSettings = {
-    gradient: true,
-    legend: true,
-    legendPosition: LegendPosition.Below,
-    scheme: 'vivid',
-    showXAxisLabel: true,
-    showYAxisLabel: true,
-    xAxis: true,
-    yAxis: true,
-    legendTitle: 'Legende',
-    roundDomains: true,
-    curve: curveBumpX
-  };
 
   public paginatorSettings = {
     length: 100,
@@ -49,8 +27,7 @@ export class TemperatureValueChartsComponent implements OnInit, AfterViewChecked
     scopeValue: "",
   }
 
-  constructor(private cdr: ChangeDetectorRef,
-    private temperatureChartService: TemperatureChartService,
+  constructor(private temperatureChartService: TemperatureChartService,
     private filterService: FilterService,
     private hubService: TemperatureChartHubService) { }
 
@@ -74,32 +51,15 @@ export class TemperatureValueChartsComponent implements OnInit, AfterViewChecked
       this.loadChartData(request);
 
       this.hubService.getTemperatureData(this.currentScopeFilter.scopeValue).subscribe(hubResponse => {
-        console.log(hubResponse);
         const copy: Temperature[] = Object.assign([], this.data);
         hubResponse.forEach(item => {
           const singleData = copy.find(d => d.name === item.name);
           singleData?.series.unshift(...item.series);
-          singleData?.series.splice(10);
+          singleData?.series.splice(this.paginatorSettings.pageSize);
         });
         this.data = copy
-        console.log(copy);
       });
     });
-  }
-
-
-
-  public ngAfterViewChecked(): void {
-    this.getWidth();
-  }
-
-  public getWidth(): void {
-    if (this.parentContainerElement) {
-      if (this.parentContainerElement.nativeElement.offsetWidth !== this.lastWidth) {
-        this.lastWidth = this.parentContainerElement.nativeElement.offsetWidth;
-        this.cdr.detectChanges();
-      }
-    }
   }
 
   public onPage(event: PageEvent) {

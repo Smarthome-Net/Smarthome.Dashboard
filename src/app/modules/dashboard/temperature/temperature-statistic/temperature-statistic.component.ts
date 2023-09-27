@@ -1,7 +1,5 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
-import { LegendPosition } from '@swimlane/ngx-charts';
-import { curveBasis } from 'd3-shape';
 import { Subscription } from 'rxjs';
 import { Statistic, ChartSettings } from 'src/app/core/models';
 import { Device } from 'src/app/core/models/device';
@@ -29,19 +27,7 @@ export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, 
 
 
   // chart configuration
-  public chartSetting: ChartSettings = {
-    gradient: true,
-    legend: true,
-    legendPosition: LegendPosition.Below,
-    scheme: 'vivid',
-    showXAxisLabel: true,
-    showYAxisLabel: true,
-    xAxis: true,
-    yAxis: true,
-    legendTitle: 'Legende',
-    roundDomains: true,
-    curve: curveBasis
-  };
+
 
   private subscriptions: Subscription[] = [];
 

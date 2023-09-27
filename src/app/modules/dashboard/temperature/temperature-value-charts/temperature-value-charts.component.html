@@ -1,20 +1,6 @@
 <mat-card>
-  <mat-card-content #parentContainer>
-    <ngx-charts-line-chart
-    [view]="[lastWidth, 500]"
-    [results]="data"
-    [legend]="chartSetting.legend"
-    [showXAxisLabel]="chartSetting.showXAxisLabel"
-    [showYAxisLabel]="chartSetting.showYAxisLabel"
-    [legendPosition]="chartSetting.legendPosition"
-    [legendTitle]="chartSetting.legendTitle"
-    [scheme]="chartSetting.scheme"
-    [xAxis]="chartSetting.xAxis"
-    [yAxis]="chartSetting.yAxis"
-    [curve]="chartSetting.curve"
-    [roundDomains]="chartSetting.roundDomains"
-    [gradient]="chartSetting.gradient">
-    </ngx-charts-line-chart>
+  <mat-card-content>
+
   </mat-card-content>
   <mat-card-footer>
     <mat-paginator [length]="paginatorSettings.length"

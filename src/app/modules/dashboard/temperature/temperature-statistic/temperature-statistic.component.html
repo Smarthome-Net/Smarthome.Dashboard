@@ -18,20 +18,6 @@
   </mat-card-header>
   <mat-card-content #parentContainer>
     <div>
-      <ngx-charts-bar-vertical-2d
-          [view]="[lastWidth, 500]"
-          [results]="statistic"
-          [legend]="chartSetting.legend"
-          [showXAxisLabel]="chartSetting.showXAxisLabel"
-          [showYAxisLabel]="chartSetting.showYAxisLabel"
-          [legendPosition]="chartSetting.legendPosition"
-          [legendTitle]="chartSetting.legendTitle"
-          [scheme]="chartSetting.scheme"
-          [xAxis]="chartSetting.xAxis"
-          [yAxis]="chartSetting.yAxis"
-          [roundDomains]="chartSetting.roundDomains"
-          [gradient]="chartSetting.gradient">
-      </ngx-charts-bar-vertical-2d>
     </div>
   </mat-card-content>
 </mat-card>
