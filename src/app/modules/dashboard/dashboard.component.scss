@@ -1,5 +1,3 @@
-@import '/src/app/core/scss/theme.scss';
-
 :host {
   .dashboard-container {
     height: calc(100% - 64px);
@@ -23,10 +21,6 @@
   .temperature-link-section {
     padding-left: 32px;
     padding-bottom: 8px;
-  }
-
-  .active-link {
-    background: mat-color($app-primary);
   }
 }
 

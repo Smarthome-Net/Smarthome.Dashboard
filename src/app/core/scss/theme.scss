@@ -1,17 +1,22 @@
-@import '@angular/material/theming';
-@include mat-core();
+@use '@angular/material' as mat;
+@use './palette.scss' as sm;
+@use './navbar-theme.scss' as nav;
 
-$app-primary:     mat-palette($mat-green);
-$app-accent:      mat-palette($mat-cyan);
-$app-warn:        mat-palette($mat-red);
+@include mat.core();
 
-$smarthome-app-theme: mat-light-theme((
+$app-primary:     mat.define-palette(sm.$md-green);
+$app-accent:      mat.define-palette(sm.$md-purple);
+$app-warn:        mat.define-palette(sm.$md-warn);
+
+$smarthome-app-theme: mat.define-light-theme((
   color: (
     primary: $app-primary,
     accent: $app-accent,
     warn: $app-warn,
-  )
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
 ));
 
-
-@include angular-material-theme($smarthome-app-theme);
+@include mat.all-component-themes($smarthome-app-theme);
+@include nav.color($smarthome-app-theme);
