@@ -1,11 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Temperature } from 'src/app/core/models';
-import { TemperatureChartRequest } from 'src/app/core/models/temperature-chart-request';
-import { Scope } from "src/app/core/models/scope";
-import { TemperatureChartService } from 'src/app/core/services/temperature-chart-service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { FilterService, ScopeFilter } from 'src/app/core/services';
-import { TemperatureChartHubService } from 'src/app/core/services/temperature-chart-hub/temperature-chart-hub.service';
+import { map } from 'rxjs';
+import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
+
+import { Scope, TemperatureChartRequest, ChartSettings, Temperature } from "@models";
+import { TemperatureChartService } from '@services/temperature-chart-service';
+import { FilterService, ScopeFilter } from '@services/filter-service';
+import { TemperatureChartHubService } from '@services/temperature-chart-hub';
+
+
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -13,7 +16,8 @@ import { TemperatureChartHubService } from 'src/app/core/services/temperature-ch
   styleUrls: ['./temperature-value-charts.component.scss']
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
-
+  @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
+  
   public data: Temperature[] = [];
 
   public paginatorSettings = {
@@ -21,6 +25,49 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     pageSize: 10,
     pageSizeOptions: [5, 10, 25, 100]
   };
+
+  public chartOptions: Partial<ChartSettings> = {
+    series: [ ],
+    chart: {
+      type: "line",
+      height: 500,
+      width: '95%',
+      toolbar: {
+        show: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: "smooth"
+    },
+    markers: {
+      size: 1
+    },
+    xaxis: {
+      type: 'category',
+      title: {
+        text: "Uhrzeit"
+      }
+    },
+    yaxis: {
+      title: {
+        text: "Temperatur in °C"
+      },
+      labels: {
+        formatter(val) {
+          return val.toFixed(2);
+        },
+      },
+      min: 5,
+      max: 40
+    },
+    legend: {
+      position: "bottom",
+      horizontalAlign: "left",
+    }
+  }
 
   private currentScopeFilter: ScopeFilter = {
     scope: Scope.All,
@@ -79,11 +126,29 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   }
 
   private loadChartData(request: TemperatureChartRequest) {
-    this.temperatureChartService.getAllTemperatureData(request).subscribe(data => {
-      this.paginatorSettings.length = data.pageSetting.totalLenght;
-      this.paginatorSettings.pageSize = data.pageSetting.pageSize;
-      this.data = data.temperatures;
-    });
+    this.temperatureChartService.getAllTemperatureData(request)
+      .pipe(map(val => { return {
+        pageSetting: val.pageSetting,
+        chart: this.mapTemperature(val.temperatures)
+      }}))
+      .subscribe(data => {
+        this.paginatorSettings.length = data.pageSetting.totalLenght;
+        this.paginatorSettings.pageSize = data.pageSetting.pageSize;
+        this.chartOptions.series = data.chart;
+      });
   }
-
+  
+  mapTemperature(temperatures: Temperature[]): ApexAxisChartSeries {
+    return temperatures.map(temperature => {
+      return {
+        name: temperature.name,
+        data: temperature.series.map(serie => {
+          return {
+            x: serie.name,
+            y: serie.value
+          }
+        })
+      }
+     });
+  }
 }

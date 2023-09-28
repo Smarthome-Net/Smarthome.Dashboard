@@ -3,7 +3,7 @@ import { Inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
-import { Device } from '../../models/device';
+import { Device } from '@models';
 import { DeviceService } from './device-service';
 
 @Injectable()

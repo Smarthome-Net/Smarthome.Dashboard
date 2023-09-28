@@ -5,9 +5,7 @@ import { map } from 'rxjs/operators';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
 import { TemperatureChartService } from './temperature-chart-service';
-import { TemperatureChartResponse } from '../../models/temperature-chart-response';
-import { TemperatureChartRequest } from '../../models/temperature-chart-request';
-import { Series } from '../../models';
+import { Series, TemperatureChartResponse, TemperatureChartRequest } from '@models';
 
 @Injectable()
 export class TemperatureChartServiceImpl extends TemperatureChartService {

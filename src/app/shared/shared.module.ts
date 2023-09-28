@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '../core/core.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   ],
   declarations: [],
   exports: [
-    CoreModule,
     NgApexchartsModule,
 
     MatToolbarModule,

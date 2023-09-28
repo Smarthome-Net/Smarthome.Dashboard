@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Statistic } from '../../models';
+import { Statistic } from '@models';
 
 @Injectable()
 export class StatisticService {

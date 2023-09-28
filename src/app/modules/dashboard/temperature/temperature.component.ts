@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from 'src/app/core/models/device';
-import { FilterService } from 'src/app/core/services';
+import { FilterService } from '@services/filter-service';
 
 @Component({
   selector: 'app-temperature',

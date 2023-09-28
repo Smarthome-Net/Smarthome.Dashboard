@@ -1,9 +1,10 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { Subscription } from 'rxjs';
-import { Statistic, ChartSettings } from 'src/app/core/models';
-import { Device } from 'src/app/core/models/device';
-import { FilterService, DeviceService, StatisticService } from 'src/app/core/services';
+import { Statistic, ChartSettings, Device } from '@models';
+import { FilterService } from '@services/filter-service';
+import { DeviceService } from '@services/device-service';
+import { StatisticService } from '@services/statistic-service';
 
 @Component({
   selector: 'app-temperature-statistic',

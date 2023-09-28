@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatisticService, FilterService, DeviceService, DeviceServiceImpl } from './services';
-import { TemperatureChartService, TemperatureChartServiceImpl } from './services/temperature-chart-service';
-import { TemperatureChartHubService } from './services/temperature-chart-hub/temperature-chart-hub.service';
+import { DeviceService, DeviceServiceImpl } from '@services/device-service';
+import { FilterService } from '@services/filter-service';
+import { StatisticService } from '@services/statistic-service';
+import { TemperatureChartHubService } from '@services/temperature-chart-hub';
+import { TemperatureChartService, TemperatureChartServiceImpl } from '@services/temperature-chart-service';
 
 @NgModule({
   imports: [

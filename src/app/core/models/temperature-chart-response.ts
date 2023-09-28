@@ -3,7 +3,7 @@ import { Scope } from './scope';
 import { Series } from './series';
 
 export interface TemperatureChartResponse {
-  cope: Scope;
+  scope: Scope;
   scopeValue: string;
   pageSetting: PageSetting;
   temperatures: Temperature[];

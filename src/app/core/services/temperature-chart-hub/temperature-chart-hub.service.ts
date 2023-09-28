@@ -3,7 +3,7 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
-import { Temperature } from '../../models';
+import { Temperature } from '@models';
 
 
 @Injectable()

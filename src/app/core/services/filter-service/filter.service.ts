@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { Device } from '../../models/device';
-import { Scope } from '../../models/scope';
+import { Device, Scope } from '@models';
 import { DeviceService } from '../device-service';
 
 export interface ScopeFilter {
