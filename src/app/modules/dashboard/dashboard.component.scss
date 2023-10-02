@@ -1,17 +1,24 @@
+@use '../../core/scss/margin-padding-utils.scss' as mp;
+
 :host {
   .dashboard-container {
-    height: calc(100% - 64px);
+    height: calc(100% - mp.power(8));
   }
 
   @media (max-width: 599px) {
     .dashboard-container {
-      height: calc(100% - 56px);
+      height: calc(100% - mp.power(7));
     }
+  }
+
+  .toolbar {
+    position: relative;
+    z-index: 99;
   }
 
   .nav-list-content {
     display: flex;
-    gap: 16px;
+    gap: mp.power(2);
   }
 
   .nav-container {
@@ -22,12 +29,17 @@
   }
 
   .content-container {
-    padding: 32px;
+    padding: mp.power(4);
     box-sizing: border-box;
   }
 
   .temperature-link-section {
-    padding-left: 32px;
+    padding-left: mp.power(4);
+  }
+
+  .mat-mdc-menu-trigger {
+    position: absolute;
+    top: mp.power(6);
+    right: 0;
   }
 }
-

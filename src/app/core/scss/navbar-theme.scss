@@ -9,7 +9,8 @@
         background-color: mat.get-color-from-palette($primary-palette, 500) !important;
     }
 
-    .active-link .mdc-list-item__primary-text {
+    .active-link .mdc-list-item__primary-text, 
+    .active-link .mat-icon-no-color {
         color: mat.get-color-from-palette($primary-palette, '500-contrast') !important;
     }
 }

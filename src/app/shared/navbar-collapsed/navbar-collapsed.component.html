@@ -1,0 +1,24 @@
+<mat-nav-list>
+  <ng-container *ngFor="let item of navMenu; let index = index">
+    <a (mouseenter)="canMenuOpen(index)" [matTooltip]="item.displayText" matTooltipPosition="after" mat-list-item [routerLink]="[item.link]" [routerLinkActive]="'active-link'" #routerLinkActive="routerLinkActive">
+      <div class="nav-list-content">
+        <mat-icon>{{item.icon}}</mat-icon>
+      </div>
+    </a>
+    <ng-container *ngIf="item.children">
+        <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></div>
+        <mat-menu class="nav-child-menu" #menu="matMenu">
+            <a *ngFor="let children of item.children" [matTooltip]="children.displayText" matTooltipPosition="after" mat-menu-item class="nav-child-menu-item" [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
+              <mat-icon>{{children.icon}}</mat-icon>
+            </a>
+        </mat-menu>
+    </ng-container>
+  </ng-container>
+</mat-nav-list>
+<mat-action-list>
+  <button mat-list-item (click)="onCollapse.emit(false)" matTooltip="Ausklappen" matTooltipPosition="after">
+    <div class="nav-list-content">
+      <mat-icon>arrow_forward</mat-icon>
+    </div>
+  </button>
+</mat-action-list>

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="toolbar mat-elevation-z8" color="primary">
   <button mat-icon-button (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
@@ -6,56 +6,8 @@
 </mat-toolbar>
 <mat-sidenav-container class="dashboard-container" autosize>
   <mat-sidenav #sidenav mode="side" opened>
-    <div class="nav-container">
-      <mat-nav-list>
-        <a mat-list-item [routerLink]="['index']" [routerLinkActive]="'active-link'">
-          <div class="nav-list-content">
-            <mat-icon>home</mat-icon>
-            <span *ngIf="showText">Home</span>
-          </div>
-        </a>
-        <a mat-list-item [routerLink]="['temperature']" routerLinkActive #temperatureLinkActive="routerLinkActive"
-          [routerLinkActive]="'active-link'">
-          <div class="nav-list-content">
-            <mat-icon>thermostat</mat-icon>
-            <span *ngIf="showText">Temperatur</span>
-          </div>
-        </a>
-        <div *ngIf="temperatureLinkActive.isActive && showText">
-          <div class="temperature-link-section">
-            <mat-nav-list>
-              <a mat-list-item [routerLink]="['temperature/value']" [routerLinkActive]="'active-link'">
-                <div class="nav-list-content">
-                  <mat-icon>show_chart</mat-icon>
-                  <span>Werte</span>
-                </div>
-              </a>
-              <a mat-list-item [routerLink]="['temperature/statistic']" [routerLinkActive]="'active-link'">
-                <div class="nav-list-content">
-                  <mat-icon>bar_chart</mat-icon>
-                  <span>Statistik</span>
-                </div>
-              </a>
-            </mat-nav-list>
-          </div>
-          <mat-divider></mat-divider>
-        </div>
-        <a mat-list-item [routerLink]="['device-setting']" [routerLinkActive]="'active-link'">
-          <div class="nav-list-content">
-            <mat-icon>devices</mat-icon>
-            <span *ngIf="showText">Geräteeinstellung</span>
-          </div>
-        </a>
-      </mat-nav-list>
-      <mat-action-list>
-        <button mat-list-item (click)="showText = !showText">
-          <div class="nav-list-content">
-            <mat-icon>arrow_back</mat-icon>
-            <span *ngIf="showText">Einklappen</span>
-          </div>
-        </button>
-      </mat-action-list>
-    </div>
+      <app-navbar *ngIf="!isCollapsed" [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar>
+      <app-navbar-collapsed *ngIf="isCollapsed" [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar-collapsed>
   </mat-sidenav>
   <mat-sidenav-content class="content-container">
     <router-outlet></router-outlet>

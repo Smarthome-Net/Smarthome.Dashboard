@@ -1,0 +1,5 @@
+$base: 8px;
+
+@function power($exponent) {
+    @return $base * $exponent;
+}

@@ -1,0 +1,19 @@
+@use '../../core/scss/margin-padding-utils.scss' as mp;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    .nav-list-content {
+        display: flex;
+        gap: mp.power(2);
+    }
+
+    .mat-mdc-menu-trigger {
+        position: absolute;
+        top: mp.power(6);
+        right: 0;
+    }
+}
