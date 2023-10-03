@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DeviceSettingComponent } from './device-setting.component';
+import { DeviceSettingListComponent } from './device-setting-list/device-setting-list.component';
+import { DeviceSettingDetailsComponent } from './device-setting-details/device-setting-details.component';
+
 
 const routes: Routes = [
-  { path: '', children: [
-    { path: '', component: DeviceSettingComponent }
-  ]}
+  { path: '', component: DeviceSettingListComponent }, 
+  { path: ':id', component: DeviceSettingDetailsComponent }
 ];
 
 @NgModule({

@@ -29,17 +29,7 @@
   }
 
   .content-container {
-    padding: mp.power(4);
+    padding: mp.power(2);
     box-sizing: border-box;
-  }
-
-  .temperature-link-section {
-    padding-left: mp.power(4);
-  }
-
-  .mat-mdc-menu-trigger {
-    position: absolute;
-    top: mp.power(6);
-    right: 0;
   }
 }

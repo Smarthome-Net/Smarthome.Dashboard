@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, 
 import { MatOption } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { Statistic, ChartSettings, Device } from '@models';
-import { FilterServiceImpl } from '@services/filter-service';
+import { FilterService } from '@services/filter-service';
 import { DeviceService } from '@services/device-service';
 import { StatisticService } from '@services/statistic-service';
 
@@ -34,7 +34,7 @@ export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, 
 
   constructor(private cdr: ChangeDetectorRef,
               private statisticService: StatisticService,
-              private filterService: FilterServiceImpl,
+              private filterService: FilterService,
               private deviceService: DeviceService) { }
 
   ngOnDestroy(): void {
