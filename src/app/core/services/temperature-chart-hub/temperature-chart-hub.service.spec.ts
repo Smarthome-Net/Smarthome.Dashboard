@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { TemperatureChartHubService } from './temperature-chart-hub.service';
+import { TemperatureChartHubServiceImpl } from './temperature-chart-hub.service';
 
 describe('Service: TemperatureChartHub', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TemperatureChartHubService]
+      providers: [TemperatureChartHubServiceImpl]
     });
   });
 
-  it('should ...', inject([TemperatureChartHubService], (service: TemperatureChartHubService) => {
+  it('should ...', inject([TemperatureChartHubServiceImpl], (service: TemperatureChartHubServiceImpl) => {
     expect(service).toBeTruthy();
   }));
 });

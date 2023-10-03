@@ -4,19 +4,20 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
 import { Temperature } from '@models';
+import { TemperatureChartHubService } from './temperature-chart-hub-service';
 
 
 @Injectable()
-export class TemperatureChartHubService {
+export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
 
   private hubContext?: HubConnection;
   private onUpdateTemperature = false;
 
+  constructor(@Inject(ENV) private environment: IEnvironment) { 
+    super();
+  }
 
-  constructor(@Inject(ENV) private environment: IEnvironment) { }
-
-
-  public getTemperatureData(scope: string = ""): Observable<Temperature[]> {
+  public getTemperatureData(scope: string = ''): Observable<Temperature[]> {
     const subject = new Subject<Temperature[]>();
     
     this.startHub().subscribe(isConnected => {
@@ -42,7 +43,6 @@ export class TemperatureChartHubService {
     this.hubContext!
       .stop()
       .then(() => {
-        console.log("disconnected");
         this.hubContext = undefined;
         this.onUpdateTemperature = false;
       })
@@ -60,7 +60,6 @@ export class TemperatureChartHubService {
       this.hubContext
       .start()
       .then(() => {
-        console.log("connected");
         subject.next(true);
       })
       .catch(err => console.log(err));
