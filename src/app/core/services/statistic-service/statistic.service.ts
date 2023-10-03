@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Statistic } from '@models';
+import { StatisticService } from './statistic-service';
 
 @Injectable()
-export class StatisticService {
+export class StatisticServiceImpl extends StatisticService {
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
 
   public initStatistic(): void {
