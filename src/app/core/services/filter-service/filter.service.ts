@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { Device, Scope } from '@models';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Device, Scope, ScopeFilter } from '@models';
 import { DeviceService } from '../device-service';
-
-export interface ScopeFilter {
-    scope: Scope;
-    scopeValue: string;
-}
+import { FilterService } from './filter-service';
 
 const DEFAULT_FILTER: ScopeFilter = {
   scope: Scope.All,
   scopeValue: ''
 }
 
-
 @Injectable()
-export class FilterService {
+export class FilterServiceImpl extends FilterService {
   private scopeFilterSubject: Subject<ScopeFilter> = new BehaviorSubject(DEFAULT_FILTER);
   private scopeValue: string = '';
-  constructor(private deviceService: DeviceService) { }
+  
+  constructor(private deviceService: DeviceService) { 
+    super();
+  }
 
   public getRoomList(): Observable<Device[]> {
     return this.deviceService.getListOfRoom();
@@ -47,7 +45,7 @@ export class FilterService {
     this.updateScope(true);
   }
 
-  public getScopeFilter() {
+  public get scopeFilter() {
     return this.scopeFilterSubject;
   }
 

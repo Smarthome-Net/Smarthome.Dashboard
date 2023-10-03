@@ -3,9 +3,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 
-import { Scope, TemperatureChartRequest, ChartSettings, Temperature } from "@models";
+import { Scope, TemperatureChartRequest, ChartSettings, Temperature, ScopeFilter } from "@models";
 import { TemperatureChartService } from '@services/temperature-chart-service';
-import { FilterService, ScopeFilter } from '@services/filter-service';
+import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
 
 
@@ -31,7 +31,6 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     chart: {
       type: "line",
       height: 500,
-      width: '95%',
       toolbar: {
         show: false
       }
@@ -83,7 +82,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.filterService.getScopeFilter().subscribe(filter => {
+    this.filterService.scopeFilter.subscribe(filter => {
       this.currentScopeFilter = filter;
       const request: TemperatureChartRequest = {
         scope: this.currentScopeFilter.scope,
@@ -135,6 +134,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
         this.paginatorSettings.length = data.pageSetting.totalLenght;
         this.paginatorSettings.pageSize = data.pageSetting.pageSize;
         this.chartOptions.series = data.chart;
+        console.log(this.chartOptions.series);
       });
   }
   
