@@ -9,7 +9,7 @@ import { DeviceService } from '@services/device-service';
 })
 export class DeviceSettingListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'room', 'topic', 'details'];
+  displayedColumns: string[] = ['name', 'location', 'topic', 'details'];
   
   devices: Device[] = [];
 

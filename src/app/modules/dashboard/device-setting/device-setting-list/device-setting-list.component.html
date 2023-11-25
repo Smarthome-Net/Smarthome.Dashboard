@@ -2,20 +2,20 @@
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Gerätename</th>
+    <th mat-header-cell *matHeaderCellDef>Gerätename/Raum</th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 
   <!-- Weight Column -->
-  <ng-container matColumnDef="room">
-    <th mat-header-cell *matHeaderCellDef>Raum</th>
+  <ng-container matColumnDef="location">
+    <th mat-header-cell *matHeaderCellDef>Standort in Raum</th>
     <td mat-cell *matCellDef="let element"> {{element.room}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="topic">
     <th mat-header-cell *matHeaderCellDef>
-      <span matTooltip="Setzt sich aus Gerätename und Raum zusammen" matTooltipPosition="above">MQTT Topic</span>  
+      <span matTooltip="Setzt sich aus Gerätename/Raum und Standort zusammen" matTooltipPosition="above">MQTT Topic</span>  
     </th>
     <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
   </ng-container>

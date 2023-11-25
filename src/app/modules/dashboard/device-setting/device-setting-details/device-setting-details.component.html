@@ -1,3 +1,97 @@
-<p>
-  device-setting-details works!
-</p>
+<div>
+  <div class="device-action-bar">
+    <a mat-raised-button color="accent" [routerLink]="['..']">
+      <mat-icon>reply</mat-icon>
+      <span>Zurück</span>
+    </a>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Status</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="h-100">
+    <div class="device-status-container">
+      <div class="device-status-item">
+        <p>
+          <span>Verbindungsstatus WLAN:</span>
+          <mat-icon>wifi</mat-icon>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>
+          <span>Verbindungsstatus MQTT:</span>
+          <mat-icon>link</mat-icon>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>
+          <span>Batteriestatus:</span>
+          <mat-icon>battery_full</mat-icon>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>Aktuelle Temperatur: 22°C</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Einstellungen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="h-100">
+    <form>
+      <h3>Allgemein</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>Gerätename/Raum</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Standort in Raum</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Interval in Min.</mat-label>
+          <input matInput min="0" max="59" type="number">
+        </mat-form-field>
+      </div>
+      
+      <h3>MQTT</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>MQTT Host</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>MQTT Port</mat-label>
+          <input matInput type="number">
+        </mat-form-field>
+      </div>
+
+      <h3>Netzwerk</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>Netzwerk Name</mat-label>
+          <input matInput>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Netzwerk Password</mat-label>
+          <input matInput type="password">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="device-form-actions-card" align="end">
+    <button mat-button color="accent">Verwerfen</button>
+    <button mat-raised-button color="accent">Speichern</button>
+  </mat-card-actions>
+</mat-card>
