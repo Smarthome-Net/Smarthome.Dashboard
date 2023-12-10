@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +17,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardViewBarModule } from './dashboard-view-bar/dashboard-view-bar.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { NavbarCollapsedModule } from './navbar-collapsed/navbar-collapsed.module';
+import { DeviceFilterModule } from './device-filter/device-filter.module';
+import { GermanPaginatorIntl } from './german-paginator-intl';
+
+const matPaginatorOptions: MatPaginatorDefaultOptions = {
+  formFieldAppearance: 'fill',
+};
 
 @NgModule({
   imports: [
@@ -28,6 +34,7 @@ import { NavbarCollapsedModule } from './navbar-collapsed/navbar-collapsed.modul
     NavbarModule,
     NavbarCollapsedModule,
     DashboardViewBarModule,
+    DeviceFilterModule,
 
     NgApexchartsModule,
 
@@ -43,7 +50,11 @@ import { NavbarCollapsedModule } from './navbar-collapsed/navbar-collapsed.modul
     MatMenuModule,
     MatTableModule,
     MatTooltipModule,
-    MatInputModule
+    MatInputModule,
+  ],
+  providers: [
+    { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: matPaginatorOptions },
+    { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl }
   ]
 })
 export class SharedModule { }

@@ -6,5 +6,6 @@ export abstract class FilterService {
     abstract getDeviceList(room: string): Observable<Device[]>;
     abstract setSelectedRoom(room: string): void;
     abstract setSelectedDevice(device: string): void;
-    abstract get scopeFilter(): Subject<ScopeFilter>;
+    abstract scopeFilter(): Observable<ScopeFilter>;
+    abstract destroy(): void;
 }

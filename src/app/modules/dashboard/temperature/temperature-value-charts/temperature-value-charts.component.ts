@@ -23,7 +23,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   public paginatorSettings = {
     length: 100,
     pageSize: 10,
-    pageSizeOptions: [5, 10, 25, 100]
+    pageIndex: 0,
   };
 
   public chartOptions: Partial<ChartSettings> = {
@@ -79,22 +79,13 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.hubService.destroy();
+    this.filterService.destroy();
   }
 
   public ngOnInit(): void {
-    this.filterService.scopeFilter.subscribe(filter => {
-      this.currentScopeFilter = filter;
-      const request: TemperatureChartRequest = {
-        scope: this.currentScopeFilter.scope,
-        scopeValue: this.currentScopeFilter.scopeValue,
-        pageSetting: {
-          pageIndex: 0,
-          pageSize: this.paginatorSettings.pageSize,
-          totalLenght: this.paginatorSettings.length,
-        }
-      }
-      
-      this.loadChartData(request);
+    this.filterService.scopeFilter().subscribe(filter => {
+      this.currentScopeFilter = filter;      
+      this.loadChartData();
 
       this.hubService.getTemperatureData(this.currentScopeFilter.scopeValue).subscribe(hubResponse => {
         const copy: Temperature[] = Object.assign([], this.data);
@@ -108,33 +99,30 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onPage(event: PageEvent) {
-    this.paginatorSettings.length = event.length;
-    this.paginatorSettings.pageSize = event.pageSize;
-
-    const request: TemperatureChartRequest = {
+  private createChartRequest(): TemperatureChartRequest {
+    return {
       scope: this.currentScopeFilter.scope,
       scopeValue: this.currentScopeFilter.scopeValue,
-      pageSetting: {
-        pageIndex: event.pageIndex,
-        pageSize: this.paginatorSettings.pageSize,
-        totalLenght: this.paginatorSettings.length,
-      }
-    }
-    this.loadChartData(request);
+      pageSetting: this.paginatorSettings
+    };
   }
 
-  private loadChartData(request: TemperatureChartRequest) {
+  public onPage(event: PageEvent) {
+    this.paginatorSettings = event;
+    this.loadChartData();
+  }
+
+  private loadChartData() {
+    const request = this.createChartRequest();
     this.temperatureChartService.getAllTemperatureData(request)
       .pipe(map(val => { return {
         pageSetting: val.pageSetting,
         chart: this.mapTemperature(val.temperatures)
       }}))
       .subscribe(data => {
-        this.paginatorSettings.length = data.pageSetting.totalLenght;
-        this.paginatorSettings.pageSize = data.pageSetting.pageSize;
+        this.paginatorSettings = data.pageSetting;
         this.chartOptions.series = data.chart;
-        console.log(this.chartOptions.series);
+        console.log(data);
       });
   }
   

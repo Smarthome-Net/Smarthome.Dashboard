@@ -10,7 +10,7 @@ import { NavMenu } from '@models';
 export class DashboardComponent {
   @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
   
-  isCollapsed = true;
+  isCollapsed = false;
 
   navMenu: NavMenu[] = [
     { link: 'index', displayText: 'Home', icon: 'home' },

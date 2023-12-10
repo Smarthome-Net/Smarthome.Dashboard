@@ -1,6 +1,5 @@
-
 export interface PageSetting {
-  totalLenght: number;
+  length: number;
   pageIndex: number;
   pageSize: number;
 }

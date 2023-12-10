@@ -1,4 +1,4 @@
-import { PageSetting } from './pageSetting';
+import { PageSetting } from './page-setting';
 import { Scope } from './scope';
 import { Series } from './series';
 

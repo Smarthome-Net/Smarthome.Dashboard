@@ -30,7 +30,7 @@ export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, 
   // chart configuration
 
 
-  private subscriptions: Subscription[] = [];
+
 
   constructor(private cdr: ChangeDetectorRef,
               private statisticService: StatisticService,
@@ -38,9 +38,7 @@ export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, 
               private deviceService: DeviceService) { }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
+    this.filterService.destroy();
   }
 
   ngAfterViewChecked(): void {

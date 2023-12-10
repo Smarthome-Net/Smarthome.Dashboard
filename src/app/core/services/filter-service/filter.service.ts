@@ -4,14 +4,24 @@ import { Device, Scope, ScopeFilter } from '@models';
 import { DeviceService } from '../device-service';
 import { FilterService } from './filter-service';
 
-const DEFAULT_FILTER: ScopeFilter = {
+const ALL_FILTER: ScopeFilter = {
   scope: Scope.All,
+  scopeValue: ''
+}
+
+const ROOM_FILTER: ScopeFilter = {
+  scope: Scope.Room,
+  scopeValue: ''
+}
+
+const DEVICE_FILTER: ScopeFilter = {
+  scope: Scope.Device,
   scopeValue: ''
 }
 
 @Injectable()
 export class FilterServiceImpl extends FilterService {
-  private scopeFilterSubject: Subject<ScopeFilter> = new BehaviorSubject(DEFAULT_FILTER);
+  private scopeFilterSubject: Subject<ScopeFilter> = new BehaviorSubject(ALL_FILTER);
   private scopeValue: string = '';
   
   constructor(private deviceService: DeviceService) { 
@@ -27,44 +37,50 @@ export class FilterServiceImpl extends FilterService {
   }
 
   public setSelectedRoom(room: string): void {
-    this.scopeValue = room;
-
     if (room === 'all') {
       this.scopeValue = '';
+      this.updateScope(Scope.All);
+      return;
     }
-    this.updateScope(false);
+
+    this.scopeValue = room;
+    this.updateScope(Scope.Room);
   }
 
   public setSelectedDevice(device: string): void {
-    var values = this.scopeValue.split('/')
-    this.scopeValue = `${values[0]}/${device}`
-    
+    var values = this.scopeValue.split('/');
     if(device === 'all') {
       this.scopeValue = `${values[0]}`
+      this.updateScope(Scope.Room);
+      return;
     }
-    this.updateScope(true);
+
+    this.scopeValue = `${values[0]}/${device}`
+    this.updateScope(Scope.Device);
   }
 
-  public get scopeFilter() {
+  public scopeFilter(): Observable<ScopeFilter> {
     return this.scopeFilterSubject;
   }
 
-  private updateScope(withDevice: boolean) {
-    const scopeFilter: ScopeFilter = {
-      scope: Scope.All,
-      scopeValue: '',
-    };
-    if(withDevice) {
-      scopeFilter.scope = Scope.Device;
-      scopeFilter.scopeValue = this.scopeValue;
-    } 
-    
-    if(!withDevice && this.scopeValue.length > 0) {
-      scopeFilter.scope = Scope.Room;
-      scopeFilter.scopeValue = this.scopeValue;
+  public destroy(): void {
+    this.scopeFilterSubject.unsubscribe();
+
+    this.scopeFilterSubject = new BehaviorSubject(ALL_FILTER);
+  }
+
+  private updateScope(scope: Scope) {
+    let scopeFilter = ALL_FILTER;
+    switch (scope) {
+      case Scope.Room:
+        scopeFilter = ROOM_FILTER;
+        scopeFilter.scopeValue = this.scopeValue;
+        break;
+      case Scope.Device:
+        scopeFilter = DEVICE_FILTER;
+        scopeFilter.scopeValue = this.scopeValue;
     }
 
     this.scopeFilterSubject.next(scopeFilter);
   }
-
 }
