@@ -1,0 +1,8 @@
+<div class="view-bar">
+  <button mat-icon-button color="accent" (click)="back()" matTooltip="Zurück">
+    <mat-icon>reply</mat-icon>
+  </button>
+  <ng-content select="[dashboardViewTitle]"></ng-content>
+  <ng-content select="[dashboardViewActions]"></ng-content>
+</div>
+<mat-divider></mat-divider>

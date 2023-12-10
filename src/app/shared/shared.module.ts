@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NavbarCollapsedComponent } from './navbar-collapsed/navbar-collapsed.component';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashboardViewBarModule } from './dashboard-view-bar/dashboard-view-bar.module';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   exports: [
     NavbarComponent,
     NavbarCollapsedComponent,
+    DashboardViewBarModule,
 
     NgApexchartsModule,
 
