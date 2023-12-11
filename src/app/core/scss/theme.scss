@@ -4,15 +4,16 @@
 
 @include mat.core();
 
-$app-primary:     mat.define-palette(sm.$md-green);
-$app-accent:      mat.define-palette(sm.$md-purple);
-$app-warn:        mat.define-palette(sm.$md-warn);
+$app-primary:     mat.define-palette(sm.$md-lime);
+$app-accent:      mat.define-palette(sm.$md-pink);
+
+//$app-primary:     mat.define-palette(sm.$md-blue);
+//$app-accent:      mat.define-palette(sm.$md-orange);
 
 $smarthome-app-theme: mat.define-light-theme((
   color: (
     primary: $app-primary,
     accent: $app-accent,
-    warn: $app-warn,
   ),
   typography: mat.define-typography-config(),
   density: 0,
