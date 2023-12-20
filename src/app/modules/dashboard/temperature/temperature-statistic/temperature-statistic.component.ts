@@ -11,50 +11,95 @@ import { StatisticService } from '@services/statistic-service';
   templateUrl: './temperature-statistic.component.html',
   styleUrls: ['./temperature-statistic.component.scss']
 })
-export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class TemperatureStatisticComponent implements OnInit, OnDestroy {
 
   statistic: Statistic[] = [];
 
-  public compareList = [];
   public devices: Device[] = [];
-
-  public lastWidth = 1;
-
-  @ViewChild('parentContainer')
-  public parentContainerElement?: ElementRef;
 
   @ViewChild('allSelected')
   public allSelected?: MatOption;
 
+  public chartOptions: Partial<ChartSettings> = {
+    series: [
+      {
+        name: "myRoom",
+        data: [{
+          x: 'Min',
+          y: 22
+        }, {
+          x: 'Durchschnitt',
+          y: 33
+        }, {
+          x: 'Max',
+          y: 42
+        }]
+      },
+      {
+        name: "myOtherRool",
+        data: [{
+          x: 'Min',
+          y: 20
+        }, {
+          x: 'Durchschnitt',
+          y: 32
+        }, {
+          x: 'Max',
+          y: 39
+        }]
+      },
+    ],
+    chart: {
+      type: "bar",
+      height: 500,
+      toolbar: {
+        show: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: "smooth"
+    },
+    markers: {
+      size: 1
+    },
+    yaxis: {
+      title: {
+        text: "Temperatur in °C"
+      },
+      labels: {
+        formatter(val) {
+          return val.toFixed(2);
+        },
+      }
+    },
+    legend: {
+      position: "bottom",
+      horizontalAlign: "left",
+    }
+  }
 
-  // chart configuration
 
-
-
-
-  constructor(private cdr: ChangeDetectorRef,
-              private statisticService: StatisticService,
-              private filterService: FilterService,
-              private deviceService: DeviceService) { }
+  constructor(private statisticService: StatisticService,
+    private filterService: FilterService,
+    private deviceService: DeviceService) { }
 
   ngOnDestroy(): void {
     this.filterService.destroy();
-  }
-
-  ngAfterViewChecked(): void {
-    this.getWidth();
   }
 
   ngOnInit(): void {
     this.deviceService.getAllDevices().subscribe(devices => {
       this.devices = devices;
     });
+
+    this.statisticService.initStatistic();
   }
 
   public onValueChange(event: string[]): void {
-    console.log(event);
-    if (event.length === 0)
-    {
+    if (event.length === 0) {
       this.reset();
       return;
     }
@@ -76,18 +121,6 @@ export class TemperatureStatisticComponent implements OnInit, AfterViewChecked, 
   }
 
   public reset(): void {
-    this.compareList = [];
     // this.statistic = [this.statistic[0]];
-  }
-
-  public getWidth(): void
-  {
-    if (this.parentContainerElement) {
-      if (this.parentContainerElement.nativeElement.offsetWidth  !== this.lastWidth)
-      {
-        this.lastWidth = this.parentContainerElement.nativeElement.offsetWidth ;
-        this.cdr.detectChanges();
-      }
-    }
   }
 }

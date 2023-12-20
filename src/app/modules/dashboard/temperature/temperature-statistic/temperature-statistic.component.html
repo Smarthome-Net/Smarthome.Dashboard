@@ -4,7 +4,7 @@
     <app-device-filter></app-device-filter>
     <mat-form-field color="accent" class="form-field">
       <mat-label>Vergleichen</mat-label>
-      <mat-select [(value)]="compareList" (valueChange)="onValueChange($event)" multiple>
+      <mat-select (valueChange)="onValueChange($event)" multiple>
         <mat-option #allSelected (click)="toggleAllSelected()" value="all">Alle</mat-option>
         <mat-option *ngFor="let device of devices" [value]="device.name">{{device.name}}</mat-option>
       </mat-select>
@@ -17,8 +17,15 @@
 </app-dashboard-view-bar>
 
 <mat-card>
-  <mat-card-content #parentContainer>
-    <div>
-    </div>
+  <mat-card-content>
+    <apx-chart [series]="chartOptions.series!"
+    [chart]="chartOptions.chart!"
+    [stroke]="chartOptions.stroke!"
+    [dataLabels]="chartOptions.dataLabels!"
+    [legend]="chartOptions.legend!"
+    [markers]="chartOptions.markers!"
+    [grid]="chartOptions.grid!"
+    [yaxis]="chartOptions.yaxis!"
+    [title]="chartOptions.title!"></apx-chart>
   </mat-card-content>
 </mat-card>

@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 
-import { Scope, TemperatureChartRequest, ChartSettings, Temperature, ScopeFilter } from "@models";
+import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
 import { TemperatureChartService } from '@services/temperature-chart-service';
 import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
@@ -31,6 +31,8 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     chart: {
       type: "line",
       height: 500,
+      redrawOnParentResize: true,
+      redrawOnWindowResize: true,
       toolbar: {
         show: false
       }
@@ -68,9 +70,9 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private currentScopeFilter: ScopeFilter = {
-    scope: Scope.All,
-    scopeValue: "",
+  private currentScopeFilter: Scope = {
+    scopeType: ScopeType.All,
+    value: "",
   }
 
   constructor(private temperatureChartService: TemperatureChartService,
@@ -84,10 +86,10 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.filterService.scopeFilter().subscribe(filter => {
-      this.currentScopeFilter = filter;      
+      this.currentScopeFilter = filter;   
       this.loadChartData();
 
-      this.hubService.getTemperatureData(this.currentScopeFilter.scopeValue).subscribe(hubResponse => {
+      this.hubService.getTemperatureData(this.currentScopeFilter.value).subscribe(hubResponse => {
         const copy: Temperature[] = Object.assign([], this.data);
         hubResponse.forEach(item => {
           const singleData = copy.find(d => d.name === item.name);
@@ -101,8 +103,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   private createChartRequest(): TemperatureChartRequest {
     return {
-      scope: this.currentScopeFilter.scope,
-      scopeValue: this.currentScopeFilter.scopeValue,
+      scope: this.currentScopeFilter,
       pageSetting: this.paginatorSettings
     };
   }
@@ -122,7 +123,6 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.paginatorSettings = data.pageSetting;
         this.chartOptions.series = data.chart;
-        console.log(data);
       });
   }
   

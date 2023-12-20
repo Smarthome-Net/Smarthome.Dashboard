@@ -4,7 +4,6 @@ import { Series } from './series';
 
 export interface TemperatureChartResponse {
   scope: Scope;
-  scopeValue: string;
   pageSetting: PageSetting;
   temperatures: Temperature[];
 

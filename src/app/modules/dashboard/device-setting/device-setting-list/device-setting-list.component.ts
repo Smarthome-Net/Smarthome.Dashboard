@@ -18,7 +18,6 @@ export class DeviceSettingListComponent implements OnInit {
   ngOnInit() {
     this.deviceService.getAllDevices().subscribe(response => {
       this.devices = response;
-      console.log(response);
     })
   }
 
