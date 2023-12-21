@@ -44,12 +44,21 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       curve: "smooth"
     },
     markers: {
-      size: 1
+      size: 5
     },
     xaxis: {
       type: 'category',
       title: {
         text: "Uhrzeit"
+      },
+      labels: {
+        formatter(val) {
+          if(val) {
+            var date = new Date(val);
+            return date.toLocaleString();
+          }
+          return val;
+        }
       }
     },
     yaxis: {
@@ -89,14 +98,14 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       this.currentScopeFilter = filter;   
       this.loadChartData();
 
-      this.hubService.getTemperatureData(this.currentScopeFilter.value).subscribe(hubResponse => {
-        const copy: Temperature[] = Object.assign([], this.data);
-        hubResponse.forEach(item => {
-          const singleData = copy.find(d => d.name === item.name);
-          singleData?.series.unshift(...item.series);
-          singleData?.series.splice(this.paginatorSettings.pageSize);
-        });
-        this.data = copy
+      this.hubService.getTemperatureData(this.currentScopeFilter).subscribe(hubResponse => {
+        this.data.forEach(item => {
+          const series = hubResponse.find(d => d.name === item.name);
+          item.series.push(...series?.series!);
+          item.series.splice(0, 1);
+        })
+      
+        this.chartOptions.series = this.mapTemperature(this.data);
       });
     });
   }
@@ -116,9 +125,11 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   private loadChartData() {
     const request = this.createChartRequest();
     this.temperatureChartService.getAllTemperatureData(request)
-      .pipe(map(val => { return {
-        pageSetting: val.pageSetting,
-        chart: this.mapTemperature(val.temperatures)
+      .pipe(map(val => { 
+        this.data = val.temperatures;
+        return {
+          pageSetting: val.pageSetting,
+          chart: this.mapTemperature(val.temperatures),
       }}))
       .subscribe(data => {
         this.paginatorSettings = data.pageSetting;

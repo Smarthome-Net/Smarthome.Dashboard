@@ -7,4 +7,4 @@ export * from './statistic';
 export * from './temperature-chart-request';
 export * from './temperature-chart-response';
 export * from './nav-menu';
-export * from './scope'
+export * from './scope';

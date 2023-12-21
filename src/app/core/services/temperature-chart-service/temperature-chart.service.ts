@@ -14,26 +14,6 @@ export class TemperatureChartServiceImpl extends TemperatureChartService {
   }
 
   getAllTemperatureData(temperatureChartRequest: TemperatureChartRequest): Observable<TemperatureChartResponse> {
-    return this.httpclient.post<TemperatureChartResponse>(`${this.path}`, temperatureChartRequest).pipe(
-      map(value => {
-        return this.mapper(value);
-      })
-    );
+    return this.httpclient.post<TemperatureChartResponse>(`${this.path}`, temperatureChartRequest);
   }
-
-  private mapper(response: TemperatureChartResponse) {
-    response.temperatures.forEach(temperature => {
-      temperature.series = this.dateMapper(temperature.series)
-    });
-    return response;
-  }
-
-  private dateMapper(series: Series[]) {
-    series.forEach(item => {
-      var date = new Date(item.name);
-      item.name = date.toLocaleString();
-    });
-    return series;
-  }
-
 }
