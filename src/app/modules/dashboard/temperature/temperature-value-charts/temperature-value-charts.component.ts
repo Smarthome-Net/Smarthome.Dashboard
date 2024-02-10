@@ -101,8 +101,8 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       this.hubService.getTemperatureData(this.currentScopeFilter).subscribe(hubResponse => {
         this.data.forEach(item => {
           const series = hubResponse.find(d => d.name === item.name);
-          item.series.push(...series?.series!);
-          item.series.splice(0, 1);
+          item.series.splice(0, 0, ...series?.series!)
+          item.series.pop();
         })
       
         this.chartOptions.series = this.mapTemperature(this.data);
