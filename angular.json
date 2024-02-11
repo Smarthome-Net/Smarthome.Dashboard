@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/core/scss"
+              ]
+            },
             "outputPath": "dist/smarthome-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",

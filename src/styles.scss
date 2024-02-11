@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@use 'app/core/scss/margin-padding-utils.scss' as mp;
+@use 'margin-padding-utils.scss' as mp;
 
-@import 'app/core/scss/theme.scss';
+@import 'theme.scss';
 
 html,
 body {
