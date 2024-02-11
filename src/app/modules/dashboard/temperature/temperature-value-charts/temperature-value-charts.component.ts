@@ -2,13 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
-
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
 import { TemperatureChartService } from '@services/temperature-chart-service';
 import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
-
-
+import { TempareturChartOptions } from './temperature-chart-options';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -26,58 +24,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     pageIndex: 0,
   };
 
-  public chartOptions: Partial<ChartSettings> = {
-    series: [ ],
-    chart: {
-      type: "line",
-      height: 500,
-      redrawOnParentResize: true,
-      redrawOnWindowResize: true,
-      toolbar: {
-        show: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: "smooth"
-    },
-    markers: {
-      size: 5
-    },
-    xaxis: {
-      type: 'category',
-      title: {
-        text: "Uhrzeit"
-      },
-      labels: {
-        formatter(val) {
-          if(val) {
-            var date = new Date(val);
-            return date.toLocaleString();
-          }
-          return val;
-        }
-      }
-    },
-    yaxis: {
-      title: {
-        text: "Temperatur in °C"
-      },
-      labels: {
-        formatter(val) {
-          return val.toFixed(2);
-        },
-      },
-      min: 5,
-      max: 40
-    },
-    legend: {
-      position: "bottom",
-      horizontalAlign: "left",
-    }
-  }
+  public chartOptions: Partial<ChartSettings> = TempareturChartOptions
 
   private currentScopeFilter: Scope = {
     scopeType: ScopeType.All,
@@ -98,15 +45,16 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       this.currentScopeFilter = filter;   
       this.loadChartData();
 
-      this.hubService.getTemperatureData(this.currentScopeFilter).subscribe(hubResponse => {
-        this.data.forEach(item => {
-          const series = hubResponse.find(d => d.name === item.name);
-          item.series.splice(0, 0, ...series?.series!)
-          item.series.pop();
-        })
-      
-        this.chartOptions.series = this.mapTemperature(this.data);
-      });
+      this.hubService.getTemperatureData(this.currentScopeFilter)
+        .subscribe(hubResponse => {
+          this.data.forEach(item => {
+            const series = hubResponse.find(d => d.name === item.name);
+            item.series.splice(0, 0, ...series?.series!)
+            item.series.pop();
+          })
+        
+          this.chartOptions.series = this.mapTemperature(this.data);
+        });
     });
   }
 

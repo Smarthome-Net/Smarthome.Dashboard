@@ -4,6 +4,7 @@ import { ALL, FilterService } from '@services/filter-service';
 import { DeviceService } from '@services/device-service';
 import { StatisticService } from '@services/statistic-service';
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
+import { StatisticChartOptions } from './statistic-chart-options';
 
 @Component({
   selector: 'app-temperature-statistic',
@@ -16,39 +17,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
 
   deviceGroup: { key: string, devices: Device[] }[] = [];
 
-  chartOptions: Partial<ChartSettings> = {
-    series: [ ],
-    chart: {
-      type: "bar",
-      height: 500,
-      toolbar: {
-        show: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: "smooth"
-    },
-    markers: {
-      size: 1
-    },
-    yaxis: {
-      title: {
-        text: "Temperatur in °C"
-      },
-      labels: {
-        formatter(val) {
-          return val.toFixed(2);
-        },
-      }
-    },
-    legend: {
-      position: "bottom",
-      horizontalAlign: "left",
-    }
-  }
+  chartOptions: Partial<ChartSettings> = StatisticChartOptions
 
   constructor(private statisticService: StatisticService,
     private filterService: FilterService,
@@ -65,12 +34,13 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
       var request: StatisticRequest = {
         scope: scope
       } 
-      this.statisticService.initStatistic(request).subscribe(response => {
-        if(response.scope.scopeType === ScopeType.All) {
-          response.statistics[0].name = 'Alle';
-        }
-        this.chartOptions.series = this.mapStatistic(response.statistics);
-      })
+      this.statisticService.initStatistic(request)
+        .subscribe(response => {
+          if(response.scope.scopeType === ScopeType.All) {
+            response.statistics[0].name = 'Alle';
+          }
+          this.chartOptions.series = this.mapStatistic(response.statistics);
+        })
     })
   }
 
