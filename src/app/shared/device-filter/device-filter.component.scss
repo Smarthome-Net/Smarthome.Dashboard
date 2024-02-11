@@ -1,4 +1,6 @@
+@use '../../core/scss/margin-padding-utils.scss' as mp;
+
 :host {
     display: flex;
-    column-gap: 8px;
+    column-gap: mp.power(1);
 }

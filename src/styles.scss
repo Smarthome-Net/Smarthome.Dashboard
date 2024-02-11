@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'app/core/scss/margin-padding-utils.scss' as mp;
+
 @import 'app/core/scss/theme.scss';
 
 html,
@@ -12,7 +14,7 @@ body {
 }
 
 .mat-mdc-optgroup .mat-mdc-option {
-    padding-left: 32px;
+    padding-left: mp.power(4);
 }
 
 .h-100 {

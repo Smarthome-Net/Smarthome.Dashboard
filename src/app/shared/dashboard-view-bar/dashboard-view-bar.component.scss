@@ -1,17 +1,19 @@
+@use '../../core/scss/margin-padding-utils.scss' as mp;
+
 :host {
     display: block;
-    padding-bottom: 16px;
+    padding-bottom: mp.power(2);
     
     .view-bar {
         display: flex;
-        column-gap: 8px;
+        column-gap: mp.power(1);
         align-items: baseline;
     }
 
     ::ng-deep {
         app-dashboard-view-title {
             display: flex;
-            column-gap: 8px;
+            column-gap: mp.power(1);
             align-items: baseline;
         }
     }
