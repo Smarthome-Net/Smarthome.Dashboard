@@ -1,4 +1,9 @@
+@use '../../../../core/scss/margin-padding-utils.scss' as mp;
+
 :host {
   display: block;
-  padding-top: 16px;
+
+  .opt-group-item {
+    padding-left: mp.power(4);
+  }
 }

@@ -11,6 +11,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.mat-mdc-optgroup .mat-mdc-option {
+    padding-left: 32px;
+}
+
 .h-100 {
     height: 100%;
 }

@@ -8,3 +8,5 @@ export * from './temperature-chart-request';
 export * from './temperature-chart-response';
 export * from './nav-menu';
 export * from './scope';
+export * from './statistic-request';
+export * from './statistic-response';
