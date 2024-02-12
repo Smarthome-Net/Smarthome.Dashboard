@@ -10,7 +10,6 @@ import { DeviceService } from './device-service';
 export class DeviceServiceImpl extends DeviceService {
   public constructor(@Inject(ENV) env: IEnvironment, private httpclient: HttpClient) {
     super(env, 'device');
-    console.log(this.path);
   }
 
   getListOfRoom(): Observable<Device[]> {

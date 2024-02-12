@@ -3,7 +3,7 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
-import { Temperature } from '@models';
+import { Scope, Temperature } from '@models';
 import { TemperatureChartHubService } from './temperature-chart-hub-service';
 
 
@@ -17,7 +17,7 @@ export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
     super();
   }
 
-  public getTemperatureData(scope: string = ''): Observable<Temperature[]> {
+  public getTemperatureData(scope: Scope): Observable<Temperature[]> {
     const subject = new Subject<Temperature[]>();
     
     this.startHub().subscribe(isConnected => {

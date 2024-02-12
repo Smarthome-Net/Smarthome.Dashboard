@@ -1,3 +1,10 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Temperatur Daten</h1>
+  <div dashboardViewActions>
+    <app-device-filter></app-device-filter>
+  </div>
+</app-dashboard-view-bar>
+
 <mat-card>
   <mat-card-content>
     <div class="chart-container">
@@ -10,14 +17,16 @@
       [markers]="chartOptions.markers!"
       [grid]="chartOptions.grid!"
       [yaxis]="chartOptions.yaxis!"
-      [title]="chartOptions.title!" #temperatureChart></apx-chart>
+      [title]="chartOptions.title!" 
+      #temperatureChart></apx-chart>
     </div>  
   </mat-card-content>
   
   <mat-card-footer>
-    <mat-paginator [length]="paginatorSettings.length"
+    <mat-paginator color="accent"
+    [length]="paginatorSettings.length"
     [pageSize]="paginatorSettings.pageSize"
-    [pageSizeOptions]="paginatorSettings.pageSizeOptions"
+    [pageSizeOptions]="[5, 10, 25, 100]"
     (page)="onPage($event)">
   </mat-paginator>
   </mat-card-footer>

@@ -2,13 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
-
-import { Scope, TemperatureChartRequest, ChartSettings, Temperature, ScopeFilter } from "@models";
+import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
 import { TemperatureChartService } from '@services/temperature-chart-service';
 import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
-
-
+import { TempareturChartOptions } from './temperature-chart-options';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -23,54 +21,14 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   public paginatorSettings = {
     length: 100,
     pageSize: 10,
-    pageSizeOptions: [5, 10, 25, 100]
+    pageIndex: 0,
   };
 
-  public chartOptions: Partial<ChartSettings> = {
-    series: [ ],
-    chart: {
-      type: "line",
-      height: 500,
-      toolbar: {
-        show: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: "smooth"
-    },
-    markers: {
-      size: 1
-    },
-    xaxis: {
-      type: 'category',
-      title: {
-        text: "Uhrzeit"
-      }
-    },
-    yaxis: {
-      title: {
-        text: "Temperatur in °C"
-      },
-      labels: {
-        formatter(val) {
-          return val.toFixed(2);
-        },
-      },
-      min: 5,
-      max: 40
-    },
-    legend: {
-      position: "bottom",
-      horizontalAlign: "left",
-    }
-  }
+  public chartOptions: Partial<ChartSettings> = TempareturChartOptions
 
-  private currentScopeFilter: ScopeFilter = {
-    scope: Scope.All,
-    scopeValue: "",
+  private currentScopeFilter: Scope = {
+    scopeType: ScopeType.All,
+    value: "",
   }
 
   constructor(private temperatureChartService: TemperatureChartService,
@@ -79,62 +37,51 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.hubService.destroy();
+    this.filterService.destroy();
   }
 
   public ngOnInit(): void {
-    this.filterService.scopeFilter.subscribe(filter => {
-      this.currentScopeFilter = filter;
-      const request: TemperatureChartRequest = {
-        scope: this.currentScopeFilter.scope,
-        scopeValue: this.currentScopeFilter.scopeValue,
-        pageSetting: {
-          pageIndex: 0,
-          pageSize: this.paginatorSettings.pageSize,
-          totalLenght: this.paginatorSettings.length,
-        }
-      }
-      
-      this.loadChartData(request);
+    this.filterService.scopeFilter().subscribe(filter => {
+      this.currentScopeFilter = filter;   
+      this.loadChartData();
 
-      this.hubService.getTemperatureData(this.currentScopeFilter.scopeValue).subscribe(hubResponse => {
-        const copy: Temperature[] = Object.assign([], this.data);
-        hubResponse.forEach(item => {
-          const singleData = copy.find(d => d.name === item.name);
-          singleData?.series.unshift(...item.series);
-          singleData?.series.splice(this.paginatorSettings.pageSize);
+      this.hubService.getTemperatureData(this.currentScopeFilter)
+        .subscribe(hubResponse => {
+          this.data.forEach(item => {
+            const series = hubResponse.find(d => d.name === item.name);
+            item.series.splice(0, 0, ...series?.series!)
+            item.series.pop();
+          })
+        
+          this.chartOptions.series = this.mapTemperature(this.data);
         });
-        this.data = copy
-      });
     });
   }
 
-  public onPage(event: PageEvent) {
-    this.paginatorSettings.length = event.length;
-    this.paginatorSettings.pageSize = event.pageSize;
-
-    const request: TemperatureChartRequest = {
-      scope: this.currentScopeFilter.scope,
-      scopeValue: this.currentScopeFilter.scopeValue,
-      pageSetting: {
-        pageIndex: event.pageIndex,
-        pageSize: this.paginatorSettings.pageSize,
-        totalLenght: this.paginatorSettings.length,
-      }
-    }
-    this.loadChartData(request);
+  private createChartRequest(): TemperatureChartRequest {
+    return {
+      scope: this.currentScopeFilter,
+      pageSetting: this.paginatorSettings
+    };
   }
 
-  private loadChartData(request: TemperatureChartRequest) {
+  public onPage(event: PageEvent) {
+    this.paginatorSettings = event;
+    this.loadChartData();
+  }
+
+  private loadChartData() {
+    const request = this.createChartRequest();
     this.temperatureChartService.getAllTemperatureData(request)
-      .pipe(map(val => { return {
-        pageSetting: val.pageSetting,
-        chart: this.mapTemperature(val.temperatures)
+      .pipe(map(val => { 
+        this.data = val.temperatures;
+        return {
+          pageSetting: val.pageSetting,
+          chart: this.mapTemperature(val.temperatures),
       }}))
       .subscribe(data => {
-        this.paginatorSettings.length = data.pageSetting.totalLenght;
-        this.paginatorSettings.pageSize = data.pageSetting.pageSize;
+        this.paginatorSettings = data.pageSetting;
         this.chartOptions.series = data.chart;
-        console.log(this.chartOptions.series);
       });
   }
   

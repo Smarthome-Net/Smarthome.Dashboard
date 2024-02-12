@@ -7,10 +7,12 @@ import { ApexAxisChartSeries,
     ApexYAxis, 
     ApexGrid, 
     ApexLegend, 
-    ApexTitleSubtitle } from "ng-apexcharts";
+    ApexTitleSubtitle, 
+    ApexPlotOptions } from "ng-apexcharts";
 
     export interface ChartSettings {
     series: ApexAxisChartSeries;
+    plotOptions: ApexPlotOptions;
     chart: ApexChart;
     xaxis: ApexXAxis;
     stroke: ApexStroke;

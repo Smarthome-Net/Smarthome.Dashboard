@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'app/core/scss/theme.scss';
+@use 'margin-padding-utils.scss' as mp;
+
+@import 'theme.scss';
 
 html,
 body {
@@ -9,6 +11,10 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-optgroup .mat-mdc-option {
+    padding-left: mp.power(4);
 }
 
 .h-100 {
