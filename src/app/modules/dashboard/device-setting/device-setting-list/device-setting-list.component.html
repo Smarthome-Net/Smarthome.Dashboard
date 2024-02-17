@@ -8,14 +8,14 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Gerätename/Raum</th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <th mat-header-cell *matHeaderCellDef>Raum</th>
+        <td mat-cell *matCellDef="let element"> {{element.room}} </td>
       </ng-container>
     
       <!-- Weight Column -->
       <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef>Standort in Raum</th>
-        <td mat-cell *matCellDef="let element"> {{element.room}} </td>
+        <th mat-header-cell *matHeaderCellDef>Bezeichnung/Standort in Raum</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
     
       <!-- Symbol Column -->
