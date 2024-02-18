@@ -3,5 +3,5 @@ import { Statistic } from "./statistic";
 
 export interface StatisticResponse {
     scope: Scope;
-    statistics: Statistic[];
+    statistic: Statistic;
 }

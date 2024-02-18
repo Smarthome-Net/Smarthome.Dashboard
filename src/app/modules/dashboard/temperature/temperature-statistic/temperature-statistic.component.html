@@ -4,10 +4,10 @@
     <app-device-filter></app-device-filter>
     <mat-form-field color="accent" class="form-field">
       <mat-label>Vergleichen</mat-label>
-      <mat-select (valueChange)="onValueChange($event)" multiple>
+      <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
         <mat-option value="all">Alle</mat-option>
         <mat-optgroup *ngFor="let gruop of deviceGroup" [label]="gruop.key">
-          <mat-option *ngFor="let device of gruop.devices" [value]="device.name">{{device.name}}</mat-option>
+          <mat-option *ngFor="let device of gruop.devices" [value]="device">{{device.name}}</mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>
@@ -28,6 +28,7 @@
     [markers]="chartOptions.markers!"
     [grid]="chartOptions.grid!"
     [yaxis]="chartOptions.yaxis!"
-    [title]="chartOptions.title!"></apx-chart>
+    [title]="chartOptions.title!"
+    #temperatureChart></apx-chart>
   </mat-card-content>
 </mat-card>

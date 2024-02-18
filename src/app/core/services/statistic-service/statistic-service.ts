@@ -9,7 +9,5 @@ export abstract class StatisticService extends RestService {
         super(env, pathModify);
     }
     
-    abstract initStatistic(body: StatisticRequest): Observable<StatisticResponse>;
-    abstract refreshStatistic(): void;
-    abstract resetStatistic(): void;
+    abstract getStatistic(body: StatisticRequest): Observable<StatisticResponse>;
 }
