@@ -1,0 +1,8 @@
+<mat-icon color="primary" *ngIf="isFull()">battery_full</mat-icon>
+<mat-icon color="primary" *ngIf="isInRange(batteryThresholds.high, batteryThresholds.veryHigh)">battery_6_bar</mat-icon>
+<mat-icon color="primary" *ngIf="isInRange(batteryThresholds.lessHigh, batteryThresholds.high)">battery_5_bar</mat-icon>
+<mat-icon color="accent" *ngIf="isInRange(batteryThresholds.half, batteryThresholds.lessHigh)">battery_4_bar</mat-icon>
+<mat-icon color="accent" *ngIf="isInRange(batteryThresholds.lessHalf, batteryThresholds.half)">battery_3_bar</mat-icon>
+<mat-icon color="warn" *ngIf="isInRange(batteryThresholds.low, batteryThresholds.lessHalf)">battery_2_bar</mat-icon>
+<mat-icon color="warn" *ngIf="isInRange(batteryThresholds.veryLow, batteryThresholds.low)">battery_1_bar</mat-icon>
+<mat-icon color="warn" *ngIf="isEmpty()">battery_0_bar</mat-icon>

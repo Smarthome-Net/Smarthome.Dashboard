@@ -19,6 +19,8 @@ import { NavbarModule } from './navbar/navbar.module';
 import { NavbarCollapsedModule } from './navbar-collapsed/navbar-collapsed.module';
 import { DeviceFilterModule } from './device-filter/device-filter.module';
 import { GermanPaginatorIntl } from './german-paginator-intl';
+import { BatteryStatusModule } from './battery-status/battery-status.module';
+import { ConnectionStatusModule } from './connection-status/connection-status.module';
 
 const matPaginatorOptions: MatPaginatorDefaultOptions = {
   formFieldAppearance: 'fill',
@@ -35,6 +37,8 @@ const matPaginatorOptions: MatPaginatorDefaultOptions = {
     NavbarCollapsedModule,
     DashboardViewBarModule,
     DeviceFilterModule,
+    BatteryStatusModule,
+    ConnectionStatusModule,
 
     NgApexchartsModule,
 
