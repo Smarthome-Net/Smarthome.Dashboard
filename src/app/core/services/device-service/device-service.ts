@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { IEnvironment } from 'src/environments/ienvironment';
 import { RestService } from '@base/rest-service';
-import { Device } from '@models';
+import { Device, DeviceStatus } from '@models';
 
 export abstract class DeviceService extends RestService {
   
@@ -9,7 +9,9 @@ export abstract class DeviceService extends RestService {
     super(env, pathModify);
   }
 
-  abstract getListOfRoom(): Observable<Device[]>;
-  abstract getListOfDevices(room: string): Observable<Device[]>;
+  abstract getDevicesByRoom(room: string): Observable<Device[]>;
   abstract getAllDevices(): Observable<Device[]>;
+  abstract getDeviceStatus(deviceId: string): Observable<DeviceStatus>;
+  abstract getDeviceConfig(deviceId: string): void;
+  abstract updateDeviceConfig(deviceId: string): void;
 }

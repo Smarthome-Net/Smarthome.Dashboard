@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Device, } from '@models';
 import { DeviceService } from '@services/device-service';
 import { FilterService, ALL } from '@services/filter-service';
+import { distinct, mergeMap, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-device-filter',
@@ -20,9 +21,14 @@ export class DeviceFilterComponent implements OnInit {
     private deviceService: DeviceService) { }
 
   ngOnInit() {
-    this.deviceService.getListOfRoom().subscribe(rooms => {
-      this.rooms = rooms;
-    })
+    this.deviceService.getAllDevices()
+      .pipe(
+        mergeMap(d => d),
+        distinct(d => d.room),
+        toArray())
+      .subscribe(rooms => {
+        this.rooms = rooms;
+      })
   }
 
   public roomChange(value: string): void {
@@ -34,7 +40,7 @@ export class DeviceFilterComponent implements OnInit {
       return;
     }
 
-    this.deviceService.getListOfDevices(value).subscribe(devices => {
+    this.deviceService.getDevicesByRoom(value).subscribe(devices => {
       if (this.devices[0] !== devices[0]) {
         this.deviceChange(ALL, false);
       }
