@@ -11,23 +11,29 @@
       <div class="device-status-item">
         <p>
           <span>Verbindungsstatus WLAN:</span>
-          <mat-icon>wifi</mat-icon>
+          <app-connection-status 
+            [connectionStatus]="deviceStatus?.wifiConnectionStatus!" 
+            [icons]="{ on: 'wifi', off: 'wifi_off' }">
+          </app-connection-status>
         </p>
       </div>
       <div class="device-status-item">
         <p>
           <span>Verbindungsstatus MQTT:</span>
-          <mat-icon>link</mat-icon>
+          <app-connection-status 
+            [connectionStatus]="deviceStatus?.mqttConnectionStatus!" 
+            [icons]="{ on: 'link', off: 'link_off' }">
+          </app-connection-status>
         </p>
       </div>
       <div class="device-status-item">
         <p>
           <span>Batteriestatus:</span>
-          <mat-icon>battery_full</mat-icon>
+          <app-battery-status [value]="deviceStatus?.batteryStatus!"></app-battery-status>
         </p>
       </div>
       <div class="device-status-item">
-        <p>Aktuelle Temperatur: 22°C</p>
+        <p>Aktuelle Temperatur: {{deviceStatus?.lastTemperature}}°C</p>
       </div>
     </div>
   </mat-card-content>
