@@ -22,13 +22,13 @@ export class DeviceServiceImpl extends DeviceService {
   }
 
   override getDeviceStatus(deviceId: string): Observable<DeviceStatus> {
-    return this.httpclient.get<DeviceStatus>(`${this.path}/${deviceId}/status`)
+    return this.httpclient.get<DeviceStatus>(`${this.path}/${deviceId}/status`);
   }
-  override getDeviceConfig(deviceId: string): void {
-    throw new Error('Method not implemented.');
+  override getDeviceConfig(deviceId: string): Observable<Device> {
+    return this.httpclient.get<Device>(`${this.path}/${deviceId}/config`);
   }
-  override updateDeviceConfig(deviceId: string): void {
-    throw new Error('Method not implemented.');
+  override updateDeviceConfig(deviceId: string, device: Device): Observable<Device> {
+    return this.httpclient.post<Device>(`${this.path}/${deviceId}/config`, device);
   }
 
 }

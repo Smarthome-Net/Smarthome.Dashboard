@@ -12,6 +12,6 @@ export abstract class DeviceService extends RestService {
   abstract getDevicesByRoom(room: string): Observable<Device[]>;
   abstract getAllDevices(): Observable<Device[]>;
   abstract getDeviceStatus(deviceId: string): Observable<DeviceStatus>;
-  abstract getDeviceConfig(deviceId: string): void;
-  abstract updateDeviceConfig(deviceId: string): void;
+  abstract getDeviceConfig(deviceId: string): Observable<Device>;
+  abstract updateDeviceConfig(deviceId: string, device: Device): Observable<Device>;
 }

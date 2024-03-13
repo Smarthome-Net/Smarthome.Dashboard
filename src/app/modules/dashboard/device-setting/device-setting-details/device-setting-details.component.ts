@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DeviceStatus } from '@models';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Device, DeviceStatus } from '@models';
 import { DeviceService } from '@services/device-service';
 
 @Component({
@@ -11,19 +12,48 @@ import { DeviceService } from '@services/device-service';
 export class DeviceSettingDetailsComponent implements OnInit {
   deviceStatus?: DeviceStatus;
   
-  constructor(private deviceService: DeviceService, private route: ActivatedRoute) { }
+  deviceForm = this.formBuilder.group({
+    room: ['', Validators.required],
+    name: ['', Validators.required],
+    configuration: this.formBuilder.group({
+      interval: [0],
+      mqttHost: [''],
+      mqttPort: [0],
+      ssid: [''],
+      ssidPassword: [''],
+    })
+  });
+  
+  private device?: Device;
+  constructor(private deviceService: DeviceService, 
+    private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.loadDeviceStatus(id);
+      this.loadDeviceConfig(id);
     });
+  }
+
+  onSubmit() {
+    console.log(this.deviceForm.value);
+  }
+
+  onReset() {
+    this.deviceForm.reset(this.device!);
   }
 
   private loadDeviceStatus(id: string) {
     this.deviceService.getDeviceStatus(id).subscribe(status => {
-      console.log(status);
       this.deviceStatus = status;
     });
+  }
+
+  private loadDeviceConfig(id: string) {
+    this.deviceService.getDeviceConfig(id).subscribe(device => {
+      this.device = device;
+      this.deviceForm.patchValue(device);
+    })
   }
 }

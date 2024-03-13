@@ -10,7 +10,7 @@ import { ApexAxisChartSeries,
     ApexTitleSubtitle, 
     ApexPlotOptions } from "ng-apexcharts";
 
-    export interface ChartSettings {
+export interface ChartSettings {
     series: ApexAxisChartSeries;
     plotOptions: ApexPlotOptions;
     chart: ApexChart;
