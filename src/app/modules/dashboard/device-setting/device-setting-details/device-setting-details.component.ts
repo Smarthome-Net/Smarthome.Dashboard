@@ -13,14 +13,14 @@ export class DeviceSettingDetailsComponent implements OnInit {
   deviceStatus?: DeviceStatus;
   
   deviceForm = this.formBuilder.group({
-    room: ['', Validators.required],
-    name: ['', Validators.required],
+    room: this.formBuilder.control('', Validators.required),
+    name: this.formBuilder.control('', Validators.required),
     configuration: this.formBuilder.group({
-      interval: [0],
-      mqttHost: [''],
-      mqttPort: [0],
-      ssid: [''],
-      ssidPassword: [''],
+      interval: this.formBuilder.control(1, [Validators.min(1), Validators.max(59)]),
+      mqttHost: this.formBuilder.control('', Validators.required),
+      mqttPort: this.formBuilder.control(1, Validators.max(65535)),
+      ssid: this.formBuilder.control('', Validators.required),
+      ssidPassword: this.formBuilder.control(''),
     })
   });
   
