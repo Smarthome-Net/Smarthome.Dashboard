@@ -61,7 +61,11 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   private createChartRequest(): TemperatureChartRequest {
     return {
       scope: this.currentScopeFilter,
-      pageSetting: this.paginatorSettings
+      pageSetting: {
+        length: this.paginatorSettings.length,
+        pageIndex: this.paginatorSettings.pageIndex,
+        pageSize: this.paginatorSettings.pageSize
+      }
     };
   }
 

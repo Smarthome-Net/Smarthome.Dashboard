@@ -5,6 +5,7 @@ import { FilterService, FilterServiceImpl } from '@services/filter-service';
 import { StatisticService, StatisticServiceImpl } from '@services/statistic-service';
 import { TemperatureChartHubService, TemperatureChartHubServiceImpl } from '@services/temperature-chart-hub';
 import { TemperatureChartService, TemperatureChartServiceImpl } from '@services/temperature-chart-service';
+import { SettingService, SettingServiceImpl } from '@services/setting-service';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TemperatureChartService, TemperatureChartServiceImpl } from '@services/
     { provide: FilterService, useClass: FilterServiceImpl },
     { provide: TemperatureChartHubService, useClass: TemperatureChartHubServiceImpl },
     { provide: DeviceService, useClass: DeviceServiceImpl },
-    { provide: TemperatureChartService, useClass: TemperatureChartServiceImpl }
+    { provide: TemperatureChartService, useClass: TemperatureChartServiceImpl },
+    { provide: SettingService, useClass: SettingServiceImpl }
   ]
 })
 export class CoreModule { }

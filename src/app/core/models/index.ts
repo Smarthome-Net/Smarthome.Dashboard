@@ -11,3 +11,4 @@ export * from './scope';
 export * from './statistic-request';
 export * from './statistic-response';
 export * from './device-status';
+export * from './setting';

@@ -7,7 +7,8 @@ const routes: Routes = [
     { path: '', redirectTo: 'index', pathMatch: 'full' },
     { path: 'index', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
     { path: 'temperature', loadChildren: () => import('./temperature/temperature.module').then(m => m.TemperatureModule) },
-    { path: 'device-setting', loadChildren: () => import('./device-setting/device-setting.module').then(m => m.DeviceSettingModule) }
+    { path: 'device-setting', loadChildren: () => import('./device-setting/device-setting.module').then(m => m.DeviceSettingModule) },
+    { path: 'setting', loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule) }
   ]},
 ];
 

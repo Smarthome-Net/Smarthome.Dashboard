@@ -11,6 +11,7 @@ import { MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginator
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule }  from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -55,6 +56,7 @@ const matPaginatorOptions: MatPaginatorDefaultOptions = {
     MatTableModule,
     MatTooltipModule,
     MatInputModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: matPaginatorOptions },

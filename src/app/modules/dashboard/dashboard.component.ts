@@ -19,6 +19,7 @@ export class DashboardComponent {
       { link: 'temperature/statistic', displayText: 'Statistik', icon: 'bar_chart' },
     ]},
     { link: 'device-setting', displayText: 'Geräteeinstellung', icon: 'devices' },
+    { link: 'setting', displayText: 'Einstellungen', icon: 'settings'}
   ]
 
   constructor() { }

@@ -1,0 +1,12 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Dashboard Einstellungen</h1>
+</app-dashboard-view-bar>
+
+<mat-accordion multi>
+  <mat-expansion-panel *ngFor="let setting of settings">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{setting.description}}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>Content</div>
+  </mat-expansion-panel>
+</mat-accordion>

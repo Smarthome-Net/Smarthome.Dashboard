@@ -3,7 +3,7 @@ import { Scope } from "./scope";
 
 export interface TemperatureChartRequest {
   scope: Scope;
-  pageSetting: PageSetting;
+  pageSetting: Partial<PageSetting>;
 }
 
 
