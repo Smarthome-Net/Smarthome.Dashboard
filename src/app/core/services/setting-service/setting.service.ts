@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { SettingService } from './setting-service';
-import { Setting } from '@models';
+import { CommonSetting, PageSetting, Setting } from '@models';
 import { Observable } from 'rxjs';
 import { ENV } from 'src/environments/environment.provider';
 import { IEnvironment } from 'src/environments/ienvironment';
@@ -19,4 +19,7 @@ export class SettingServiceImpl extends SettingService  {
     return this.httpClient.get<Setting[]>(this.path);
   }
 
+  public override getCommonSetting(): Observable<CommonSetting> {
+    return this.httpClient.get<CommonSetting>(`${this.path}/commonsetting`);
+  }
 }

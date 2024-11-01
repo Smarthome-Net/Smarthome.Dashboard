@@ -1,6 +1,4 @@
-import { Setting } from "./setting";
-
-export interface PageSetting extends Setting {
+export interface PageSetting {
   length: number;
   pageIndex: number;
   pageSize: number;

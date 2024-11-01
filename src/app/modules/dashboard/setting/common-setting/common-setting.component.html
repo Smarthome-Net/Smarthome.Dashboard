@@ -1,0 +1,28 @@
+<form [formGroup]="commonSettingForm">
+    <mat-form-field color="accent">
+        <mat-label>Dashboard Titel</mat-label>
+        <input matInput [formControl]="commonSettingForm.controls.title">
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+        <mat-label>Dashboard Titel</mat-label>
+        <input matInput [formControl]="commonSettingForm.controls.description">
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+        <mat-label>Dashboard Titel</mat-label>
+        <input matInput [formControl]="commonSettingForm.controls.pageLength">
+    </mat-form-field>
+    
+    <form [formGroup]="commonSettingForm.controls.color">
+        <mat-form-field color="accent">
+            <mat-label>Dashboard Titel</mat-label>
+            <input matInput [formControl]="commonSettingForm.controls.color.controls.primary">
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>Dashboard Titel</mat-label>
+            <input matInput [formControl]="commonSettingForm.controls.color.controls.secondary">
+        </mat-form-field>
+    </form>
+</form>

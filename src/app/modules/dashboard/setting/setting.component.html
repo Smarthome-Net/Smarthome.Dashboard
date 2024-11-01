@@ -7,6 +7,8 @@
     <mat-expansion-panel-header>
       <mat-panel-title>{{setting.description}}</mat-panel-title>
     </mat-expansion-panel-header>
-    <div>Content</div>
+    <ng-template matExpansionPanelContent>
+      <ng-template [ngComponentOutlet]="getTemplate(setting.type)"></ng-template>
+    </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
