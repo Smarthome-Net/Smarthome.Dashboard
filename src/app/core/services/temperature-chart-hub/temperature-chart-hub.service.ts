@@ -26,7 +26,7 @@ export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
       }
       
       if(!this.onUpdateTemperature) {
-        this.hubContext!.on('UpdateTemperatuure', data => {
+        this.hubContext!.on('UpdateTemperature', data => {
           subject.next(data);
         })
         this.onUpdateTemperature = true;
