@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { CommonSetting } from '@models';
 import { SettingService } from '@services/setting-service';
 
 @Component({
@@ -9,7 +10,7 @@ import { SettingService } from '@services/setting-service';
 })
 export class CommonSettingComponent implements OnInit {
 
-  public commonSettingForm = this.formBuilder.group({
+  commonSettingForm = this.formBuilder.group({
     title: this.formBuilder.control(""),
     description: this.formBuilder.control(""),
     pageLength: this.formBuilder.control(10),
@@ -19,14 +20,42 @@ export class CommonSettingComponent implements OnInit {
     })
   });
 
+  private resetValue = '';
+
   constructor(private settingService: SettingService, private formBuilder: FormBuilder) { 
   }
 
   ngOnInit() {
     this.settingService.getCommonSetting().subscribe(setting => {
-      console.log(setting);
-      this.commonSettingForm.patchValue(setting)
+      this.resetValue = JSON.stringify(setting);
+      
+      this.commonSettingForm.setValue({
+        title: setting.title,
+        description: setting.description,
+        pageLength: setting.pageLength,
+        color: {
+          primary: null,
+          secondary: null
+        }
+      })
     })
   }
 
+  updateSetting() {
+    console.log(this.commonSettingForm.value);
+  }
+
+  reset() {
+    var value = JSON.parse(this.resetValue) as CommonSetting;
+    this.commonSettingForm.reset();
+    this.commonSettingForm.setValue({
+      title: value.title,
+      description: value.description,
+      pageLength: value.pageLength,
+      color: {
+        primary: null,
+        secondary: null
+      }
+    });
+  }
 }
