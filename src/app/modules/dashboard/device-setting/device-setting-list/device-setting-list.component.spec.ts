@@ -11,8 +11,8 @@ describe('DeviceSettingListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviceSettingListComponent ]
-    })
+    imports: [DeviceSettingListComponent]
+})
     .compileComponents();
   }));
 

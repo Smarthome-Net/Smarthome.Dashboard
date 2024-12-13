@@ -5,11 +5,11 @@ import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    SharedModule
-  ],
-  declarations: [HomeComponent]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        SharedModule,
+        HomeComponent
+    ]
 })
 export class HomeModule { }

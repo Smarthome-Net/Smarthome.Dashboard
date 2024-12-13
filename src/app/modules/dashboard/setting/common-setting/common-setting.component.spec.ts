@@ -11,8 +11,8 @@ describe('CommonSettingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommonSettingComponent ]
-    })
+    imports: [CommonSettingComponent]
+})
     .compileComponents();
   }));
 

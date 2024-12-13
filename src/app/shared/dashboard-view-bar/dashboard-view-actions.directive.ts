@@ -1,7 +1,4 @@
 import { Directive } from '@angular/core';
 
-@Directive({
-  selector: '[dashboardViewActions]',
-  standalone: false
-})
+@Directive({ selector: '[dashboardViewActions]' })
 export class DashboardViewActionsDirective { }

@@ -11,8 +11,8 @@ describe('DashboardViewBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardViewBarComponent ]
-    })
+    imports: [DashboardViewBarComponent]
+})
     .compileComponents();
   }));
 

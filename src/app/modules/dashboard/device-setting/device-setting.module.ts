@@ -8,17 +8,14 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DeviceSettingRoutingModule,
-
-    SharedModule
-  ],
-  declarations: [
-    DeviceSettingListComponent,
-    DeviceSettingDetailsComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DeviceSettingRoutingModule,
+        SharedModule,
+        DeviceSettingListComponent,
+        DeviceSettingDetailsComponent
+    ]
 })
 export class DeviceSettingModule { }

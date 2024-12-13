@@ -7,15 +7,13 @@ import { TemperatureStatisticComponent } from './temperature-statistic/temperatu
 import { TemperatureValueChartsComponent } from './temperature-value-charts/temperature-value-charts.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TemperatureRoutingModule,
-    SharedModule
-  ],
-  declarations: [
-    TemperatureComponent,
-    TemperatureStatisticComponent,
-    TemperatureValueChartsComponent
-  ]
+    imports: [
+        CommonModule,
+        TemperatureRoutingModule,
+        SharedModule,
+        TemperatureComponent,
+        TemperatureStatisticComponent,
+        TemperatureValueChartsComponent
+    ]
 })
 export class TemperatureModule { }

@@ -7,16 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonSettingComponent } from './common-setting/common-setting.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    SettingRoutingModule,
-  ],
-  declarations: [
-    SettingComponent,
-    CommonSettingComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        SettingRoutingModule,
+        SettingComponent,
+        CommonSettingComponent,
+    ]
 })
 export class SettingModule { }

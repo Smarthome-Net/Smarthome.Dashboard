@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
@@ -7,12 +7,17 @@ import { TemperatureChartService } from '@services/temperature-chart-service';
 import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
 import { TempareturChartOptions } from './temperature-chart-options';
+import { DashboardViewBarComponent } from '../../../../shared/dashboard-view-bar/dashboard-view-bar.component';
+import { DashboardViewTitleDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-title.directive';
+import { DashboardViewActionsDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-actions.directive';
+import { DeviceFilterComponent } from '../../../../shared/device-filter/device-filter.component';
+import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
 
 @Component({
-  selector: 'app-temperature-value-charts',
-  templateUrl: './temperature-value-charts.component.html',
-  styleUrls: ['./temperature-value-charts.component.scss'],
-  standalone: false
+    selector: 'app-temperature-value-charts',
+    templateUrl: './temperature-value-charts.component.html',
+    styleUrls: ['./temperature-value-charts.component.scss'],
+    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, DashboardViewActionsDirective, DeviceFilterComponent, MatCard, MatCardContent, ChartComponent, MatCardFooter, MatPaginator]
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;

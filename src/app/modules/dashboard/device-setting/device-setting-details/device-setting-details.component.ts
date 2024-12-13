@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
 import { DeviceService } from '@services/device-service';
+import { DashboardViewBarComponent } from '../../../../shared/dashboard-view-bar/dashboard-view-bar.component';
+import { DashboardViewTitleDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-title.directive';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
+import { ConnectionStatusComponent } from '../../../../shared/connection-status/connection-status.component';
+import { BatteryStatusComponent } from '../../../../shared/battery-status/battery-status.component';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-device-setting-details',
-  templateUrl: './device-setting-details.component.html',
-  styleUrls: ['./device-setting-details.component.scss'],
-  standalone: false
+    selector: 'app-device-setting-details',
+    templateUrl: './device-setting-details.component.html',
+    styleUrls: ['./device-setting-details.component.scss'],
+    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, MatCard, MatCardHeader, MatCardTitle, MatCardContent, ConnectionStatusComponent, BatteryStatusComponent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatCardActions, MatButton]
 })
 export class DeviceSettingDetailsComponent implements OnInit {
   deviceStatus?: DeviceStatus;

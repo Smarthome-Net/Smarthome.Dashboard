@@ -1,12 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NavMenu } from '@models';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
+import { NgIf } from '@angular/common';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarCollapsedComponent } from '../../shared/navbar-collapsed/navbar-collapsed.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  standalone: false
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    imports: [MatToolbar, MatIconButton, MatIcon, MatSidenavContainer, MatSidenav, NgIf, NavbarComponent, NavbarCollapsedComponent, MatSidenavContent, RouterOutlet]
 })
 export class DashboardComponent {
   @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;

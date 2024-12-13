@@ -6,12 +6,22 @@ import { StatisticService } from '@services/statistic-service';
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
 import { StatisticChartOptions } from './statistic-chart-options';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
+import { DashboardViewBarComponent } from '../../../../shared/dashboard-view-bar/dashboard-view-bar.component';
+import { DashboardViewTitleDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-title.directive';
+import { DeviceFilterComponent } from '../../../../shared/device-filter/device-filter.component';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption, MatOptgroup } from '@angular/material/core';
+import { NgFor } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
-  selector: 'app-temperature-statistic',
-  templateUrl: './temperature-statistic.component.html',
-  styleUrls: ['./temperature-statistic.component.scss'],
-  standalone: false
+    selector: 'app-temperature-statistic',
+    templateUrl: './temperature-statistic.component.html',
+    styleUrls: ['./temperature-statistic.component.scss'],
+    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, DeviceFilterComponent, MatFormField, MatLabel, MatSelect, MatOption, NgFor, MatOptgroup, MatButton, MatIcon, MatCard, MatCardContent, ChartComponent]
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;

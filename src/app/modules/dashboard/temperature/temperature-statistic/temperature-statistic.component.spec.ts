@@ -11,8 +11,8 @@ describe('TemperatureStatisticComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemperatureStatisticComponent ]
-    })
+    imports: [TemperatureStatisticComponent]
+})
     .compileComponents();
   }));
 

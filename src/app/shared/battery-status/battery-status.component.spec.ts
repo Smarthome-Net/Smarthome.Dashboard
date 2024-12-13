@@ -11,8 +11,8 @@ describe('BatteryStatusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BatteryStatusComponent ]
-    })
+    imports: [BatteryStatusComponent]
+})
     .compileComponents();
   }));
 

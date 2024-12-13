@@ -11,8 +11,8 @@ describe('TemperatureValueChartsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemperatureValueChartsComponent ]
-    })
+    imports: [TemperatureValueChartsComponent]
+})
     .compileComponents();
   }));
 

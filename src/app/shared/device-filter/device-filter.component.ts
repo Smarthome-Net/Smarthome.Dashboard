@@ -3,12 +3,16 @@ import { Device, } from '@models';
 import { DeviceService } from '@services/device-service';
 import { FilterService, ALL } from '@services/filter-service';
 import { distinct, mergeMap, toArray } from 'rxjs';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-device-filter',
-  templateUrl: './device-filter.component.html',
-  styleUrls: ['./device-filter.component.scss'],
-  standalone: false
+    selector: 'app-device-filter',
+    templateUrl: './device-filter.component.html',
+    styleUrls: ['./device-filter.component.scss'],
+    imports: [MatFormField, MatLabel, MatSelect, MatOption, NgFor]
 })
 export class DeviceFilterComponent implements OnInit {
   public default = ALL;
