@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@shared/shared.module';
 import { ENV, getEnv } from 'src/environments/environment.provider';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -14,7 +14,6 @@ import { CoreModule } from './core/core.module';
     AppComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -22,7 +21,8 @@ import { CoreModule } from './core/core.module';
     SharedModule
   ],
   providers: [
-    {provide: ENV, useFactory: getEnv}
+    {provide: ENV, useFactory: getEnv},
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]
 })

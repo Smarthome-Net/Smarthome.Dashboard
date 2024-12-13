@@ -10,7 +10,8 @@ import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 @Component({
   selector: 'app-temperature-statistic',
   templateUrl: './temperature-statistic.component.html',
-  styleUrls: ['./temperature-statistic.component.scss']
+  styleUrls: ['./temperature-statistic.component.scss'],
+  standalone: false
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;

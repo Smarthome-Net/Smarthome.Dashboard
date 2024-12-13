@@ -10,7 +10,8 @@ const templateMap: { [key: string]: any } = {
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.scss']
+  styleUrls: ['./setting.component.scss'],
+  standalone: false
 })
 export class SettingComponent implements OnInit {
   public settings: Setting[] = []

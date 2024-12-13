@@ -7,7 +7,8 @@ import { DeviceService } from '@services/device-service';
 @Component({
   selector: 'app-device-setting-details',
   templateUrl: './device-setting-details.component.html',
-  styleUrls: ['./device-setting-details.component.scss']
+  styleUrls: ['./device-setting-details.component.scss'],
+  standalone: false
 })
 export class DeviceSettingDetailsComponent implements OnInit {
   deviceStatus?: DeviceStatus;

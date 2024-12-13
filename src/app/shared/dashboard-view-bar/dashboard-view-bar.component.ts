@@ -4,7 +4,8 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-dashboard-view-bar',
   templateUrl: './dashboard-view-bar.component.html',
-  styleUrls: ['./dashboard-view-bar.component.scss']
+  styleUrls: ['./dashboard-view-bar.component.scss'],
+  standalone: false
 })
 export class DashboardViewBarComponent implements OnInit {
 

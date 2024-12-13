@@ -7,7 +7,8 @@ import { distinct, mergeMap, toArray } from 'rxjs';
 @Component({
   selector: 'app-device-filter',
   templateUrl: './device-filter.component.html',
-  styleUrls: ['./device-filter.component.scss']
+  styleUrls: ['./device-filter.component.scss'],
+  standalone: false
 })
 export class DeviceFilterComponent implements OnInit {
   public default = ALL;

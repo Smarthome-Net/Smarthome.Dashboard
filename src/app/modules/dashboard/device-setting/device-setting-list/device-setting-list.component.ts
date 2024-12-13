@@ -5,7 +5,8 @@ import { DeviceService } from '@services/device-service';
 @Component({
   selector: 'app-device-setting-list',
   templateUrl: './device-setting-list.component.html',
-  styleUrls: ['./device-setting-list.component.scss']
+  styleUrls: ['./device-setting-list.component.scss'],
+  standalone: false
 })
 export class DeviceSettingListComponent implements OnInit {
 

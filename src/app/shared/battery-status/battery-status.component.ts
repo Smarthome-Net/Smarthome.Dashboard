@@ -14,7 +14,8 @@ const batteryThresholds = {
 @Component({
   selector: 'app-battery-status',
   templateUrl: './battery-status.component.html',
-  styleUrls: ['./battery-status.component.scss']
+  styleUrls: ['./battery-status.component.scss'],
+  standalone: false
 })
 export class BatteryStatusComponent {
 

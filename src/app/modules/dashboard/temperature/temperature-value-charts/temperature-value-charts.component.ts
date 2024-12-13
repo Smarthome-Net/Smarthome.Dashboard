@@ -11,7 +11,8 @@ import { TempareturChartOptions } from './temperature-chart-options';
 @Component({
   selector: 'app-temperature-value-charts',
   templateUrl: './temperature-value-charts.component.html',
-  styleUrls: ['./temperature-value-charts.component.scss']
+  styleUrls: ['./temperature-value-charts.component.scss'],
+  standalone: false
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;

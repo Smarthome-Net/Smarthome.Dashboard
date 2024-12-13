@@ -5,7 +5,8 @@ import { NavMenu } from '@models';
 @Component({
   selector: 'app-navbar-collapsed',
   templateUrl: './navbar-collapsed.component.html',
-  styleUrls: ['./navbar-collapsed.component.scss']
+  styleUrls: ['./navbar-collapsed.component.scss'],
+  standalone: false
 })
 export class NavbarCollapsedComponent {
   @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;

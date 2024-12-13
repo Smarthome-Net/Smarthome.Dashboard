@@ -15,16 +15,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/app/core/scss"
               ]
             },
-            "outputPath": "dist/smarthome-dashboard",
+            "outputPath": {
+              "base": "dist/smarthome-dashboard"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -40,7 +41,8 @@
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"
-            ]
+            ],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -59,9 +61,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SmarthomeDashboard:build:production"
+              "buildTarget": "SmarthomeDashboard:build:production"
             },
             "development": {
-              "browserTarget": "SmarthomeDashboard:build:development"
+              "buildTarget": "SmarthomeDashboard:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SmarthomeDashboard:build"
+            "buildTarget": "SmarthomeDashboard:build"
           }
         },
         "test": {

@@ -6,7 +6,8 @@ import { SettingService } from '@services/setting-service';
 @Component({
   selector: 'app-common-setting',
   templateUrl: './common-setting.component.html',
-  styleUrls: ['./common-setting.component.scss']
+  styleUrls: ['./common-setting.component.scss'],
+  standalone: false
 })
 export class CommonSettingComponent implements OnInit {
 
