@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgIf, PercentPipe } from '@angular/common';
+import { PercentPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 
 const batteryThresholds = {
@@ -18,7 +18,7 @@ const batteryThresholds = {
     selector: 'app-battery-status',
     templateUrl: './battery-status.component.html',
     styleUrls: ['./battery-status.component.scss'],
-    imports: [MatTooltip, NgIf, MatIcon, PercentPipe]
+    imports: [MatTooltip, MatIcon, PercentPipe]
 })
 export class BatteryStatusComponent {
 

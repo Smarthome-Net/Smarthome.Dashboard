@@ -12,7 +12,7 @@ import { DeviceFilterComponent } from '../../../../shared/device-filter/device-f
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption, MatOptgroup } from '@angular/material/core';
-import { NgFor } from '@angular/common';
+
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -21,7 +21,7 @@ import { MatCard, MatCardContent } from '@angular/material/card';
     selector: 'app-temperature-statistic',
     templateUrl: './temperature-statistic.component.html',
     styleUrls: ['./temperature-statistic.component.scss'],
-    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, DeviceFilterComponent, MatFormField, MatLabel, MatSelect, MatOption, NgFor, MatOptgroup, MatButton, MatIcon, MatCard, MatCardContent, ChartComponent]
+    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, DeviceFilterComponent, MatFormField, MatLabel, MatSelect, MatOption, MatOptgroup, MatButton, MatIcon, MatCard, MatCardContent, ChartComponent]
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;

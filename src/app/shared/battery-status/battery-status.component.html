@@ -1,10 +1,26 @@
 <div matTooltip="{{value | percent : '1.2'}}" matTooltipPosition="right">
-    <mat-icon color="primary" *ngIf="isFull()">battery_full</mat-icon>
-    <mat-icon color="primary" *ngIf="isInRange(batteryThresholds.high, batteryThresholds.veryHigh)">battery_6_bar</mat-icon>
-    <mat-icon color="primary" *ngIf="isInRange(batteryThresholds.lessHigh, batteryThresholds.high)">battery_5_bar</mat-icon>
-    <mat-icon color="accent" *ngIf="isInRange(batteryThresholds.half, batteryThresholds.lessHigh)">battery_4_bar</mat-icon>
-    <mat-icon color="accent" *ngIf="isInRange(batteryThresholds.lessHalf, batteryThresholds.half)">battery_3_bar</mat-icon>
-    <mat-icon color="accent" *ngIf="isInRange(batteryThresholds.low, batteryThresholds.lessHalf)">battery_2_bar</mat-icon>
-    <mat-icon color="warn" *ngIf="isInRange(batteryThresholds.veryLow, batteryThresholds.low)">battery_1_bar</mat-icon>
-    <mat-icon color="warn" *ngIf="isEmpty()">battery_0_bar</mat-icon>
+  @if (isFull()) {
+    <mat-icon color="primary">battery_full</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.high, batteryThresholds.veryHigh)) {
+    <mat-icon color="primary">battery_6_bar</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.lessHigh, batteryThresholds.high)) {
+    <mat-icon color="primary">battery_5_bar</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.half, batteryThresholds.lessHigh)) {
+    <mat-icon color="accent">battery_4_bar</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.lessHalf, batteryThresholds.half)) {
+    <mat-icon color="accent">battery_3_bar</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.low, batteryThresholds.lessHalf)) {
+    <mat-icon color="accent">battery_2_bar</mat-icon>
+  }
+  @if (isInRange(batteryThresholds.veryLow, batteryThresholds.low)) {
+    <mat-icon color="warn">battery_1_bar</mat-icon>
+  }
+  @if (isEmpty()) {
+    <mat-icon color="warn">battery_0_bar</mat-icon>
+  }
 </div>

@@ -1,5 +1,9 @@
-<mat-icon *ngIf="connectionStatus === 1; else off" [color]="'primary'">{{icons.on}}</mat-icon>
-          
+@if (connectionStatus === 1) {
+  <mat-icon [color]="'primary'">{{icons.on}}</mat-icon>
+} @else {
+  <mat-icon [color]="'warn'">{{icons.off}}</mat-icon>
+}
+
 <ng-template #off>
   <mat-icon [color]="'warn'">{{icons.off}}</mat-icon>
 </ng-template>

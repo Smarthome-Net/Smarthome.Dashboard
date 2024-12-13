@@ -6,9 +6,13 @@
       <mat-label>Vergleichen</mat-label>
       <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
         <mat-option value="all">Alle</mat-option>
-        <mat-optgroup *ngFor="let gruop of deviceGroup" [label]="gruop.key">
-          <mat-option *ngFor="let device of gruop.devices" [value]="device">{{device.name}}</mat-option>
-        </mat-optgroup>
+        @for (gruop of deviceGroup; track gruop) {
+          <mat-optgroup [label]="gruop.key">
+            @for (device of gruop.devices; track device) {
+              <mat-option [value]="device">{{device.name}}</mat-option>
+            }
+          </mat-optgroup>
+        }
       </mat-select>
     </mat-form-field>
     <button mat-button color="accent" (click)="reset()">
@@ -21,14 +25,14 @@
 <mat-card>
   <mat-card-content>
     <apx-chart [series]="chartOptions.series!"
-    [chart]="chartOptions.chart!"
-    [stroke]="chartOptions.stroke!"
-    [dataLabels]="chartOptions.dataLabels!"
-    [legend]="chartOptions.legend!"
-    [markers]="chartOptions.markers!"
-    [grid]="chartOptions.grid!"
-    [yaxis]="chartOptions.yaxis!"
-    [title]="chartOptions.title!"
+      [chart]="chartOptions.chart!"
+      [stroke]="chartOptions.stroke!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [legend]="chartOptions.legend!"
+      [markers]="chartOptions.markers!"
+      [grid]="chartOptions.grid!"
+      [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!"
     #temperatureChart></apx-chart>
   </mat-card-content>
 </mat-card>

@@ -1,34 +1,36 @@
 <mat-nav-list>
-  <ng-container *ngFor="let item of navMenu; let index = index">
+  @for (item of navMenu; track item; let index = $index) {
     <a mat-list-item [routerLink]="[item.link]" [routerLinkActive]="'active-link'" #routerLinkActive="routerLinkActive">
       <div class="nav-list-content">
         <mat-icon>{{item.icon}}</mat-icon>
         <span>{{item.displayText}}</span>
       </div>
     </a>
-    <ng-container *ngIf="item.children && routerLinkActive.isActive">
+    @if (item.children && routerLinkActive.isActive) {
       <div class="temperature-link-section">
         <mat-nav-list>
-          <ng-container *ngFor="let children of item.children">
+          @for (children of item.children; track children) {
             <a mat-list-item [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
               <div class="nav-list-content">
                 <mat-icon>{{children.icon}}</mat-icon>
                 <span>{{children.displayText}}</span>
               </div>
             </a>
-          </ng-container>
+          }
         </mat-nav-list>
       </div>
-    </ng-container>
-    <ng-container *ngIf="item.children">
-        <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></div>
-        <mat-menu class="nav-child-menu" #menu="matMenu">
-            <a *ngFor="let children of item.children" mat-menu-item class="nav-child-menu-item" [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
-              <mat-icon>{{children.icon}}</mat-icon>
-            </a>
-        </mat-menu>
-    </ng-container>
-  </ng-container>
+    }
+    @if (item.children) {
+      <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></div>
+      <mat-menu class="nav-child-menu" #menu="matMenu">
+        @for (children of item.children; track children) {
+          <a mat-menu-item class="nav-child-menu-item" [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
+            <mat-icon>{{children.icon}}</mat-icon>
+          </a>
+        }
+      </mat-menu>
+    }
+  }
 </mat-nav-list>
 <mat-action-list>
   <button mat-list-item (click)="onCollapse.emit(true)">
