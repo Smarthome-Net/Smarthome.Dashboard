@@ -1,15 +1,12 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-
-import { ENV, getEnv } from 'src/environments/environment.provider';
+import { importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app-routing.module';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { CoreModule } from './app/core/core.module';
 import { SharedModule } from '@shared/shared.module';
-import { AppComponent } from './app/app.component';
-import { importProvidersFrom } from '@angular/core';
+import { ENV, getEnv } from '@env';
+import { AppRoutingModule, AppComponent } from '@app';
+import { CoreModule } from '@core';
+
 
 
 bootstrapApplication(AppComponent, {

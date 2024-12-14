@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment } from '@env';
 import { Scope, Temperature } from '@models';
 import { TemperatureChartHubService } from './temperature-chart-hub-service';
 

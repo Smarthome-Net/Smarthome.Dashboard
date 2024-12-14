@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment   } from '@env';
 import { Device, DeviceStatus } from '@models';
 import { DeviceService } from './device-service';
 

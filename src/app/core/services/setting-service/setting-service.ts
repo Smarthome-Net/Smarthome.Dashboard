@@ -1,7 +1,7 @@
 import { RestService } from "@base/rest-service";
 import { CommonSetting, PageSetting, Setting } from "@models";
 import { Observable } from "rxjs";
-import { IEnvironment } from "src/environments/ienvironment";
+import { IEnvironment } from "@env";
 
 export abstract class SettingService extends RestService {
     

@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { StatisticService } from './statistic-service';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment } from '@env';
 import { HttpClient } from '@angular/common/http';
 import { StatisticRequest, StatisticResponse } from '@models';
 import { Observable } from 'rxjs';

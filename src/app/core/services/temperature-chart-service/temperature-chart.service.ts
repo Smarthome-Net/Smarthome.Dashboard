@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment } from '@env';
 import { TemperatureChartService } from './temperature-chart-service';
-import { Series, TemperatureChartResponse, TemperatureChartRequest } from '@models';
+import { TemperatureChartResponse, TemperatureChartRequest } from '@models';
 
 @Injectable()
 export class TemperatureChartServiceImpl extends TemperatureChartService {

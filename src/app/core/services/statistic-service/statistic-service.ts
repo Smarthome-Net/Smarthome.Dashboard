@@ -1,5 +1,5 @@
 import { RestService } from "@base/rest-service";
-import { IEnvironment } from "src/environments/ienvironment";
+import { IEnvironment } from "@env";
 import { StatisticRequest, StatisticResponse } from "@models";
 import { Observable } from "rxjs";
 

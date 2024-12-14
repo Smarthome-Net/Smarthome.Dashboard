@@ -2,8 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { SettingService } from './setting-service';
 import { CommonSetting, PageSetting, Setting } from '@models';
 import { Observable } from 'rxjs';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment } from '@env';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

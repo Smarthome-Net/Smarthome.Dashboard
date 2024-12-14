@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { IEnvironment } from '@env';
 import { RestService } from '@base/rest-service';
 import { Device, DeviceStatus } from '@models';
 
