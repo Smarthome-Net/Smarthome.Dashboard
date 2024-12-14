@@ -11,8 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 export class ConnectionStatusComponent {
 
   @Input()
-  public connectionStatus = 0;
+  connectionStatus = 0;
 
   @Input()
-  public icons = { on: '', off: '' }
+  icons = { on: '', off: '' }
 }

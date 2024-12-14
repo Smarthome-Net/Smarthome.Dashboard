@@ -9,7 +9,6 @@ export abstract class SettingService extends RestService {
         super(env, pathModify);
     }
 
-    public abstract getAllSettings(): Observable<Setting[]>;
-
-    public abstract getCommonSetting(): Observable<CommonSetting>;
+    abstract getAllSettings(): Observable<Setting[]>;
+    abstract getCommonSetting(): Observable<CommonSetting>;
 }

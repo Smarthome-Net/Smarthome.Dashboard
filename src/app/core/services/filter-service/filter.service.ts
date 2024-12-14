@@ -26,11 +26,11 @@ export class FilterServiceImpl extends FilterService {
     super();
   }
 
-  public scopeFilter(): Observable<Scope> {
+  scopeFilter(): Observable<Scope> {
     return this.scopeFilterSubject;
   }
 
-  public updateScope(value: string): void {
+  updateScope(value: string): void {
     let scopeFilter = ALL_FILTER;
     if (value !== ALL) {
       scopeFilter = ROOM_FILTER;
@@ -45,7 +45,7 @@ export class FilterServiceImpl extends FilterService {
     this.scopeFilterSubject.next(scopeFilter);
   }
 
-  public destroy(): void {
+  destroy(): void {
     this.scopeFilterSubject.unsubscribe();
 
     this.scopeFilterSubject = new BehaviorSubject(ALL_FILTER);

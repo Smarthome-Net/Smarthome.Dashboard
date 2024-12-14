@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { PageEvent, MatPaginator, MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
@@ -35,33 +35,34 @@ import { GermanPaginatorIntl, matPaginatorOptions } from '@shared/paginator';
   ]
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
-  @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
-
-  public data: Temperature[] = [];
-
-  public paginatorSettings = {
-    length: 100,
-    pageSize: 10,
-    pageIndex: 0,
-  };
-
-  public chartOptions: Partial<ChartSettings> = TempareturChartOptions
-
+  private temperatureChartService = inject(TemperatureChartService);
+  private filterService = inject(FilterService);
+  private hubService = inject(TemperatureChartHubService);
   private currentScopeFilter: Scope = {
     scopeType: ScopeType.All,
     value: "",
   }
 
-  constructor(private temperatureChartService: TemperatureChartService,
-    private filterService: FilterService,
-    private hubService: TemperatureChartHubService) { }
+  @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
 
-  public ngOnDestroy(): void {
+  data: Temperature[] = [];
+
+  paginatorSettings = {
+    length: 100,
+    pageSize: 10,
+    pageIndex: 0,
+  };
+
+  chartOptions: Partial<ChartSettings> = TempareturChartOptions
+
+  constructor() { }
+
+  ngOnDestroy(): void {
     this.hubService.destroy();
     this.filterService.destroy();
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.filterService.scopeFilter().subscribe(filter => {
       this.currentScopeFilter = filter;
       this.loadChartData();
@@ -79,6 +80,25 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     });
   }
 
+  mapTemperature(temperatures: Temperature[]): ApexAxisChartSeries {
+    return temperatures.map(temperature => {
+      return {
+        name: temperature.name,
+        data: temperature.series.map(serie => {
+          return {
+            x: serie.name,
+            y: serie.value
+          }
+        })
+      }
+    });
+  }
+
+  onPage(event: PageEvent) {
+    this.paginatorSettings = event;
+    this.loadChartData();
+  }
+
   private createChartRequest(): TemperatureChartRequest {
     return {
       scope: this.currentScopeFilter,
@@ -88,11 +108,6 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
         pageSize: this.paginatorSettings.pageSize
       }
     };
-  }
-
-  public onPage(event: PageEvent) {
-    this.paginatorSettings = event;
-    this.loadChartData();
   }
 
   private loadChartData() {
@@ -109,19 +124,5 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
         this.paginatorSettings = data.pageSetting;
         this.chartOptions.series = data.chart;
       });
-  }
-
-  mapTemperature(temperatures: Temperature[]): ApexAxisChartSeries {
-    return temperatures.map(temperature => {
-      return {
-        name: temperature.name,
-        data: temperature.series.map(serie => {
-          return {
-            x: serie.name,
-            y: serie.value
-          }
-        })
-      }
-    });
   }
 }

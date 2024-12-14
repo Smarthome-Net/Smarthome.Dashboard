@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Device } from '@models';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
 import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
@@ -46,12 +46,13 @@ import { MatIcon } from '@angular/material/icon';
     ]
 })
 export class DeviceSettingListComponent implements OnInit {
+  private deviceService = inject(DeviceService);
 
   displayedColumns: string[] = ['name', 'location', 'topic', 'details'];
   
   devices: Device[] = [];
 
-  constructor(private deviceService: DeviceService) { }
+  constructor() { }
 
   ngOnInit() {
     this.deviceService.getAllDevices().subscribe(response => {

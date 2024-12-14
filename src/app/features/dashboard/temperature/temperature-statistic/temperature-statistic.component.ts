@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { Statistic, ChartSettings, Device, StatisticRequest, ScopeType, Scope } from '@models';
 import { ALL, FilterService, FilterServiceProvider } from '@services/filter-service';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
@@ -40,6 +40,10 @@ import { MatCard, MatCardContent } from '@angular/material/card';
     ]
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {
+  private statisticService = inject(StatisticService);
+  private filterService = inject(FilterService);
+  private deviceService = inject(DeviceService);
+
   @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
   default = ALL;
   statistic: Statistic[] = [];
@@ -50,9 +54,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
 
   currentSelection: (Device | string)[] = [];
 
-  constructor(private statisticService: StatisticService,
-    private filterService: FilterService,
-    private deviceService: DeviceService) { }
+  constructor() { }
 
   ngOnDestroy(): void {
     this.filterService.destroy();

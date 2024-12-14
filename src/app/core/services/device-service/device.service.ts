@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ENV, IEnvironment   } from '@env';
 import { Device, DeviceStatus } from '@models';
@@ -7,8 +7,10 @@ import { DeviceService } from './device-service';
 
 @Injectable()
 export class DeviceServiceImpl extends DeviceService {
+  private httpclient = inject(HttpClient);
   
-  public constructor(@Inject(ENV) env: IEnvironment, private httpclient: HttpClient) {
+  constructor() {
+    const env = inject<IEnvironment>(ENV);
     super(env, 'device');
   }
 

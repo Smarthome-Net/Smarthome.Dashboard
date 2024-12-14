@@ -23,7 +23,7 @@ const batteryThresholds = {
 export class BatteryStatusComponent {
 
   @Input()
-  public value = 0;
+  value = 0;
 
   batteryThresholds = batteryThresholds;
 

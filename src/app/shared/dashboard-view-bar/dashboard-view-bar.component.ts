@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -12,8 +12,9 @@ import { MatDivider } from '@angular/material/divider';
     imports: [MatIconButton, MatTooltip, MatIcon, MatDivider]
 })
 export class DashboardViewBarComponent implements OnInit {
+  private location = inject(Location);
 
-  constructor(private location: Location) { }
+  constructor() { }
 
   ngOnInit() {
   }

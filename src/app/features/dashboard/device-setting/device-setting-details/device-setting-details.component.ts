@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
@@ -36,6 +36,10 @@ import { MatButton } from '@angular/material/button';
   ]
 })
 export class DeviceSettingDetailsComponent implements OnInit {
+  private deviceService = inject(DeviceService);
+  private route = inject(ActivatedRoute);
+  private formBuilder = inject(FormBuilder);
+
   deviceStatus?: DeviceStatus;
 
   deviceForm = this.formBuilder.group({
@@ -51,8 +55,7 @@ export class DeviceSettingDetailsComponent implements OnInit {
   });
 
   private device?: Device;
-  constructor(private deviceService: DeviceService,
-    private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

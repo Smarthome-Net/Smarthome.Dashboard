@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Device, } from '@models';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
 import { FilterService, ALL, FilterServiceProvider } from '@services/filter-service';
@@ -18,15 +18,16 @@ import { MatOption } from '@angular/material/core';
     ]
 })
 export class DeviceFilterComponent implements OnInit {
-  public default = ALL;
-  public selectedRoom = ALL;
-  public rooms: Device[] = [];
+  private filterService = inject(FilterService);
+  private deviceService = inject(DeviceService);
 
-  public selectedDevice = '';
-  public devices: Device[] = [];
+  default = ALL;
+  selectedRoom = ALL;
+  rooms: Device[] = [];
+  selectedDevice = '';
+  devices: Device[] = [];
 
-  constructor(private filterService: FilterService,
-    private deviceService: DeviceService) { }
+  constructor() { }
 
   ngOnInit() {
     this.deviceService.getAllDevices()
@@ -39,7 +40,7 @@ export class DeviceFilterComponent implements OnInit {
       })
   }
 
-  public roomChange(value: string): void {
+  roomChange(value: string): void {
     this.filterService.updateScope(value)
 
     if (value === ALL) {
@@ -56,7 +57,7 @@ export class DeviceFilterComponent implements OnInit {
     });
   }
 
-  public deviceChange(value: string, skipFilter = true): void {
+  deviceChange(value: string, skipFilter = true): void {
     this.selectedDevice = value;
     let scopeValue = this.selectedRoom;
 

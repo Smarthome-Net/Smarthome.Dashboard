@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Setting } from '@models';
 import { SettingService, SettingServiceProvider } from '@services/setting-service';
 import { CommonSettingComponent } from './common-setting/common-setting.component';
@@ -28,9 +28,11 @@ const templateMap: { [key: string]: any } = {
     ]
 })
 export class SettingComponent implements OnInit {
-  public settings: Setting[] = []
-   
-  constructor(private settingService: SettingService) { }
+  private settingService = inject(SettingService);
+
+  settings: Setting[] = []
+
+  constructor() { }
 
   ngOnInit() {
     this.settingService.getAllSettings().subscribe(settings => {

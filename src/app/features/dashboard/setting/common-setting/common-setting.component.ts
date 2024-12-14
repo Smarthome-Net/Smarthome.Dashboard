@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonSetting } from '@models';
 import { SettingService, SettingServiceProvider } from '@services/setting-service';
@@ -14,6 +14,9 @@ import { MatButton } from '@angular/material/button';
     providers: [SettingServiceProvider]
 })
 export class CommonSettingComponent implements OnInit {
+  private settingService = inject(SettingService);
+  private formBuilder = inject(FormBuilder);
+
 
   commonSettingForm = this.formBuilder.group({
     title: this.formBuilder.control(""),
@@ -27,8 +30,7 @@ export class CommonSettingComponent implements OnInit {
 
   private resetValue = '';
 
-  constructor(private settingService: SettingService, private formBuilder: FormBuilder) { 
-  }
+  constructor() { }
 
   ngOnInit() {
     this.settingService.getCommonSetting().subscribe(setting => {
