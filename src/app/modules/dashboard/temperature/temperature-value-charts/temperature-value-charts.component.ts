@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { PageEvent, MatPaginator, MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
@@ -10,6 +10,7 @@ import { TempareturChartOptions } from './temperature-chart-options';
 import { DashboardViewBarComponent, DashboardViewActionsDirective, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
 import { DeviceFilterComponent } from '@shared/device-filter';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
+import { GermanPaginatorIntl, matPaginatorOptions } from '@shared/paginator';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -26,6 +27,8 @@ import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
     MatPaginator
   ],
   providers: [
+    { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: matPaginatorOptions },
+    { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl },
     TemperatureChartServiceProider,
     FilterServiceProvider,
     TemperatureChartHubServiceProvider
