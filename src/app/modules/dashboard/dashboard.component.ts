@@ -13,7 +13,16 @@ import { RouterOutlet } from '@angular/router';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    imports: [MatToolbar, MatIconButton, MatIcon, MatSidenavContainer, MatSidenav, NavbarComponent, NavbarCollapsedComponent, MatSidenavContent, RouterOutlet]
+    imports: [MatToolbar, 
+      MatIconButton, 
+      MatIcon, 
+      MatSidenavContainer, 
+      MatSidenav, 
+      NavbarComponent, 
+      NavbarCollapsedComponent, 
+      MatSidenavContent, 
+      RouterOutlet
+    ]
 })
 export class DashboardComponent {
   @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
