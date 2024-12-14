@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NavMenu } from '@models';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -25,7 +25,7 @@ import { RouterOutlet } from '@angular/router';
     ]
 })
 export class DashboardComponent {
-  @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
+  readonly trigger = viewChild(MatMenuTrigger);
   
   isCollapsed = true;
 

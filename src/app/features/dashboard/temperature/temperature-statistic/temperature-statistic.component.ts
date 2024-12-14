@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { Statistic, ChartSettings, Device, StatisticRequest, ScopeType, Scope } from '@models';
 import { ALL, FilterService, FilterServiceProvider } from '@services/filter-service';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
@@ -44,7 +44,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private deviceService = inject(DeviceService);
 
-  @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
+  readonly chart = viewChild<ChartComponent>("temperatureChart");
   default = ALL;
   statistic: Statistic[] = [];
 

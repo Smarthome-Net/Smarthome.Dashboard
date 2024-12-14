@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { PageEvent, MatPaginator, MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
@@ -43,7 +43,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     value: "",
   }
 
-  @ViewChild("temperatureChart", { static: false }) chart?: ChartComponent;
+  readonly chart = viewChild<ChartComponent>("temperatureChart");
 
   data: Temperature[] = [];
 
