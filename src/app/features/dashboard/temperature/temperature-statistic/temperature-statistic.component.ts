@@ -6,7 +6,7 @@ import { StatisticService, StatisticServiceProvider } from '@services/statistic-
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
 import { StatisticChartOptions } from './statistic-chart-options';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
-import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar/';
+import { DashboardViewBarComponent, DashboardViewTitleDirective, DashboardViewActionsDirective } from '@shared/dashboard-view-bar/';
 import { DeviceFilterComponent } from '@shared/device-filter';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
@@ -20,7 +20,8 @@ import { MatCard, MatCardContent } from '@angular/material/card';
     templateUrl: './temperature-statistic.component.html',
     styleUrls: ['./temperature-statistic.component.scss'],
     imports: [ DashboardViewBarComponent, 
-      DashboardViewTitleDirective, 
+      DashboardViewTitleDirective,
+      DashboardViewActionsDirective, 
       DeviceFilterComponent, 
       MatFormField, 
       MatLabel, 

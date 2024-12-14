@@ -1,4 +1,4 @@
 import { Directive } from '@angular/core';
 
-@Directive({ selector: '[dashboardViewTitle], app-dashboard-view-title' })
+@Directive({ selector: '[dashboardViewTitle]' })
 export class DashboardViewTitleDirective { }

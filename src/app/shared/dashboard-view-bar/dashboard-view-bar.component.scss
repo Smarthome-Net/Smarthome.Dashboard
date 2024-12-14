@@ -9,12 +9,4 @@
         column-gap: mp.power(1);
         align-items: baseline;
     }
-
-    ::ng-deep {
-        app-dashboard-view-title {
-            display: flex;
-            column-gap: mp.power(1);
-            align-items: baseline;
-        }
-    }
 }

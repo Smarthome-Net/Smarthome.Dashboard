@@ -1,25 +1,23 @@
 <app-dashboard-view-bar>
   <h1 dashboardViewTitle>Temperatur Statistik</h1>
-  <app-dashboard-view-title>
-    <app-device-filter></app-device-filter>
-    <mat-form-field color="accent" class="form-field">
-      <mat-label>Vergleichen</mat-label>
-      <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
-        <mat-option value="all">Alle</mat-option>
-        @for (gruop of deviceGroup; track gruop) {
-          <mat-optgroup [label]="gruop.key">
-            @for (device of gruop.devices; track device) {
-              <mat-option [value]="device">{{device.name}}</mat-option>
-            }
-          </mat-optgroup>
-        }
-      </mat-select>
-    </mat-form-field>
-    <button mat-button color="accent" (click)="reset()">
-      <mat-icon>undo</mat-icon>
-      Zurücksetzen
-    </button>
-  </app-dashboard-view-title>
+  <app-device-filter dashboardViewActions></app-device-filter>
+  <mat-form-field dashboardViewActions color="accent" class="form-field">
+    <mat-label>Vergleichen</mat-label>
+    <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
+      <mat-option value="all">Alle</mat-option>
+      @for (gruop of deviceGroup; track gruop) {
+        <mat-optgroup [label]="gruop.key">
+          @for (device of gruop.devices; track device) {
+            <mat-option [value]="device">{{device.name}}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button dashboardViewActions mat-button color="accent" (click)="reset()">
+    <mat-icon>undo</mat-icon>
+    Zurücksetzen
+  </button>
 </app-dashboard-view-bar>
 
 <mat-card>
