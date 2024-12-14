@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild, input } from '@angular/core';
+import { Component, ViewChild, input, output } from '@angular/core';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { NavMenu } from '@models';
 import { MatNavList, MatListItem, MatActionList } from '@angular/material/list';
@@ -18,7 +18,7 @@ export class NavbarCollapsedComponent {
 
   readonly navMenu = input<NavMenu[]>([]);
 
-  @Output() onCollapse: EventEmitter<boolean> = new EventEmitter();
+  readonly onCollapse = output<boolean>();
 
   canMenuOpen(index: number) {
     if (this.navMenu()[index].children) {
