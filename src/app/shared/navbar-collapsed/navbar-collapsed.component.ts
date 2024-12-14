@@ -22,7 +22,7 @@ export class NavbarCollapsedComponent {
   canMenuOpen(index: number) {
     if (this.navMenu()[index].children) {
       this.trigger()?.openMenu();
-      timer(3000).subscribe(() => {
+      timer(5000).subscribe(() => {
         this.trigger()?.closeMenu();
       })
     }
