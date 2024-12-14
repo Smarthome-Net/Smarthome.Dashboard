@@ -1,4 +1,4 @@
-<div matTooltip="{{value | percent : '1.2'}}" matTooltipPosition="right">
+<div matTooltip="{{value() | percent : '1.2'}}" matTooltipPosition="right">
   @if (isFull()) {
     <mat-icon color="primary">battery_full</mat-icon>
   }

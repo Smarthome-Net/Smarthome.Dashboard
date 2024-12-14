@@ -1,5 +1,5 @@
 <mat-nav-list>
-  @for (item of navMenu; track item; let index = $index) {
+  @for (item of navMenu(); track item; let index = $index) {
     <a (mouseenter)="canMenuOpen(index)" [matTooltip]="item.displayText" matTooltipPosition="after" mat-list-item [routerLink]="[item.link]" [routerLinkActive]="'active-link'" #routerLinkActive="routerLinkActive">
       <div class="nav-list-content">
         <mat-icon>{{item.icon}}</mat-icon>

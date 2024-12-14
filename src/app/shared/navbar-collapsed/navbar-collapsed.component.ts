@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, input } from '@angular/core';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { NavMenu } from '@models';
 import { MatNavList, MatListItem, MatActionList } from '@angular/material/list';
@@ -16,12 +16,12 @@ import { MatIcon } from '@angular/material/icon';
 export class NavbarCollapsedComponent {
   @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
 
-  @Input() navMenu: NavMenu[] = [];
+  readonly navMenu = input<NavMenu[]>([]);
 
   @Output() onCollapse: EventEmitter<boolean> = new EventEmitter();
 
   canMenuOpen(index: number) {
-    if (this.navMenu[index].children) {
+    if (this.navMenu()[index].children) {
       this.trigger?.openMenu();
     }
   }

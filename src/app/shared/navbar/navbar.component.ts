@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 import { NavMenu } from '@models';
 import { MatNavList, MatListItem, MatActionList } from '@angular/material/list';
 
@@ -14,7 +14,7 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 })
 export class NavbarComponent {
 
-  @Input() navMenu: NavMenu[] = [];
+  readonly navMenu = input<NavMenu[]>([]);
 
   @Output() onCollapse: EventEmitter<boolean> = new EventEmitter();
 }

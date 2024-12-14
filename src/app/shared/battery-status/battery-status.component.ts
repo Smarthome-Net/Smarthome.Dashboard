@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { PercentPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -22,20 +22,19 @@ const batteryThresholds = {
 })
 export class BatteryStatusComponent {
 
-  @Input()
-  value = 0;
+  readonly value = input(0);
 
   batteryThresholds = batteryThresholds;
 
   isFull() {
-    return this.value >= this.batteryThresholds.veryHigh;
+    return this.value() >= this.batteryThresholds.veryHigh;
   }
 
   isEmpty() {
-    return this.value <= this.batteryThresholds.veryLow;
+    return this.value() <= this.batteryThresholds.veryLow;
   }
 
   isInRange(min: number, max: number) {
-    return this.value >= min && this.value < max;
+    return this.value() >= min && this.value() < max;
   }
 }

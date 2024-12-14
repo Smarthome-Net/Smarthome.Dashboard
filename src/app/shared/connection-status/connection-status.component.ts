@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -10,9 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class ConnectionStatusComponent {
 
-  @Input()
-  connectionStatus = 0;
+  readonly connectionStatus = input(0);
 
-  @Input()
-  icons = { on: '', off: '' }
+  readonly icons = input({ on: '', off: '' });
 }
