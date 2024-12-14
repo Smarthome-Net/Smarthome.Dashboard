@@ -5,13 +5,12 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { SharedModule } from '@shared/shared.module';
 import { ENV, getEnv } from '@env';
 import { AppRoutingModule, AppComponent } from '@app';
-import { CoreModule } from '@core';
 
 
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, CoreModule, SharedModule),
+        importProvidersFrom(BrowserModule, AppRoutingModule, SharedModule),
         { provide: ENV, useFactory: getEnv },
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations()

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Statistic, ChartSettings, Device, StatisticRequest, ScopeType, Scope } from '@models';
-import { ALL, FilterService } from '@services/filter-service';
-import { DeviceService } from '@services/device-service';
-import { StatisticService } from '@services/statistic-service';
+import { ALL, FilterService, FilterServiceProvider } from '@services/filter-service';
+import { DeviceService, DeviceServiceProvider } from '@services/device-service';
+import { StatisticService, StatisticServiceProvider } from '@services/statistic-service';
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
 import { StatisticChartOptions } from './statistic-chart-options';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
@@ -32,6 +32,11 @@ import { MatCard, MatCardContent } from '@angular/material/card';
       MatCard, 
       MatCardContent, 
       ChartComponent
+    ],
+    providers: [
+      FilterServiceProvider,
+      DeviceServiceProvider,
+      StatisticServiceProvider
     ]
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {

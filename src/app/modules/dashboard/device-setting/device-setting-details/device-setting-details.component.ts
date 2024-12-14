@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
-import { DeviceService } from '@services/device-service';
+import { DeviceService, DeviceServiceProvider } from '@services/device-service';
 import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
 import { ConnectionStatusComponent } from '@shared/connection-status';
@@ -30,6 +30,9 @@ import { MatButton } from '@angular/material/button';
     MatInput,
     MatCardActions,
     MatButton
+  ],
+  providers: [
+    DeviceServiceProvider
   ]
 })
 export class DeviceSettingDetailsComponent implements OnInit {
