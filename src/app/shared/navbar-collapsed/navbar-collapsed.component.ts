@@ -6,6 +6,7 @@ import { MatNavList, MatListItem, MatActionList } from '@angular/material/list';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { timeout, timer } from 'rxjs';
 
 @Component({
     selector: 'app-navbar-collapsed',
@@ -15,14 +16,15 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class NavbarCollapsedComponent {
   readonly trigger = viewChild(MatMenuTrigger);
-
   readonly navMenu = input<NavMenu[]>([]);
-
   readonly onCollapse = output<boolean>();
 
   canMenuOpen(index: number) {
     if (this.navMenu()[index].children) {
       this.trigger()?.openMenu();
+      timer(3000).subscribe(() => {
+        this.trigger()?.closeMenu();
+      })
     }
   }
 }

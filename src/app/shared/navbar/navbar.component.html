@@ -1,6 +1,6 @@
 <mat-nav-list>
   @for (item of navMenu(); track item; let index = $index) {
-    <a mat-list-item [routerLink]="[item.link]" [routerLinkActive]="'active-link'" #routerLinkActive="routerLinkActive">
+    <a [class]="{'nav-item': !item.children || !routerLinkActive.isActive}" mat-list-item [routerLink]="[item.link]" [routerLinkActive]="'active-link'" #routerLinkActive="routerLinkActive">
       <div class="nav-list-content">
         <mat-icon>{{item.icon}}</mat-icon>
         <span>{{item.displayText}}</span>
