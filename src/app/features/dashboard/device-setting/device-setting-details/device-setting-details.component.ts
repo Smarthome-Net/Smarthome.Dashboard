@@ -3,10 +3,15 @@ import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angu
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
-import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
-import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
-import { ConnectionStatusComponent } from '@shared/connection-status';
-import { BatteryStatusComponent } from '@shared/battery-status/';
+import { DashboardViewBarComponent, 
+  DashboardViewTitleDirective, 
+  ConnectionStatusComponent, 
+  BatteryStatusComponent } from '@shared';
+import { MatCard, 
+  MatCardHeader, 
+  MatCardTitle, 
+  MatCardContent, 
+  MatCardActions } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';

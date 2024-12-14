@@ -7,10 +7,13 @@ import { TemperatureChartService, TemperatureChartServiceProider } from '@servic
 import { FilterService, FilterServiceProvider } from '@services/filter-service';
 import { TemperatureChartHubService, TemperatureChartHubServiceProvider } from '@services/temperature-chart-hub';
 import { TempareturChartOptions } from './temperature-chart-options';
-import { DashboardViewBarComponent, DashboardViewActionsDirective, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
-import { DeviceFilterComponent } from '@shared/device-filter';
+import { DashboardViewBarComponent, 
+  DashboardViewActionsDirective, 
+  DashboardViewTitleDirective, 
+  DeviceFilterComponent, 
+  GermanPaginatorIntl, 
+  matPaginatorOptions } from '@shared';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
-import { GermanPaginatorIntl, matPaginatorOptions } from '@shared/paginator';
 
 @Component({
   selector: 'app-temperature-value-charts',
