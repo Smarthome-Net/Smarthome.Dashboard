@@ -9,7 +9,7 @@
       <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></div>
       <mat-menu class="nav-child-menu" #menu="matMenu">
         @for (children of item.children; track children) {
-          <a [matTooltip]="children.displayText" matTooltipPosition="after" mat-menu-item class="nav-child-menu-item" [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
+          <a class="nav-child-menu-item" [matTooltip]="children.displayText" matTooltipPosition="after" mat-menu-item  [routerLink]="[children.link]" [routerLinkActive]="'active-link'">
             <mat-icon>{{children.icon}}</mat-icon>
           </a>
         }
