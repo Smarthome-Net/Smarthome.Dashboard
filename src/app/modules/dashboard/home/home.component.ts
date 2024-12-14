@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardViewBarComponent } from '../../../shared/dashboard-view-bar/dashboard-view-bar.component';
-import { DashboardViewTitleDirective } from '../../../shared/dashboard-view-bar/dashboard-view-title.directive';
+import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
 
 @Component({
     selector: 'app-home',

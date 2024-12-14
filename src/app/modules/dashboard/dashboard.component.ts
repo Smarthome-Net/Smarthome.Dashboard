@@ -5,9 +5,8 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
-
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { NavbarCollapsedComponent } from '../../shared/navbar-collapsed/navbar-collapsed.component';
+import { NavbarComponent } from '@shared/navbar';
+import { NavbarCollapsedComponent } from '@shared/navbar-collapsed';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

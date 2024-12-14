@@ -7,6 +7,4 @@ import { RouterOutlet } from '@angular/router';
     styleUrls: ['./app.component.scss'],
     imports: [RouterOutlet]
 })
-export class AppComponent {
-  title = 'SmarthomeDashboard';
-}
+export class AppComponent { }

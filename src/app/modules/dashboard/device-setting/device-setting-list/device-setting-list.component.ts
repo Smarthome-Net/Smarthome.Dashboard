@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '@models';
 import { DeviceService } from '@services/device-service';
-import { DashboardViewBarComponent } from '../../../../shared/dashboard-view-bar/dashboard-view-bar.component';
-import { DashboardViewTitleDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-title.directive';
+import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatTable,
+  MatColumnDef, 
+  MatHeaderCellDef, 
+  MatHeaderCell, 
+  MatCellDef, 
+  MatCell, 
+  MatHeaderRowDef, 
+  MatHeaderRow, 
+  MatRowDef, 
+  MatRow } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -14,7 +22,25 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-device-setting-list',
     templateUrl: './device-setting-list.component.html',
     styleUrls: ['./device-setting-list.component.scss'],
-    imports: [DashboardViewBarComponent, DashboardViewTitleDirective, MatCard, MatCardContent, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatTooltip, MatIconAnchor, RouterLink, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
+    imports: [DashboardViewBarComponent, 
+      DashboardViewTitleDirective, 
+      MatCard, 
+      MatCardContent, 
+      MatTable, 
+      MatColumnDef, 
+      MatHeaderCellDef, 
+      MatHeaderCell, 
+      MatCellDef, 
+      MatCell, 
+      MatTooltip, 
+      MatIconAnchor, 
+      RouterLink, 
+      MatIcon, 
+      MatHeaderRowDef, 
+      MatHeaderRow, 
+      MatRowDef, 
+      MatRow
+    ]
 })
 export class DeviceSettingListComponent implements OnInit {
 

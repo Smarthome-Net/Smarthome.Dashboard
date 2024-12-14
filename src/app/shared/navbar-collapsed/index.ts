@@ -1,0 +1,1 @@
+export * from './navbar-collapsed.component';

@@ -7,10 +7,8 @@ import { TemperatureChartService } from '@services/temperature-chart-service';
 import { FilterService } from '@services/filter-service';
 import { TemperatureChartHubService } from '@services/temperature-chart-hub';
 import { TempareturChartOptions } from './temperature-chart-options';
-import { DashboardViewBarComponent } from '../../../../shared/dashboard-view-bar/dashboard-view-bar.component';
-import { DashboardViewTitleDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-title.directive';
-import { DashboardViewActionsDirective } from '../../../../shared/dashboard-view-bar/dashboard-view-actions.directive';
-import { DeviceFilterComponent } from '../../../../shared/device-filter/device-filter.component';
+import { DashboardViewBarComponent, DashboardViewActionsDirective, DashboardViewTitleDirective } from '@shared/dashboard-view-bar';
+import { DeviceFilterComponent } from '@shared/device-filter';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
 
 @Component({
