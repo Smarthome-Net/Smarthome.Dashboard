@@ -14,6 +14,7 @@ import { DashboardViewBarComponent,
   GermanPaginatorIntl, 
   matPaginatorOptions } from '@shared';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
+import { DeviceServiceProvider } from '@services/device-service';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -34,7 +35,8 @@ import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
     { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl },
     TemperatureChartServiceProider,
     FilterServiceProvider,
-    TemperatureChartHubServiceProvider
+    TemperatureChartHubServiceProvider,
+    DeviceServiceProvider
   ]
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
