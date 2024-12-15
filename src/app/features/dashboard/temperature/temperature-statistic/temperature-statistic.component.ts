@@ -17,6 +17,12 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard, MatCardContent } from '@angular/material/card';
 
+const Labels: { [key: string]: string } = {
+  'min': 'Min',
+  'max': 'Max',
+  'average': 'Durchschnitt'
+}
+
 @Component({
     selector: 'app-temperature-statistic',
     templateUrl: './temperature-statistic.component.html',
@@ -121,6 +127,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         if(withReset) {
           this.statistic = [];
+          this.currentSelection = [];
         }
         if (response.scope.scopeType === ScopeType.All) {
           response.statistic.name = 'Alle';
@@ -202,18 +209,12 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
         name: statistic.name,
         data: statistic.series.map(s => {
           return {
-            x: this.nameMap[s.name],
+            x: Labels[s.name],
             y: s.value
           }
         })
       }
     })
-  }
-
-  private nameMap: { [key: string]: string } = {
-    'min': 'Min',
-    'max': 'Max',
-    'average': 'Durchschnitt'
   }
 
   private isAddition(currentLength: number, eventLength: number) {
