@@ -46,7 +46,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     value: "",
   }
 
-  readonly chart = viewChild<ChartComponent>("temperatureChart");
+  readonly chart = viewChild(ChartComponent);
 
   data: Temperature[] = [];
 

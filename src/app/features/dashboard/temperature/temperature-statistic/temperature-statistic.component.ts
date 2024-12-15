@@ -47,7 +47,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private deviceService = inject(DeviceService);
 
-  readonly chart = viewChild<ChartComponent>("temperatureChart");
+  readonly chart = viewChild(ChartComponent);
   default = ALL;
   statistic: Statistic[] = [];
 

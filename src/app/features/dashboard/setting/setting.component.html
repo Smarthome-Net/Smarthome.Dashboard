@@ -9,7 +9,7 @@
         <mat-panel-title>{{setting.description}}</mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <ng-template [ngComponentOutlet]="getTemplate(setting.type)"></ng-template>
+        <ng-template #settingForm [ngComponentOutlet]="getTemplate(setting.type)"></ng-template>
       </ng-template>
     </mat-expansion-panel>
   }
