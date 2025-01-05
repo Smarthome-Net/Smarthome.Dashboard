@@ -1,0 +1,1 @@
+export * from './color-preset-picker.component';

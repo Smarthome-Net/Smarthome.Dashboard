@@ -13,7 +13,8 @@
         <mat-label>Anzahl der angezeigten Elemente pro Seite</mat-label>
         <input matInput [formControl]="commonSettingForm.controls.pageLength">
     </mat-form-field>
-
+    
+    <app-color-preset-picker></app-color-preset-picker>
 
     <form class="color-form" [formGroup]="commonSettingForm.controls.color">
         <mat-form-field color="accent">

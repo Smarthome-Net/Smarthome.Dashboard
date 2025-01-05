@@ -6,6 +6,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ColorPresetPickerComponent } from '@shared';
 
 type SnackMessage = { 
   message: string,
@@ -37,7 +38,8 @@ const Messages: { [key: number]: SnackMessage } = {
       MatFormField, 
       MatLabel, 
       MatInput,
-      MatButton
+      MatButton,
+      ColorPresetPickerComponent,
     ]
 })
 export class CommonSettingComponent implements OnInit {

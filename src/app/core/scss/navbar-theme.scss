@@ -1,16 +1,9 @@
-@use 'sass:map';
-@use '@angular/material' as mat;
-
-@mixin color($theme) {
-    $color-config: mat.m2-get-color-config($theme);
-    $primary-palette: map.get($color-config, 'primary');
-
+@mixin theme() {
     .active-link {
-        background-color: mat.m2-get-color-from-palette($primary-palette, 500) !important;
+        background-color: var(--mat-sys-inverse-primary) !important;
     }
 
-    .active-link .mdc-list-item__primary-text, 
-    .active-link .mat-icon-no-color {
-        color: mat.m2-get-color-from-palette($primary-palette, '500-contrast') !important;
+    .mat-toolbar {
+        box-shadow: var(--mat-sys-level4);
     }
 }

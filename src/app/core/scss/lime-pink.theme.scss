@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+@use './lime-theme-colors.scss' as lm;
+@use './navbar-theme.scss' as nav;
+
+html {
+  $colors: (
+    color: (
+      theme-type: light,
+      primary: lm.$primary-palette,
+      tertiary: lm.$tertiary-palette	
+    )
+  );
+
+  @include mat.theme($colors);
+  @include nav.theme();
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-inverse-primary),
+  ));
+
+  @include mat.sidenav-overrides((
+    container-width: fit-content,
+    container-divider-color: rgba(0,0,0,0.12),
+    container-shape: none,
+    container-background-color: var(--mat-sys-surface-container-lowest),
+    content-background-color: var(--mat-sys-surface-container-lowest)
+  ));
+
+  @include mat.card-overrides((
+    outlined-container-color: var(--mat-sys-surface-container-lowest),
+    outlined-outline-color: rgba(0,0,0,0.12),
+    outlined-container-elevation: var(--mat-sys-level3)
+  ));
+
+  @include mat.paginator-overrides((
+    container-background-color: none,
+  ));
+
+  @include mat.list-overrides((
+    active-indicator-shape: 0
+  ));
+}

@@ -5,3 +5,4 @@ export * from './dashboard-view-bar';
 export * from './device-filter';
 export * from './navbar';
 export * from './navbar-collapsed';
+export * from './color-preset-picker';

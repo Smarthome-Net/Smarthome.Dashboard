@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'margin-padding-utils.scss' as mp;
 
-@use 'theme.scss';
-
 html,
 body {
     height: 100%;
@@ -13,8 +11,24 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.w-100 {
+    width: 100%;
+}
+
+.w-500 {
+    width: 500px;
+}
+
+.mat-mdc-menu-panel {
+    max-width: none !important;
+}
+
 .mat-mdc-optgroup .mat-mdc-option {
     padding-left: mp.power(4);
+}
+
+.mat-mdc-option .mdc-list-item__primary-text {
+    width: 100%;
 }
 
 .h-100 {
