@@ -1,7 +1,7 @@
 <app-dashboard-view-bar>
   <h1 dashboardViewTitle>Temperatur Statistik</h1>
   <app-device-filter dashboardViewActions></app-device-filter>
-  <mat-form-field dashboardViewActions color="accent" class="form-field">
+  <mat-form-field class="secondary" dashboardViewActions class="form-field">
     <mat-label>Vergleichen</mat-label>
     <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
       <mat-option value="all">Alle</mat-option>
@@ -14,7 +14,7 @@
       }
     </mat-select>
   </mat-form-field>
-  <button dashboardViewActions mat-button color="accent" (click)="reset()">
+  <button class="secondary" dashboardViewActions mat-button (click)="reset()">
     <mat-icon>undo</mat-icon>
     Zurücksetzen
   </button>

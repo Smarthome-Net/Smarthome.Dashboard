@@ -11,8 +11,7 @@ import { DashboardViewBarComponent,
   DashboardViewActionsDirective, 
   DashboardViewTitleDirective, 
   DeviceFilterComponent, 
-  GermanPaginatorIntl, 
-  matPaginatorOptions } from '@shared';
+  GermanPaginatorIntl } from '@shared';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
 import { DeviceServiceProvider } from '@services/device-service';
 
@@ -31,7 +30,6 @@ import { DeviceServiceProvider } from '@services/device-service';
     MatPaginator
   ],
   providers: [
-    { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: matPaginatorOptions },
     { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl },
     TemperatureChartServiceProider,
     FilterServiceProvider,

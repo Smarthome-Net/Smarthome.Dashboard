@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatPaginatorDefaultOptions, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
-
-export const matPaginatorOptions: MatPaginatorDefaultOptions = {
-  formFieldAppearance: 'fill',
-};
 
 @Injectable()
 export class GermanPaginatorIntl implements MatPaginatorIntl {

@@ -1,0 +1,99 @@
+@use '@angular/material' as mat;
+
+@mixin theme($colors) {
+    @include mat.theme($colors);
+
+    @include mat.toolbar-overrides((
+        container-background-color: var(--mat-sys-inverse-primary),
+        container-text-color: var(--mat-sys-on-primary-container)
+    ));
+
+    @include mat.sidenav-overrides((
+        container-width: fit-content,
+        container-divider-color: rgba(0, 0, 0, 0.12),
+        container-shape: none,
+        container-background-color: var(--mat-sys-surface-container-lowest),
+        content-background-color: var(--mat-sys-surface-container-lowest)
+    ));
+
+    @include mat.card-overrides((
+        outlined-container-color: var(--mat-sys-surface-container-lowest),
+        outlined-outline-color: rgba(0, 0, 0, 0.12),
+        outlined-container-elevation: var(--mat-sys-level3)
+    ));
+
+    @include mat.paginator-overrides((
+        container-background-color: none,
+    ));
+
+    @include mat.list-overrides((
+        active-indicator-shape: 0
+    ));
+
+    @include mat.menu-overrides((
+        container-color: var(--mat-sys-surface-container-lowest),
+    ));
+
+    @include mat.select-overrides((
+        panel-background-color: var(--mat-sys-surface-container-lowest),
+    ));
+
+    @include mat.table-overrides((
+        background-color: var(--mat-sys-surface-container-lowest),
+    ));
+
+    @include mat.expansion-overrides((
+        container-background-color: var(--mat-sys-surface-container-lowest),
+    ));
+
+    .primary {
+        @include mat.icon-overrides((
+            color: var(--mat-sys-primary)
+        ))
+    }
+
+    .secondary {
+        @include mat.icon-overrides((
+            color: var(--mat-sys-secondary)
+        ));
+
+        @include mat.button-overrides((
+            filled-container-color: var(--mat-sys-secondary),
+            outlined-outline-color: var(--mat-sys-secondary),
+            filled-label-text-color: var(--mat-sys-on-secondary),
+
+            protected-container-color: var(--mat-sys-secondary-container),
+            protected-label-text-color: var(--mat-sys-on-secondary-container),
+            protected-state-layer-color: var(--mat-sys-secondary),
+            protected-ripple-color: var(--mat-sys-secondary-fixed),
+
+            text-label-text-color: var(--mat-sys-secondary),
+            text-state-layer-color: var(--mat-sys-secondary),
+            text-ripple-color: var(--mat-sys-secondary-fixed)
+        ));
+
+        @include mat.icon-button-overrides((
+            state-layer-color: var(--mat-sys-secondary),
+            ripple-color: var(--mat-sys-secondary-fixed)
+        ));
+    }
+
+    .error {
+        @include mat.icon-overrides((
+            color: var(--mat-sys-error)
+        ));
+
+        @include mat.button-overrides((
+            text-label-text-color: var(--mat-sys-error),
+            text-state-layer-color: var(--mat-sys-error),
+        ));
+    }
+
+    .active-link {
+        background-color: var(--mat-sys-inverse-primary) !important;
+    }
+
+    .mat-toolbar {
+        box-shadow: var(--mat-sys-level4);
+    }
+}

@@ -2,7 +2,7 @@
   <h1 dashboardViewTitle>Details</h1>
 </app-dashboard-view-bar>
 
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>Status</mat-card-title>
   </mat-card-header>
@@ -38,7 +38,7 @@
 </mat-card>
 
 
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>Einstellungen</mat-card-title>
   </mat-card-header>
@@ -46,17 +46,17 @@
     <form [formGroup]="deviceForm">
       <h3>Allgemein</h3>
       <div class="device-settings-input-container">
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>Raum</mat-label>
           <input [formControl]="deviceForm.controls.room" matInput>
         </mat-form-field>
 
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>Bezeichnung/Standort in Raum</mat-label>
           <input [formControl]="deviceForm.controls.name" matInput>
         </mat-form-field>
 
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>Interval in Min.</mat-label>
           <input [formControl]="deviceForm.controls.configuration.controls.interval" matInput type="number">
         </mat-form-field>
@@ -64,12 +64,12 @@
 
       <h3>MQTT</h3>
       <div class="device-settings-input-container">
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>MQTT Host</mat-label>
           <input [formControl]="deviceForm.controls.configuration.controls.mqttHost" matInput>
         </mat-form-field>
 
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>MQTT Port</mat-label>
           <input [formControl]="deviceForm.controls.configuration.controls.mqttPort" matInput type="number">
         </mat-form-field>
@@ -77,12 +77,12 @@
 
       <h3>Netzwerk</h3>
       <div class="device-settings-input-container">
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>Netzwerk Name</mat-label>
           <input [formControl]="deviceForm.controls.configuration.controls.ssid" matInput>
         </mat-form-field>
 
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>Netzwerk Password</mat-label>
           <input [formControl]="deviceForm.controls.configuration.controls.ssidPassword" matInput type="password">
         </mat-form-field>
@@ -90,7 +90,7 @@
     </form>
   </mat-card-content>
   <mat-card-actions class="device-form-actions-card" align="end">
-    <button mat-button color="accent" (click)="onReset()">Verwerfen</button>
-    <button mat-raised-button color="accent" (click)="onSubmit()">Speichern</button>
+    <button mat-button class="error" (click)="onReset()">Verwerfen</button>
+    <button mat-raised-button class="secondary" (click)="onSubmit()">Speichern</button>
   </mat-card-actions>
 </mat-card>

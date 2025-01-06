@@ -41,6 +41,11 @@
                 "inject": true,
                 "input": "src/app/core/scss/lime-pink.theme.scss",
                 "bundleName": "lime-pink"
+              },
+              {
+                "inject": false,
+                "input": "src/app/core/scss/blue-orange.theme.scss",
+                "bundleName": "blue-orange"
               }
             ],
             "scripts": [

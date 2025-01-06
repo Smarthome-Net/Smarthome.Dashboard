@@ -1,9 +1,0 @@
-@mixin theme() {
-    .active-link {
-        background-color: var(--mat-sys-inverse-primary) !important;
-    }
-
-    .mat-toolbar {
-        box-shadow: var(--mat-sys-level4);
-    }
-}

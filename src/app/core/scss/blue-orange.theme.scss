@@ -1,12 +1,12 @@
-@use './lime-theme-colors.scss' as lm;
+@use './blue-theme-colors.scss' as bo;
 @use './core-theme.scss' as core;
 
 html {
   $colors: (
     color: (
       theme-type: light,
-      primary: lm.$primary-palette,
-      tertiary: lm.$tertiary-palette	
+      primary: bo.$primary-palette,
+      tertiary: bo.$tertiary-palette	
     )
   );
 
