@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NavMenu } from '@models';
+import { MatNavList, MatListItem, MatActionList } from '@angular/material/list';
+
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    imports: [MatNavList, MatListItem, RouterLink, RouterLinkActive, MatIcon, MatMenuTrigger, MatMenu, MatMenuItem, MatActionList]
 })
 export class NavbarComponent {
 
-  @Input() navMenu: NavMenu[] = [];
+  readonly navMenu = input<NavMenu[]>([]);
 
-  @Output() onCollapse: EventEmitter<boolean> = new EventEmitter();
+  readonly onCollapse = output<boolean>();
 }

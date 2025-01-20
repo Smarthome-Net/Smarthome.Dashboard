@@ -1,10 +1,9 @@
-import { PageSetting } from './pageSetting';
+import { PageSetting } from './page-setting';
 import { Scope } from './scope';
 import { Series } from './series';
 
 export interface TemperatureChartResponse {
   scope: Scope;
-  scopeValue: string;
   pageSetting: PageSetting;
   temperatures: Temperature[];
 

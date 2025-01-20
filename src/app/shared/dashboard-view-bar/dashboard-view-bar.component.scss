@@ -1,0 +1,12 @@
+@use 'margin-padding-utils.scss' as mp;
+
+:host {
+    display: block;
+    padding-bottom: mp.power(2);
+    
+    .view-bar {
+        display: flex;
+        column-gap: mp.power(1);
+        align-items: baseline;
+    }
+}

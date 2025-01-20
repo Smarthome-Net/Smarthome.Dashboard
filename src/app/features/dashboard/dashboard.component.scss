@@ -1,0 +1,35 @@
+@use 'margin-padding-utils.scss' as mp;
+
+:host {
+  .dashboard-container {
+    height: calc(100% - mp.power(8));
+  }
+
+  @media (max-width: 599px) {
+    .dashboard-container {
+      height: calc(100% - mp.power(7));
+    }
+  }
+
+  .toolbar {
+    position: relative;
+    z-index: 99;
+  }
+
+  .nav-list-content {
+    display: flex;
+    gap: mp.power(2);
+  }
+
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .content-container {
+    padding: mp.power(2);
+    box-sizing: border-box;
+  }
+}

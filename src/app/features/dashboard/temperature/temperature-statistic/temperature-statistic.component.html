@@ -1,0 +1,36 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Temperatur Statistik</h1>
+  <app-device-filter dashboardViewActions></app-device-filter>
+  <mat-form-field class="secondary" dashboardViewActions class="form-field">
+    <mat-label>Vergleichen</mat-label>
+    <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
+      <mat-option value="all">Alle</mat-option>
+      @for (gruop of deviceGroup; track gruop) {
+        <mat-optgroup [label]="gruop.key">
+          @for (device of gruop.devices; track device) {
+            <mat-option [value]="device">{{device.name}}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button class="secondary" dashboardViewActions mat-button (click)="reset()">
+    <mat-icon>undo</mat-icon>
+    Zurücksetzen
+  </button>
+</app-dashboard-view-bar>
+
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <apx-chart [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [stroke]="chartOptions.stroke!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [legend]="chartOptions.legend!"
+      [markers]="chartOptions.markers!"
+      [grid]="chartOptions.grid!"
+      [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!"
+    #temperatureChart></apx-chart>
+  </mat-card-content>
+</mat-card>

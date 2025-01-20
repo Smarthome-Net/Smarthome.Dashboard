@@ -1,7 +1,7 @@
 
 import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { IEnvironment } from '@env';
 
 export abstract class RestService {
   protected path: string;

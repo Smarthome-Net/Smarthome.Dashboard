@@ -1,5 +1,13 @@
-export abstract class StatisticService {
-    abstract initStatistic(): void;
-    abstract refreshStatistic(): void;
-    abstract resetStatistic(): void;
+import { RestService } from "@base/rest-service";
+import { IEnvironment } from "@env";
+import { StatisticRequest, StatisticResponse } from "@models";
+import { Observable } from "rxjs";
+
+export abstract class StatisticService extends RestService {
+
+    constructor(env: IEnvironment, pathModify = '') {
+        super(env, pathModify);
+    }
+    
+    abstract getStatistic(body: StatisticRequest): Observable<StatisticResponse>;
 }

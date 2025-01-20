@@ -1,0 +1,43 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Geräte übersicht</h1>
+</app-dashboard-view-bar>
+
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <table mat-table [dataSource]="devices">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Raum</th>
+        <td mat-cell *matCellDef="let element"> {{element.room}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef>Bezeichnung/Standort in Raum</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="topic">
+        <th mat-header-cell *matHeaderCellDef>
+          <span matTooltip="Setzt sich aus Raum und Bezeichnung/Standort in Raum zusammen" matTooltipPosition="above">MQTT Topic</span>  
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>Einstellungen & Details</th>
+        <td mat-cell *matCellDef="let element">
+          <a mat-icon-button class="secondary" [routerLink]="[element.id]">
+            <mat-icon>open_in_new</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+

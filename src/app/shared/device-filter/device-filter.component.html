@@ -1,0 +1,18 @@
+<mat-form-field color="accent" class="form-field">
+  <mat-label>Nach Räume Filtern</mat-label>
+  <mat-select [(value)]="selectedRoom" (valueChange)="roomChange($event)">
+    <mat-option [value]="default">Alle</mat-option>
+    @for (device of rooms; track device) {
+      <mat-option [value]="device.room">{{device.room}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+<mat-form-field color="accent">
+  <mat-label>Nach Gerät Filtern</mat-label>
+  <mat-select [(value)]="selectedDevice" [disabled]="selectedRoom === default" (valueChange)="deviceChange($event)">
+    <mat-option [value]="default">Alle</mat-option>
+    @for (device of devices; track device) {
+      <mat-option [value]="device.name">{{device.name}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

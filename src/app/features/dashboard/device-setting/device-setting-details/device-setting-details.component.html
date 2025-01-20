@@ -1,0 +1,96 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Details</h1>
+</app-dashboard-view-bar>
+
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Status</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="h-100">
+    <div class="device-status-container">
+      <div class="device-status-item">
+        <p>
+          <span>Verbindungsstatus WLAN:</span>
+          <app-connection-status [connectionStatus]="deviceStatus?.wifiConnectionStatus!"
+            [icons]="{ on: 'wifi', off: 'wifi_off' }">
+          </app-connection-status>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>
+          <span>Verbindungsstatus MQTT:</span>
+          <app-connection-status [connectionStatus]="deviceStatus?.mqttConnectionStatus!"
+            [icons]="{ on: 'link', off: 'link_off' }">
+          </app-connection-status>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>
+          <span>Batteriestatus:</span>
+          <app-battery-status [value]="deviceStatus?.batteryStatus!"></app-battery-status>
+        </p>
+      </div>
+      <div class="device-status-item">
+        <p>Aktuelle Temperatur: {{deviceStatus?.lastTemperature}}°C</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Einstellungen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="h-100">
+    <form [formGroup]="deviceForm">
+      <h3>Allgemein</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>Raum</mat-label>
+          <input [formControl]="deviceForm.controls.room" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Bezeichnung/Standort in Raum</mat-label>
+          <input [formControl]="deviceForm.controls.name" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Interval in Min.</mat-label>
+          <input [formControl]="deviceForm.controls.configuration.controls.interval" matInput type="number">
+        </mat-form-field>
+      </div>
+
+      <h3>MQTT</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>MQTT Host</mat-label>
+          <input [formControl]="deviceForm.controls.configuration.controls.mqttHost" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>MQTT Port</mat-label>
+          <input [formControl]="deviceForm.controls.configuration.controls.mqttPort" matInput type="number">
+        </mat-form-field>
+      </div>
+
+      <h3>Netzwerk</h3>
+      <div class="device-settings-input-container">
+        <mat-form-field>
+          <mat-label>Netzwerk Name</mat-label>
+          <input [formControl]="deviceForm.controls.configuration.controls.ssid" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Netzwerk Password</mat-label>
+          <input [formControl]="deviceForm.controls.configuration.controls.ssidPassword" matInput type="password">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="device-form-actions-card" align="end">
+    <button mat-button class="error" (click)="onReset()">Verwerfen</button>
+    <button mat-raised-button class="secondary" (click)="onSubmit()">Speichern</button>
+  </mat-card-actions>
+</mat-card>

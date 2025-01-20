@@ -7,8 +7,8 @@ import { IEnvironment } from './ienvironment';
 
 export const environment: IEnvironment = {
   production: false,
-  restApi: 'http://localhost:55783/api',
-  signalrHub: 'http://localhost:55783/hub'
+  restApi: 'https://localhost:5001/api',
+  signalrHub: 'https://localhost:5001/hub'
 };
 
 /*

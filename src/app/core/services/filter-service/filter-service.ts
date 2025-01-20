@@ -1,10 +1,10 @@
-import { Observable, Subject } from "rxjs";
-import { Device, ScopeFilter } from "@models";
+import { Observable, } from "rxjs";
+import { Scope } from "@models";
+
+export const ALL: string = 'all';
 
 export abstract class FilterService {
-    abstract getRoomList(): Observable<Device[]>;
-    abstract getDeviceList(room: string): Observable<Device[]>;
-    abstract setSelectedRoom(room: string): void;
-    abstract setSelectedDevice(device: string): void;
-    abstract get scopeFilter(): Subject<ScopeFilter>;
+    abstract scopeFilter(): Observable<Scope>;
+    abstract updateScope(value: string): void;
+    abstract destroy(): void;
 }

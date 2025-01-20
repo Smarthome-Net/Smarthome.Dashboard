@@ -1,0 +1,14 @@
+@use './blue-theme-colors.scss' as bo;
+@use './core-theme.scss' as core;
+
+html {
+  $colors: (
+    color: (
+      theme-type: light,
+      primary: bo.$primary-palette,
+      tertiary: bo.$tertiary-palette	
+    )
+  );
+
+  @include core.theme($colors);
+}

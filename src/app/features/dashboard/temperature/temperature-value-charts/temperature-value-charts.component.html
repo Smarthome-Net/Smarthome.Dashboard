@@ -1,0 +1,33 @@
+<app-dashboard-view-bar>
+  <h1 dashboardViewTitle>Temperatur Daten</h1>
+  <app-device-filter dashboardViewActions></app-device-filter>
+</app-dashboard-view-bar>
+
+<mat-card appearance="outlined">
+  <mat-card-content >
+    <div class="chart-container">
+      <apx-chart class="apx-chart" [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [stroke]="chartOptions.stroke!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [legend]="chartOptions.legend!"
+      [markers]="chartOptions.markers!"
+      [grid]="chartOptions.grid!"
+      [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!" 
+      #temperatureChart></apx-chart>
+    </div>  
+  </mat-card-content>
+  
+  <mat-card-footer>
+    <mat-paginator
+    [length]="paginatorSettings.length"
+    [pageSize]="paginatorSettings.pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPage($event)">
+  </mat-paginator>
+  </mat-card-footer>
+</mat-card>
+
+

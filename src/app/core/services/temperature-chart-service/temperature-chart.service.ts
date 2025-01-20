@@ -1,39 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ENV } from 'src/environments/environment.provider';
-import { IEnvironment } from 'src/environments/ienvironment';
+import { ENV, IEnvironment } from '@env';
 import { TemperatureChartService } from './temperature-chart-service';
-import { Series, TemperatureChartResponse, TemperatureChartRequest } from '@models';
+import { TemperatureChartResponse, TemperatureChartRequest } from '@models';
 
 @Injectable()
 export class TemperatureChartServiceImpl extends TemperatureChartService {
-  constructor(@Inject(ENV) env: IEnvironment, private httpclient: HttpClient) {
+  private httpclient = inject(HttpClient);
+
+  constructor() {
+    const env = inject<IEnvironment>(ENV);
     super(env, 'temperaturechart');
   }
 
   getAllTemperatureData(temperatureChartRequest: TemperatureChartRequest): Observable<TemperatureChartResponse> {
-    return this.httpclient.post<TemperatureChartResponse>(`${this.path}`, temperatureChartRequest).pipe(
-      map(value => {
-        return this.mapper(value);
-      })
-    );
+    return this.httpclient.post<TemperatureChartResponse>(`${this.path}`, temperatureChartRequest);
   }
-
-  private mapper(response: TemperatureChartResponse) {
-    response.temperatures.forEach(temperature => {
-      temperature.series = this.dateMapper(temperature.series)
-    });
-    return response;
-  }
-
-  private dateMapper(series: Series[]) {
-    series.forEach(item => {
-      var date = new Date(item.name);
-      item.name = date.toLocaleString();
-    });
-    return series;
-  }
-
 }

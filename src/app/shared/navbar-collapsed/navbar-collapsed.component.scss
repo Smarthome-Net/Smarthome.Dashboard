@@ -1,10 +1,14 @@
-@use '../../core/scss/margin-padding-utils.scss' as mp;
+@use 'margin-padding-utils.scss' as mp;
 
 :host {
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+
+    .nav-item {
+        margin-bottom: mp.power(1);
+    }
 
     .nav-list-content {
         display: flex;
@@ -13,7 +17,7 @@
 
     .mat-mdc-menu-trigger {
         position: absolute;
-        top: mp.power(6);
+        top: mp.power(7);
         right: 0;
     }
 }

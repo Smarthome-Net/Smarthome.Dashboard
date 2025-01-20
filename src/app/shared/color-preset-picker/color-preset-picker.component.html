@@ -1,0 +1,35 @@
+<div class="preview-container">
+  <div class="w-100">
+    <span>Aktuelles Theme {{selectedTheme.description}}:</span>
+    <ng-container [ngTemplateOutlet]="themePreview" [ngTemplateOutletContext]="{ themeClass: [selectedTheme.theme, 'w-100'] }"></ng-container>
+  </div>
+  
+  <button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" mat-icon-button color="accent">
+    <mat-icon>palette</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" xPosition="before">
+    <ng-template matMenuContent>
+      @for (theme of themes; track $index) {
+          <div mat-menu-item (click)="onThemeSelected(theme)">
+            <span>Theme {{theme.description}}:</span>
+            <ng-container [ngTemplateOutlet]="themePreview" [ngTemplateOutletContext]="{ themeClass: [theme.theme, 'w-500'] }"></ng-container>
+          </div>
+      }
+    </ng-template>
+  </mat-menu>
+  
+</div>
+
+<ng-template #themePreview let-themeClass="themeClass">
+  <div [class]="themeClass">
+    <div class="theme-preview">
+      <div class="primary">
+        <span>Primary</span>
+      </div>
+      <div class="accent">
+        <span>Accent</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

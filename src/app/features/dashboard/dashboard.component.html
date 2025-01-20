@@ -1,0 +1,19 @@
+<mat-toolbar class="toolbar" color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Smarthome Dashboard</span>
+</mat-toolbar>
+<mat-sidenav-container class="dashboard-container" autosize>
+  <mat-sidenav #sidenav mode="side" opened>
+    @if (!isCollapsed) {
+      <app-navbar [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar>
+    }
+    @if (isCollapsed) {
+      <app-navbar-collapsed [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar-collapsed>
+    }
+  </mat-sidenav>
+  <mat-sidenav-content class="content-container">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

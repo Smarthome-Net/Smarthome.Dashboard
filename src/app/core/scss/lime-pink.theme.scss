@@ -1,0 +1,14 @@
+@use './lime-theme-colors.scss' as lm;
+@use './core-theme.scss' as core;
+
+html {
+  $colors: (
+    color: (
+      theme-type: light,
+      primary: lm.$primary-palette,
+      tertiary: lm.$tertiary-palette	
+    )
+  );
+
+  @include core.theme($colors);
+}
