@@ -1,0 +1,57 @@
+@use './lime-theme-colors.scss' as lm;
+@use './blue-theme-colors.scss' as bo;
+@use '@angular/material' as mat;
+
+
+.theme-preview {
+    color: white;
+    display: flex;
+    justify-content: center;
+    column-gap: 8px;
+    text-align: center;
+}
+
+.primary,
+.accent {
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.lime-pink {
+    $colors: (
+        color: (
+            theme-type: light,
+            primary: lm.$primary-palette,
+            tertiary: lm.$tertiary-palette 
+        ));
+    
+    @include mat.theme($colors);
+    
+    .primary {
+        background-color: var(--mat-sys-inverse-primary);
+    }
+
+    .accent {
+        background-color: var(--mat-sys-secondary);
+    }
+}
+
+.blue-orange {
+    $colors: (
+        color: (
+            theme-type: light,
+            primary: bo.$primary-palette,
+            tertiary: bo.$tertiary-palette 
+        ));
+    
+    @include mat.theme($colors);
+    
+    .primary {
+        background-color: var(--mat-sys-inverse-primary);
+    }
+
+    .accent {
+        background-color: var(--mat-sys-secondary);
+    }
+}

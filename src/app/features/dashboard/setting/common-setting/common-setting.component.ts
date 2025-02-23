@@ -6,7 +6,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ColorPresetPickerComponent } from '@shared';
+import { ColorPresetPickerComponent, Theme } from '@shared';
 
 type SnackMessage = { 
   message: string,
@@ -52,10 +52,7 @@ export class CommonSettingComponent implements OnInit {
     title: this.formBuilder.control(""),
     description: this.formBuilder.control(""),
     pageLength: this.formBuilder.control(10),
-    color: this.formBuilder.group({
-      primary: this.formBuilder.control(""),
-      secondary: this.formBuilder.control("")
-    })
+    theme: this.formBuilder.control<Theme>('lime-pink')
   });
 
   private resetValue?: CommonSetting;
@@ -70,10 +67,7 @@ export class CommonSettingComponent implements OnInit {
         title: setting.title,
         description: setting.description,
         pageLength: setting.pageLength,
-        color: {
-          primary: null,
-          secondary: null
-        }
+        theme: setting.theme
       })
     })
   }
@@ -86,18 +80,7 @@ export class CommonSettingComponent implements OnInit {
       pageLength: updated.pageLength!,
       id: this.resetValue!.id,
       type: this.resetValue!.type,
-      colorScheme: {
-        primary: {
-          blue: 0,
-          green: 0,
-          red: 0,
-        },
-        secondary: {
-          blue: 0,
-          green: 0,
-          red: 0,
-        }
-      }
+      theme: updated.theme!
     }).subscribe(result => {
       this.showNotification(result);
       const hasChanges = result > 0 ? true : false;
@@ -111,10 +94,7 @@ export class CommonSettingComponent implements OnInit {
       title: this.resetValue!.title,
       description: this.resetValue!.description,
       pageLength: this.resetValue!.pageLength,
-      color: {
-        primary: null,
-        secondary: null
-      }
+      theme: this.resetValue!.theme
     });
   }
 

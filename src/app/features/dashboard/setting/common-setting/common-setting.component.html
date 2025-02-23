@@ -14,20 +14,7 @@
         <input matInput [formControl]="commonSettingForm.controls.pageLength">
     </mat-form-field>
     
-    <app-color-preset-picker></app-color-preset-picker>
-
-    <form class="color-form" [formGroup]="commonSettingForm.controls.color">
-        <mat-form-field color="accent">
-            <mat-label>Hauptfarbe</mat-label>
-            <input matInput [formControl]="commonSettingForm.controls.color.controls.primary">
-        </mat-form-field>
-
-        <mat-form-field class="form-column-2" color="accent">
-            <mat-label>Sekundärfarbe</mat-label>
-            <input matInput [formControl]="commonSettingForm.controls.color.controls.secondary">
-        </mat-form-field>
-    </form>
-
+    <app-color-preset-picker [formControl]="commonSettingForm.controls.theme"></app-color-preset-picker>
     <div class="form-actions">
         <button mat-button class="error" (click)="reset()">Änderungen verwerfen</button>
         <button mat-raised-button class="secondary" type="submit" [disabled]="commonSettingForm.pristine && !commonSettingForm.dirty" (click)="updateSetting()">Änderungen speichern</button>

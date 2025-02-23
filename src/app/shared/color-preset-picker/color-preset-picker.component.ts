@@ -1,10 +1,11 @@
-import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { Component, OnInit, } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, forwardRef, OnInit, } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu, MatMenuItem, MatMenuContent, } from '@angular/material/menu';
 
-type Theme = 'lime-pink' | 'blue-orange'
+export type Theme = 'lime-pink' | 'blue-orange'
 
 type ThemePreview = {
   description: string,
@@ -23,9 +24,16 @@ type ThemePreview = {
     MatMenuItem,
     MatMenuContent,
     NgTemplateOutlet,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ColorPresetPickerComponent),
+      multi: true
+    }
   ]
 })
-export class ColorPresetPickerComponent implements OnInit {
+export class ColorPresetPickerComponent implements OnInit, ControlValueAccessor {
   themes: ThemePreview[] = [
     { description: 'Grün & Pink', theme: 'lime-pink' },
     { description: 'Blau & Orange', theme: 'blue-orange' }
@@ -33,7 +41,31 @@ export class ColorPresetPickerComponent implements OnInit {
 
   selectedTheme: ThemePreview = this.themes[0];
 
+  controlValueAccessorChangeFn = (_: any) => { };
+  controlValueAccessorOnTouchedFn = (_: any) => { };
+
   constructor() { }
+  
+  writeValue(obj: any): void {
+    var theme = obj as Theme;
+
+    var themePreview =this.themes.find(t => t.theme === theme);
+    if(!themePreview) {
+      return;
+    }
+
+    this.selectedTheme = themePreview;
+  }
+
+  registerOnChange(fn: any): void {
+    this.controlValueAccessorChangeFn = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.controlValueAccessorOnTouchedFn = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void { }
 
   ngOnInit() {
   }
