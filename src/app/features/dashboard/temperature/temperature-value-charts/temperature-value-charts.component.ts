@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
-import { PageEvent, MatPaginator, MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl } from '@angular/material/paginator';
+import { PageEvent, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
-import { TemperatureChartService, TemperatureChartServiceProider } from '@services/temperature-chart-service';
+import { ChartService, ChartServiceProvider } from '@services/chart-service';
 import { FilterService, FilterServiceProvider } from '@services/filter-service';
 import { TemperatureChartHubService, TemperatureChartHubServiceProvider } from '@services/temperature-chart-hub';
 import { TempareturChartOptions } from './temperature-chart-options';
@@ -31,14 +31,14 @@ import { DeviceServiceProvider } from '@services/device-service';
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl },
-    TemperatureChartServiceProider,
+    ChartServiceProvider,
     FilterServiceProvider,
     TemperatureChartHubServiceProvider,
     DeviceServiceProvider
   ]
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
-  private temperatureChartService = inject(TemperatureChartService);
+  private chartService = inject(ChartService);
   private filterService = inject(FilterService);
   private hubService = inject(TemperatureChartHubService);
   private currentScopeFilter: Scope = {
@@ -115,7 +115,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   private loadChartData() {
     const request = this.createChartRequest();
-    this.temperatureChartService.getAllTemperatureData(request)
+    this.chartService.getTemperatureChart(request)
       .pipe(map(val => {
         this.data = val.temperatures;
         return {

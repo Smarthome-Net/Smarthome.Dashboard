@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { TemperatureChartServiceImpl } from './temperature-chart.service';
+import { ChartServiceImpl } from './chart.service';
 
 describe('Service: TemperatureChart', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TemperatureChartServiceImpl]
+      providers: [ChartServiceImpl]
     });
   });
 
-  it('should ...', inject([TemperatureChartServiceImpl], (service: TemperatureChartServiceImpl) => {
+  it('should ...', inject([ChartServiceImpl], (service: ChartServiceImpl) => {
     expect(service).toBeTruthy();
   }));
 });

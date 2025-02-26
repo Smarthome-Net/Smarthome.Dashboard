@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { Statistic, ChartSettings, Device, StatisticRequest, ScopeType, Scope } from '@models';
 import { ALL, FilterService, FilterServiceProvider } from '@services/filter-service';
 import { DeviceService, DeviceServiceProvider } from '@services/device-service';
-import { StatisticService, StatisticServiceProvider } from '@services/statistic-service';
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
 import { StatisticChartOptions } from './statistic-chart-options';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
@@ -16,6 +15,7 @@ import { MatOption, MatOptgroup } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { ChartService, ChartServiceProvider } from '@services/chart-service';
 
 const Labels: { [key: string]: string } = {
   'min': 'Min',
@@ -45,11 +45,11 @@ const Labels: { [key: string]: string } = {
     providers: [
       FilterServiceProvider,
       DeviceServiceProvider,
-      StatisticServiceProvider
+      ChartServiceProvider
     ]
 })
 export class TemperatureStatisticComponent implements OnInit, OnDestroy {
-  private statisticService = inject(StatisticService);
+  private chartService = inject(ChartService);
   private filterService = inject(FilterService);
   private deviceService = inject(DeviceService);
 
@@ -123,7 +123,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
     var request: StatisticRequest = {
       scope: scope
     };
-    this.statisticService.getStatistic(request)
+    this.chartService.getStatisticChart(request)
       .subscribe(response => {
         if(withReset) {
           this.statistic = [];
