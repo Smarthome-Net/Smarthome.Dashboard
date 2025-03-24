@@ -3,4 +3,8 @@ import { FilterService } from './filter-service';
 import { FilterServiceImpl } from './filter.service';
 
 export * from './filter-service';
-export const FilterServiceProvider: Provider =  { provide: FilterService, useClass: FilterServiceImpl };
+export function provideFilterService(): Provider {
+    return {
+        provide: FilterService, useClass: FilterServiceImpl
+    }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Device } from '@models';
-import { DeviceService, DeviceServiceProvider } from '@services/device-service';
+import { DeviceService, provideDeviceService } from '@services/device-service';
 import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatTable,
@@ -42,7 +42,7 @@ import { MatIcon } from '@angular/material/icon';
       MatRow
     ],
     providers: [
-      DeviceServiceProvider
+      provideDeviceService
     ]
 })
 export class DeviceSettingListComponent implements OnInit {

@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
-import { DeviceService, DeviceServiceProvider } from '@services/device-service';
+import { DeviceService, provideDeviceService } from '@services/device-service';
 import { DashboardViewBarComponent, 
   DashboardViewTitleDirective, 
   ConnectionStatusComponent, 
@@ -37,7 +37,7 @@ import { MatButton } from '@angular/material/button';
     MatButton
   ],
   providers: [
-    DeviceServiceProvider
+    provideDeviceService()
   ]
 })
 export class DeviceSettingDetailsComponent implements OnInit {

@@ -3,9 +3,9 @@ import { PageEvent, MatPaginator, MatPaginatorIntl } from '@angular/material/pag
 import { map } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
-import { ChartService, ChartServiceProvider } from '@services/chart-service';
-import { FilterService, FilterServiceProvider } from '@services/filter-service';
-import { TemperatureChartHubService, TemperatureChartHubServiceProvider } from '@services/temperature-chart-hub';
+import { ChartService, provideChartService } from '@services/chart-service';
+import { FilterService, provideFilterService } from '@services/filter-service';
+import { TemperatureChartHubService, provideTemperatureChartHubService } from '@services/temperature-chart-hub';
 import { TempareturChartOptions } from './temperature-chart-options';
 import { DashboardViewBarComponent, 
   DashboardViewActionsDirective, 
@@ -13,7 +13,7 @@ import { DashboardViewBarComponent,
   DeviceFilterComponent, 
   GermanPaginatorIntl } from '@shared';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
-import { DeviceServiceProvider } from '@services/device-service';
+import { provideDeviceService } from '@services/device-service';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -31,10 +31,10 @@ import { DeviceServiceProvider } from '@services/device-service';
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: GermanPaginatorIntl },
-    ChartServiceProvider,
-    FilterServiceProvider,
-    TemperatureChartHubServiceProvider,
-    DeviceServiceProvider
+    provideChartService(),
+    provideFilterService(),
+    provideTemperatureChartHubService(),
+    provideDeviceService()
   ]
 })
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
