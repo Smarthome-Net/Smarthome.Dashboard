@@ -41,15 +41,15 @@ export class ColorPresetPickerComponent implements OnInit, ControlValueAccessor 
 
   selectedTheme: ThemePreview = this.themes[0];
 
-  controlValueAccessorChangeFn = (_: any) => { };
-  controlValueAccessorOnTouchedFn = (_: any) => { };
+  controlValueAccessorChangeFn?: (theme: Theme) => { };
+  controlValueAccessorOnTouchedFn?: (theme: Theme) => { };
 
   constructor() { }
   
   writeValue(obj: any): void {
     var theme = obj as Theme;
 
-    var themePreview =this.themes.find(t => t.theme === theme);
+    var themePreview = this.themes.find(t => t.theme === theme);
     if(!themePreview) {
       return;
     }
@@ -72,6 +72,8 @@ export class ColorPresetPickerComponent implements OnInit, ControlValueAccessor 
 
   onThemeSelected(theme: ThemePreview) {
     this.selectedTheme = theme;
+    this.controlValueAccessorChangeFn!(theme.theme);
+    this.controlValueAccessorOnTouchedFn!(theme.theme);
   }
 
 }

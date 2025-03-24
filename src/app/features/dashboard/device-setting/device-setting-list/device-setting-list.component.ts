@@ -42,7 +42,7 @@ import { MatIcon } from '@angular/material/icon';
       MatRow
     ],
     providers: [
-      provideDeviceService
+      provideDeviceService()
     ]
 })
 export class DeviceSettingListComponent implements OnInit {

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { SettingService } from './setting-service';
 import { CommonSetting, Setting } from '@models';
-import { Observable, Subject, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ENV, IEnvironment } from '@env';
 import { HttpClient } from '@angular/common/http';
 
