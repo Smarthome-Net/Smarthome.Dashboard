@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { provideAppSettingService } from '@services/app-setting-service';
 import { provideSettingService } from '@services/setting-service';
+import { provideStyleManagerService } from '@services/style-manager-service';
 
 export const applicationConfig: ApplicationConfig = {
     providers: [
@@ -13,6 +14,7 @@ export const applicationConfig: ApplicationConfig = {
         provideRouter(routes),
         provideSettingService(),
         provideAppSettingService(),
+        provideStyleManagerService(),
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations()
     ]
