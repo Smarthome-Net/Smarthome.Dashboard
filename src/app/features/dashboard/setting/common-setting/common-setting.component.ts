@@ -88,7 +88,11 @@ export class CommonSettingComponent implements OnInit {
     this.settingService.updateCommonSetting(commonSetting).subscribe(result => {
       this.showNotification(result);
       const hasChanges = result > 0 ? true : false;
-      this.appSettingService.updateCommonSetting(commonSetting);
+      this.appSettingService.updateCommonSetting({ 
+        theme: commonSetting.theme, 
+        title: commonSetting.title, 
+        pageLength: commonSetting.pageLength 
+      });
       this.settingService.notifyClose(hasChanges);
     })
   }

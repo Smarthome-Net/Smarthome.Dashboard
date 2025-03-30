@@ -12,6 +12,4 @@ export * from './statistic-request';
 export * from './statistic-response';
 export * from './device-status';
 export * from './setting';
-export * from './color';
-export * from './color-scheme';
 export * from './common-setting';

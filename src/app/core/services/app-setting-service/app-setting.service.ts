@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { AppSettingService } from './app-setting-service';
 import { SettingService } from '@services/setting-service';
-import { CommonSetting } from '@models';
+import { CommonSettingStorage } from '@models';
 import { Observable, ReplaySubject } from 'rxjs';
 
 const CommonSettingKey = 'commonSetting';
@@ -11,11 +11,11 @@ export class AppSettingServiceImpl extends AppSettingService {
   private settingService = inject(SettingService);
   private commonSetting;
 
-  override $commonSetting: Observable<CommonSetting>;
+  override $commonSetting: Observable<CommonSettingStorage>;
   
   constructor() {
     super();
-    this.commonSetting = new ReplaySubject<CommonSetting>();
+    this.commonSetting = new ReplaySubject<CommonSettingStorage>();
     this.$commonSetting = this.commonSetting.asObservable();
   }
 
@@ -31,7 +31,7 @@ export class AppSettingServiceImpl extends AppSettingService {
     })
   }
 
-  override updateCommonSetting(commonSetting: CommonSetting): void {
+  override updateCommonSetting(commonSetting: CommonSettingStorage): void {
     localStorage.setItem(CommonSettingKey, JSON.stringify(commonSetting));
     this.commonSetting.next(commonSetting);
   }
