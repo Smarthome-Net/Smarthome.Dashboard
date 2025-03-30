@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Smarthome Dashboard</span>
+  <span>{{dashboardTitle()}}</span>
 </mat-toolbar>
 <mat-sidenav-container class="dashboard-container" autosize>
   <mat-sidenav #sidenav mode="side" opened>

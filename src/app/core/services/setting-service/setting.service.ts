@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 import { ENV, IEnvironment } from '@env';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SettingServiceImpl extends SettingService  {
   
   private httpClient = inject(HttpClient);

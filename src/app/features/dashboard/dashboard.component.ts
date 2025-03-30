@@ -1,4 +1,4 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NavMenu } from '@models';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -7,38 +7,47 @@ import { MatIcon } from '@angular/material/icon';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { NavbarComponent, NavbarCollapsedComponent } from '@shared';
 import { RouterOutlet } from '@angular/router';
+import { AppSettingService } from '@services/app-setting-service';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
-    imports: [MatToolbar, 
-      MatIconButton, 
-      MatIcon, 
-      MatSidenavContainer, 
-      MatSidenav, 
-      NavbarComponent, 
-      NavbarCollapsedComponent, 
-      MatSidenavContent, 
-      RouterOutlet
-    ]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [MatToolbar,
+    MatIconButton,
+    MatIcon,
+    MatSidenavContainer,
+    MatSidenav,
+    NavbarComponent,
+    NavbarCollapsedComponent,
+    MatSidenavContent,
+    RouterOutlet
+  ]
 })
 export class DashboardComponent {
   readonly trigger = viewChild(MatMenuTrigger);
-  
+  private appSettingService = inject(AppSettingService);
+
   isCollapsed = true;
+  dashboardTitle = signal<string>('Dashboard');
 
   navMenu: NavMenu[] = [
     { link: 'index', displayText: 'Home', icon: 'home' },
-    { link: 'temperature', displayText: 'Temperatur', icon: 'thermostat', children: [
-      { link: 'temperature/value', displayText: 'Werte', icon: 'show_chart' },
-      { link: 'temperature/statistic', displayText: 'Statistik', icon: 'bar_chart' },
-    ]},
+    {
+      link: 'temperature', displayText: 'Temperatur', icon: 'thermostat', children: [
+        { link: 'temperature/value', displayText: 'Werte', icon: 'show_chart' },
+        { link: 'temperature/statistic', displayText: 'Statistik', icon: 'bar_chart' },
+      ]
+    },
     { link: 'device-setting', displayText: 'Geräteeinstellung', icon: 'devices' },
-    { link: 'setting', displayText: 'Einstellungen', icon: 'settings'}
+    { link: 'setting', displayText: 'Einstellungen', icon: 'settings' }
   ]
 
-  constructor() { }
+  constructor() {
+    this.appSettingService.$commonSetting.subscribe(commonSetting => {
+      this.dashboardTitle.set(commonSetting.title);
+    });
+  }
 
   onCollapse(value: boolean) {
     this.isCollapsed = value;

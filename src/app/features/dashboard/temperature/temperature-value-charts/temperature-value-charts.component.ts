@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { PageEvent, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
 import { ChartService, provideChartService } from '@services/chart-service';
@@ -14,6 +14,7 @@ import { DashboardViewBarComponent,
   GermanPaginatorIntl } from '@shared';
 import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
 import { provideDeviceService } from '@services/device-service';
+import { AppSettingService } from '@services/app-setting-service';
 
 @Component({
   selector: 'app-temperature-value-charts',
@@ -40,11 +41,14 @@ import { provideDeviceService } from '@services/device-service';
 export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   private chartService = inject(ChartService);
   private filterService = inject(FilterService);
+  private appSettingService = inject(AppSettingService);
   private hubService = inject(TemperatureChartHubService);
   private currentScopeFilter: Scope = {
     scopeType: ScopeType.All,
     value: "",
   }
+
+  private subscriptions: Subscription[] = [];
 
   readonly chart = viewChild(ChartComponent);
 
@@ -63,9 +67,14 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.hubService.destroy();
     this.filterService.destroy();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(this.appSettingService.$commonSetting.subscribe(commonSetting => { 
+      this.paginatorSettings.pageSize = commonSetting.pageLength;
+    }));
     this.filterService.scopeFilter().subscribe(filter => {
       this.currentScopeFilter = filter;
       this.loadChartData();

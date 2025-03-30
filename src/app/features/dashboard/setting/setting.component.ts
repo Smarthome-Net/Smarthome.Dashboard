@@ -1,6 +1,6 @@
 import { Component, OnInit, Type, inject, viewChild } from '@angular/core';
 import { Setting } from '@models';
-import { SettingService, provideSettingService } from '@services/setting-service';
+import { SettingService } from '@services/setting-service';
 import { CommonSettingComponent } from './common-setting/common-setting.component';
 import { DashboardViewBarComponent, DashboardViewTitleDirective } from '@shared';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelContent } from '@angular/material/expansion';
@@ -22,9 +22,6 @@ const templateMap: { [key: string]: Type<any> } = {
       MatExpansionPanelTitle, 
       MatExpansionPanelContent, 
       NgComponentOutlet,
-    ],
-    providers: [
-      provideSettingService()
     ]
 })
 export class SettingComponent implements OnInit {

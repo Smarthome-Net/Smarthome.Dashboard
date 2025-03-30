@@ -4,11 +4,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { ENV, getEnv } from '@env';
 import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
+import { provideAppSettingService } from '@services/app-setting-service';
+import { provideSettingService } from '@services/setting-service';
 
 export const applicationConfig: ApplicationConfig = {
     providers: [
         { provide: ENV, useFactory: getEnv },
         provideRouter(routes),
+        provideSettingService(),
+        provideAppSettingService(),
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations()
     ]

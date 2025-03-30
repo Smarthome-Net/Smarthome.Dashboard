@@ -12,7 +12,7 @@ export class ChartServiceImpl extends ChartService {
 
   constructor() {
     const env = inject<IEnvironment>(ENV);
-    super(env, 'charts');
+    super(env, 'chart');
   }
 
   override getTemperatureChart(temperatureChartRequest: TemperatureChartRequest): Observable<TemperatureChartResponse> {

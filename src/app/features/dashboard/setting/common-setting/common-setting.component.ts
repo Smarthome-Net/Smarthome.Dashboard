@@ -7,6 +7,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ColorPresetPickerComponent, Theme } from '@shared';
+import { AppSettingService } from '@services/app-setting-service';
 
 type SnackMessage = { 
   message: string,
@@ -44,6 +45,7 @@ const Messages: { [key: number]: SnackMessage } = {
 })
 export class CommonSettingComponent implements OnInit {
   private settingService = inject(SettingService);
+  private appSettingService = inject(AppSettingService);
   private formBuilder = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
 
@@ -74,16 +76,19 @@ export class CommonSettingComponent implements OnInit {
 
   updateSetting() {
     const updated = this.commonSettingForm.value;
-    this.settingService.updateCommonSetting({
+    const commonSetting: CommonSetting = { 
       title: updated.title!,
       description: updated.description!,
       pageLength: updated.pageLength!,
       id: this.resetValue!.id,
       type: this.resetValue!.type,
       theme: updated.theme!
-    }).subscribe(result => {
+    };
+
+    this.settingService.updateCommonSetting(commonSetting).subscribe(result => {
       this.showNotification(result);
       const hasChanges = result > 0 ? true : false;
+      this.appSettingService.updateCommonSetting(commonSetting);
       this.settingService.notifyClose(hasChanges);
     })
   }
