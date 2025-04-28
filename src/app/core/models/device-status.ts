@@ -1,6 +1,6 @@
 export interface DeviceStatus {
-    wifiConnectionStatus: number,
-    mqttConnectionStatus: number,
+    wifiConnectedStatus: number,
+    mqttConnectedStatus: number,
     batteryStatus: number,
-    lastTemperature: number
+    currentTemperature: number
 }
