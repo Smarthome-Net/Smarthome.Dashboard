@@ -1,7 +1,7 @@
 export interface DeviceConfiguration {
-    interval: number;
+    measureInterval: number;
     mqttHost: string;
     mqttPort: number;
     ssid: string;
-    ssidPassword: string;
+    password: string;
 }
