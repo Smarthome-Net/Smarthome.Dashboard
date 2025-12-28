@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { Scope, Temperature } from '@models';
+import { Scope, Chart } from '@models';
 
 export abstract class TemperatureChartHubService {
-    abstract getTemperatureData(scope?: Scope): Observable<Temperature[]>;
+    abstract getTemperatureData(scope?: Scope): Observable<Chart<Date, number>[]>;
     abstract destroy(): void;
 }

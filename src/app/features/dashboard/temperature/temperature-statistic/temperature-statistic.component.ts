@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
-import { Statistic, ChartSettings, Device, StatisticRequest, ScopeType, Scope } from '@models';
+import { ChartSettings, Device, StatisticRequest, ScopeType, Scope, Chart } from '@models';
 import { ALL, FilterService, provideFilterService } from '@services/filter-service';
 import { DeviceService, provideDeviceService } from '@services/device-service';
 import { GroupedObservable, concatMap, groupBy, map, mergeMap } from 'rxjs';
@@ -55,7 +55,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
 
   readonly chart = viewChild(ChartComponent);
   default = ALL;
-  statistic: Statistic[] = [];
+  statistic: Chart<string, number>[] = [];
 
   deviceGroup: { key: string, devices: Device[] }[] = [];
 
@@ -138,7 +138,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   }
 
   private filterStatistic(removed: string | Device) {
-    let results: Statistic[] = [];
+    let results: Chart<string, number>[] = [];
     if(typeof removed === 'string') {
       results = this.statistic.filter(i => i.name === 'Alle');
     } else {
@@ -203,7 +203,7 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
       }));
   }
 
-  private mapStatistic(statistics: Statistic[]): ApexAxisChartSeries {
+  private mapStatistic(statistics: Chart<string, number>[]): ApexAxisChartSeries {
     return statistics.map(statistic => {
       return {
         name: statistic.name,

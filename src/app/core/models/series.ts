@@ -1,4 +1,4 @@
-export interface Series {
-  name: string;
-  value: string;
+export interface Series<TName, TValue> {
+  name: TName;
+  value: TValue;
 }

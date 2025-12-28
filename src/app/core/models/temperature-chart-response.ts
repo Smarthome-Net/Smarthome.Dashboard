@@ -1,17 +1,11 @@
-import { PageSetting } from './page-setting';
+import { Chart } from './chart';
+import { Pagination } from './page-setting';
 import { Scope } from './scope';
-import { Series } from './series';
 
 export interface TemperatureChartResponse {
   scope: Scope;
-  pageSetting: PageSetting;
-  temperatures: Temperature[];
-
-}
-
-export interface Temperature {
-  name: string;
-  series: Series[];
+  pagination: Pagination;
+  temperatures: Chart<Date, number>[];
 }
 
 

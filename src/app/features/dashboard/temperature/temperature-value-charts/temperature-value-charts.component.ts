@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { PageEvent, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { map, Subscription } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
-import { ScopeType, TemperatureChartRequest, ChartSettings, Temperature, Scope } from "@models";
+import { ScopeType, TemperatureChartRequest, ChartSettings, Scope, Chart } from "@models";
 import { ChartService, provideChartService } from '@services/chart-service';
 import { FilterService, provideFilterService } from '@services/filter-service';
 import { TemperatureChartHubService, provideTemperatureChartHubService } from '@services/temperature-chart-hub';
@@ -52,7 +52,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
 
   readonly chart = viewChild(ChartComponent);
 
-  data: Temperature[] = [];
+  data: Chart<Date, number>[] = [];
 
   paginatorSettings = {
     length: 100,
@@ -92,7 +92,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     });
   }
 
-  mapTemperature(temperatures: Temperature[]): ApexAxisChartSeries {
+  mapTemperature(temperatures: Chart<Date, number>[]): ApexAxisChartSeries {
     return temperatures.map(temperature => {
       return {
         name: temperature.name,
@@ -114,7 +114,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   private createChartRequest(): TemperatureChartRequest {
     return {
       scope: this.currentScopeFilter,
-      pageSetting: {
+      pagination: {
         length: this.paginatorSettings.length,
         pageIndex: this.paginatorSettings.pageIndex,
         pageSize: this.paginatorSettings.pageSize
@@ -128,7 +128,7 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
       .pipe(map(val => {
         this.data = val.temperatures;
         return {
-          pageSetting: val.pageSetting,
+          pageSetting: val.pagination,
           chart: this.mapTemperature(val.temperatures),
         }
       }))

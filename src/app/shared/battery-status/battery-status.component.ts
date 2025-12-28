@@ -15,26 +15,51 @@ const batteryThresholds = {
 
 
 @Component({
-    selector: 'app-battery-status',
-    templateUrl: './battery-status.component.html',
-    styleUrls: ['./battery-status.component.scss'],
-    imports: [MatTooltip, MatIcon, PercentPipe]
+  selector: 'app-battery-status',
+  templateUrl: './battery-status.component.html',
+  styleUrls: ['./battery-status.component.scss'],
+  imports: [MatTooltip, MatIcon, PercentPipe]
 })
 export class BatteryStatusComponent {
 
+  //the battery status value between 0 and 1
   readonly value = input(0);
 
-  batteryThresholds = batteryThresholds;
+  resolveIcon() {
+    //the value is higher than 0.875
+    if (this.isFull()) {
+      return 'battery_full'
+    }
 
-  isFull() {
-    return this.value() >= this.batteryThresholds.veryHigh;
+    //the value is range of any threshold value
+    if (this.isInRange(batteryThresholds.high, batteryThresholds.veryHigh)) {
+      return 'battery_6_bar'
+    }
+    if (this.isInRange(batteryThresholds.lessHigh, batteryThresholds.high)) {
+      return 'battery_5_bar'
+    }
+    if (this.isInRange(batteryThresholds.half, batteryThresholds.lessHigh)) {
+      return 'battery_4_bar'
+    }
+    if (this.isInRange(batteryThresholds.lessHalf, batteryThresholds.half)) {
+      return 'battery_3_bar'
+    }
+    if (this.isInRange(batteryThresholds.low, batteryThresholds.lessHalf)) {
+      return 'battery_2_bar'
+    }
+    if (this.isInRange(batteryThresholds.veryLow, batteryThresholds.low)) {
+      return 'battery_1_bar'
+    }
+
+    //if all previous checks fail the value is below 0.125
+    return 'battery_0_bar'
   }
 
-  isEmpty() {
-    return this.value() <= this.batteryThresholds.veryLow;
+  private isFull() {
+    return this.value() >= batteryThresholds.veryHigh;
   }
 
-  isInRange(min: number, max: number) {
+  private isInRange(min: number, max: number) {
     return this.value() >= min && this.value() < max;
   }
 }

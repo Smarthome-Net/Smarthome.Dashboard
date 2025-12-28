@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { ENV, IEnvironment } from '@env';
-import { Scope, Temperature } from '@models';
+import { Scope, Chart  } from '@models';
 import { TemperatureChartHubService } from './temperature-chart-hub-service';
 
 
@@ -16,8 +16,8 @@ export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
     super();
   }
 
-  getTemperatureData(scope: Scope): Observable<Temperature[]> {
-    const subject = new Subject<Temperature[]>();
+  getTemperatureData(scope: Scope): Observable<Chart<Date, number>[]> {
+    const subject = new Subject<Chart<Date, number>[]>();
     
     this.startHub().subscribe(isConnected => {
       if(!isConnected) {

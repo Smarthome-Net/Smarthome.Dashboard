@@ -13,4 +13,12 @@ export class ConnectionStatusComponent {
   readonly connectionStatus = input(0);
 
   readonly icons = input({ on: '', off: '' });
+
+  resolveIcon() {
+    if (this.connectionStatus() === 1) {
+      return this.icons().on;
+    }
+
+    return this.icons().off;
+  }
 }
