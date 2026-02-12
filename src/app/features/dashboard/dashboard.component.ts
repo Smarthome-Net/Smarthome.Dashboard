@@ -32,11 +32,11 @@ export class DashboardComponent {
   dashboardTitle = signal<string>('Dashboard');
 
   navMenu: NavMenu[] = [
-    { link: 'index', displayText: 'Home', icon: 'home' },
+    { link: 'home', displayText: 'Home', icon: 'home' },
     {
       link: 'temperature', displayText: 'Temperatur', icon: 'thermostat', children: [
-        { link: 'temperature/value', displayText: 'Werte', icon: 'show_chart' },
-        { link: 'temperature/statistic', displayText: 'Statistik', icon: 'bar_chart' },
+        { link: 'temperature/values', displayText: 'Werte', icon: 'show_chart' },
+        { link: 'temperature/statistics', displayText: 'Statistik', icon: 'bar_chart' },
       ]
     },
     { link: 'device-setting', displayText: 'Geräteeinstellung', icon: 'devices' },
