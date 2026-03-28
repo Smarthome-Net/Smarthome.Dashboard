@@ -1,6 +1,5 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { ENV, getEnv } from '@env';
 import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
@@ -16,6 +15,6 @@ export const applicationConfig: ApplicationConfig = {
         provideAppSettingService(),
         provideStyleManagerService(),
         provideHttpClient(withInterceptorsFromDi()),
-        provideAnimations()
+        provideZoneChangeDetection()
     ]
 };
