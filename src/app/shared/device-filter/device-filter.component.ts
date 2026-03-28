@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Device, } from '@models';
 import { DeviceService } from '@services/device-service';
 import { FilterService, ALL } from '@services/filter-service';
@@ -19,10 +19,10 @@ export class DeviceFilterComponent implements OnInit {
   private deviceService = inject(DeviceService);
 
   default = ALL;
-  selectedRoom = ALL;
-  rooms: Device[] = [];
-  selectedDevice = '';
-  devices: Device[] = [];
+  selectedRoom = signal(ALL);
+  rooms = signal<Device[]>([]);
+  selectedDevice = signal('');
+  devices = signal<Device[]>([]);
 
   constructor() { }
 
@@ -33,7 +33,7 @@ export class DeviceFilterComponent implements OnInit {
         distinct(d => d.room),
         toArray())
       .subscribe(rooms => {
-        this.rooms = rooms;
+        this.rooms.set(rooms);
       })
   }
 
@@ -41,22 +41,22 @@ export class DeviceFilterComponent implements OnInit {
     this.filterService.updateScope(value)
 
     if (value === ALL) {
-      this.devices = [];
-      this.selectedDevice = '';
+      this.devices.set([]);
+      this.selectedDevice.set('');
       return;
     }
 
     this.deviceService.getDevicesByRoom(value).subscribe(devices => {
-      if (this.devices[0] !== devices[0]) {
+      if (this.devices()[0] !== devices[0]) {
         this.deviceChange(ALL, false);
       }
-      this.devices = devices;
+      this.devices.set(devices);
     });
   }
 
   deviceChange(value: string, skipFilter = true): void {
-    this.selectedDevice = value;
-    let scopeValue = this.selectedRoom;
+    this.selectedDevice.set(value);
+    let scopeValue = this.selectedRoom();
 
     if (value !== ALL) {
       scopeValue += `/${value}`;

@@ -6,11 +6,11 @@
 </mat-toolbar>
 <mat-sidenav-container class="dashboard-container" autosize>
   <mat-sidenav #sidenav mode="side" opened>
-    @if (!isCollapsed) {
-      <app-navbar [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar>
+    @if (!isCollapsed()) {
+      <app-navbar [navMenu]="navMenu()" (onCollapse)="onCollapse($event)"></app-navbar>
     }
-    @if (isCollapsed) {
-      <app-navbar-collapsed [navMenu]="navMenu" (onCollapse)="onCollapse($event)"></app-navbar-collapsed>
+    @if (isCollapsed()) {
+      <app-navbar-collapsed [navMenu]="navMenu()" (onCollapse)="onCollapse($event)"></app-navbar-collapsed>
     }
   </mat-sidenav>
   <mat-sidenav-content class="content-container">

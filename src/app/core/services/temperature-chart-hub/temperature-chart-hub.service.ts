@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { ENV, IEnvironment } from '@env';
@@ -10,7 +10,7 @@ import { TemperatureChartHubService } from './temperature-chart-hub-service';
 export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
   private environment = inject<IEnvironment>(ENV);
   private hubContext?: HubConnection;
-  private onUpdateTemperature = false;
+  private onUpdateTemperature = signal(false);
 
   constructor() { 
     super();
@@ -24,11 +24,11 @@ export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
         return;
       }
       
-      if(!this.onUpdateTemperature) {
+      if(!this.onUpdateTemperature()) {
         this.hubContext!.on('UpdateTemperature', data => {
           subject.next(data);
         })
-        this.onUpdateTemperature = true;
+        this.onUpdateTemperature.set(true);
       }
   
       this.hubContext!.send("Temperature", scope)
@@ -39,11 +39,11 @@ export class TemperatureChartHubServiceImpl extends TemperatureChartHubService {
   }
 
   destroy() {
-    this.hubContext!
-      .stop()
+    this.hubContext!.
+      stop()
       .then(() => {
         this.hubContext = undefined;
-        this.onUpdateTemperature = false;
+        this.onUpdateTemperature.set(false);
       })
       .catch(err => console.log(err));
   }

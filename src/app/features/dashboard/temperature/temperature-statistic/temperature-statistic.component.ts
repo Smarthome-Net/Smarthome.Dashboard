@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal, viewChild } from '@angular/core';
 import { ChartSettings, Device, StatisticRequest, ScopeType, Scope, Chart } from '@models';
 import { ALL, FilterService, provideFilterService } from '@services/filter-service';
 import { DeviceService, provideDeviceService } from '@services/device-service';
@@ -55,13 +55,13 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
 
   readonly chart = viewChild(ChartComponent);
   default = ALL;
-  statistic: Chart<string, number>[] = [];
+  statistic = signal<Chart<string, number>[]>([]);
 
-  deviceGroup: { key: string, devices: Device[] }[] = [];
+  deviceGroup = signal<{ key: string, devices: Device[] }[]>([]);
 
   chartOptions: Partial<ChartSettings> = StatisticChartOptions
 
-  currentSelection: (Device | string)[] = [];
+  currentSelection = signal<(Device | string)[]>([]);
 
   constructor() { }
 
@@ -78,40 +78,40 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
   }
 
   reset(): void {
-    this.currentSelection = [];
-    this.statistic.splice(1);
-    this.chartOptions.series = this.mapStatistic(this.statistic);
+    this.currentSelection.set([]);
+    this.statistic.update(s => s.slice(1));
+    this.chartOptions.series = this.mapStatistic(this.statistic());
   }
 
   onValueChange(event: (string | Device)[]): void {
-    if (this.isAddition(this.currentSelection.length, event.length)) {
+    if (this.isAddition(this.currentSelection().length, event.length)) {
       this.handleAddition(event);
     }
 
-    if (this.isRemoving(this.currentSelection.length, event.length)) {
+    if (this.isRemoving(this.currentSelection().length, event.length)) {
       this.handleRemoving(event);
     }
 
-    this.currentSelection = event;
+    this.currentSelection.set(event);
   }
 
   private handleRemoving(event: (string | Device)[]) {
-    var removed = this.getItem(this.currentSelection, event);
+    var removed = this.getItem(this.currentSelection(), event);
     if(!removed) {
       return;
     }
     const statistics = this.filterStatistic(removed);
     if (statistics.length > 0) {
       var last = statistics[statistics.length - 1];
-      var index = this.statistic.indexOf(last);
+      var index = this.statistic().indexOf(last);
       console.log(index);
-      this.statistic.splice(index, 1);
-      this.chartOptions.series = this.mapStatistic(this.statistic);
+      this.statistic.update(s => s.filter((_, i) => i !== index));
+      this.chartOptions.series = this.mapStatistic(this.statistic());
     }
   }
 
   private handleAddition(event: (string | Device)[]) {
-    const added = this.getItem(event, this.currentSelection);
+    const added = this.getItem(event, this.currentSelection());
     if(!added) {
       return;
     }
@@ -126,24 +126,24 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
     this.chartService.getStatisticChart(request)
       .subscribe(response => {
         if(withReset) {
-          this.statistic = [];
-          this.currentSelection = [];
+          this.statistic.set([]);
+          this.currentSelection.set([]);
         }
         if (response.scope.scopeType === ScopeType.All) {
           response.statistic.name = 'Alle';
         }
-        this.statistic.push(response.statistic);
-        this.chartOptions.series = this.mapStatistic(this.statistic);
+        this.statistic.update(s => [...s, response.statistic]);
+        this.chartOptions.series = this.mapStatistic(this.statistic());
       });
   }
 
   private filterStatistic(removed: string | Device) {
     let results: Chart<string, number>[] = [];
     if(typeof removed === 'string') {
-      results = this.statistic.filter(i => i.name === 'Alle');
+      results = this.statistic().filter(i => i.name === 'Alle');
     } else {
       const topic = removed?.topic;
-      results = this.statistic.filter(i => i.name === topic)
+      results = this.statistic().filter(i => i.name === topic)
     }
     return results;
   }
@@ -181,12 +181,12 @@ export class TemperatureStatisticComponent implements OnInit, OnDestroy {
         groupBy(key => key.room),
         mergeMap(i => this.mapDeviceGroup(i)))
       .subscribe(devices => {
-        const result = this.deviceGroup.find(d => d.key === devices.key);
+        const result = this.deviceGroup().find(d => d.key === devices.key);
         if (!result) {
-          this.deviceGroup.push({
+          this.deviceGroup.update(dg => [...dg, {
             key: devices.key,
             devices: [devices.device]
-          });
+          }]);
           return;
         }
         result?.devices.push(devices.device);

@@ -3,9 +3,9 @@
   <app-device-filter dashboardViewActions></app-device-filter>
   <mat-form-field class="secondary" dashboardViewActions class="form-field">
     <mat-label>Vergleichen</mat-label>
-    <mat-select [value]="currentSelection" (valueChange)="onValueChange($event)" multiple>
+    <mat-select [value]="currentSelection()" (valueChange)="onValueChange($event)" multiple>
       <mat-option value="all">Alle</mat-option>
-      @for (gruop of deviceGroup; track gruop) {
+      @for (gruop of deviceGroup(); track gruop) {
         <mat-optgroup [label]="gruop.key">
           @for (device of gruop.devices; track device) {
             <mat-option [value]="device">{{device.name}}</mat-option>

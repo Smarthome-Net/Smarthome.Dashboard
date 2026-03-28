@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, inject, viewChild } from '@angular/core';
+import { Component, OnInit, Type, inject, signal, viewChild } from '@angular/core';
 import { Setting } from '@models';
 import { SettingService } from '@services/setting-service';
 import { CommonSettingComponent } from './common-setting/common-setting.component';
@@ -29,13 +29,13 @@ export class SettingComponent implements OnInit {
 
   expansionPanel = viewChild(MatExpansionPanel);
   
-  settings: Setting[] = []
+  settings = signal<Setting[]>([])
 
   constructor() { }
   
   ngOnInit() {
     this.settingService.getAllSettings().subscribe(settings => {
-      this.settings = settings;
+      this.settings.set(settings);
     });
 
     this.settingService.onClose().subscribe(result => {

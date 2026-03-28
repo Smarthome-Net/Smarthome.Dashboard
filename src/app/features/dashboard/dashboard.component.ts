@@ -28,10 +28,10 @@ export class DashboardComponent {
   readonly trigger = viewChild(MatMenuTrigger);
   private appSettingService = inject(AppSettingService);
 
-  isCollapsed = true;
+  isCollapsed = signal(true);
   dashboardTitle = signal<string>('Dashboard');
 
-  navMenu: NavMenu[] = [
+  navMenu = signal<NavMenu[]>([
     { link: 'home', displayText: 'Home', icon: 'home' },
     {
       link: 'temperature', displayText: 'Temperatur', icon: 'thermostat', children: [
@@ -41,7 +41,7 @@ export class DashboardComponent {
     },
     { link: 'device-setting', displayText: 'Geräteeinstellung', icon: 'devices' },
     { link: 'setting', displayText: 'Einstellungen', icon: 'settings' }
-  ]
+  ])
 
   constructor() {
     this.appSettingService.$commonSetting.subscribe(commonSetting => {
@@ -50,6 +50,6 @@ export class DashboardComponent {
   }
 
   onCollapse(value: boolean) {
-    this.isCollapsed = value;
+    this.isCollapsed.set(value);
   }
 }

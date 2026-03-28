@@ -3,7 +3,7 @@
 </app-dashboard-view-bar>
 
 <mat-accordion multi>
-  @for (setting of settings; track setting) {
+  @for (setting of settings(); track setting) {
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>{{setting.description}}</mat-panel-title>

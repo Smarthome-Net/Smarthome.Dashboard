@@ -22,8 +22,8 @@
   
   <mat-card-footer>
     <mat-paginator
-    [length]="paginatorSettings.length"
-    [pageSize]="paginatorSettings.pageSize"
+    [length]="paginatorSettings().length"
+    [pageSize]="paginatorSettings().pageSize"
     [pageSizeOptions]="[5, 10, 25, 100]"
     (page)="onPage($event)">
   </mat-paginator>

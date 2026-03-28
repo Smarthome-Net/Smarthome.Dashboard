@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonSetting } from '@models';
 import { SettingService, } from '@services/setting-service';
@@ -57,13 +57,13 @@ export class CommonSettingComponent implements OnInit {
     theme: this.formBuilder.control<Theme>('lime-pink')
   });
 
-  private resetValue?: CommonSetting;
+  private resetValue = signal<CommonSetting | undefined>(undefined);
 
   constructor() { }
 
   ngOnInit() {
     this.settingService.getCommonSetting().subscribe(setting => {
-      this.resetValue = setting;
+      this.resetValue.set(setting);
       
       this.commonSettingForm.setValue({
         title: setting.title,
@@ -80,8 +80,8 @@ export class CommonSettingComponent implements OnInit {
       title: updated.title!,
       description: updated.description!,
       pageLength: updated.pageLength!,
-      id: this.resetValue!.id,
-      type: this.resetValue!.type,
+      id: this.resetValue()!.id,
+      type: this.resetValue()!.type,
       theme: updated.theme!
     };
 
@@ -100,10 +100,10 @@ export class CommonSettingComponent implements OnInit {
   reset() {
     this.commonSettingForm.reset();
     this.commonSettingForm.setValue({
-      title: this.resetValue!.title,
-      description: this.resetValue!.description,
-      pageLength: this.resetValue!.pageLength,
-      theme: this.resetValue!.theme
+      title: this.resetValue()!.title,
+      description: this.resetValue()!.description,
+      pageLength: this.resetValue()!.pageLength,
+      theme: this.resetValue()!.theme
     });
   }
 

@@ -4,7 +4,7 @@
 
 <mat-card appearance="outlined">
   <mat-card-content>
-    <table mat-table [dataSource]="devices">
+    <table mat-table [dataSource]="devices()">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -35,8 +35,8 @@
         </td>
       </ng-container>
     
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns();"></tr>
     </table>
   </mat-card-content>
 </mat-card>

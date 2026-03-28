@@ -44,7 +44,7 @@ export class DeviceSettingDetailsComponent implements OnInit {
   private deviceService = inject(DeviceService);
   private route = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
-  private device?: Device;
+  private device = signal<Device | undefined>(undefined);
 
   deviceStatus = signal<DeviceStatus | undefined>(undefined);
 
@@ -79,7 +79,7 @@ export class DeviceSettingDetailsComponent implements OnInit {
   }
 
   onReset() {
-    this.deviceForm.reset(this.device!);
+    this.deviceForm.reset(this.device()!);
   }
 
   private loadDeviceStatus(id: string) {
@@ -90,7 +90,7 @@ export class DeviceSettingDetailsComponent implements OnInit {
 
   private loadDeviceConfig(id: string) {
     this.deviceService.getDeviceConfig(id).subscribe(device => {
-      this.device = device;
+      this.device.set(device);
       this.deviceForm.patchValue(device);
     })
   }

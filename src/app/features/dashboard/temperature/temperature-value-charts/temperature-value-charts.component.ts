@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal, viewChild } from '@angular/core';
 import { PageEvent, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { map, Subscription } from 'rxjs';
 import { ApexAxisChartSeries, ChartComponent } from 'ng-apexcharts';
@@ -43,22 +43,22 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private appSettingService = inject(AppSettingService);
   private hubService = inject(TemperatureChartHubService);
-  private currentScopeFilter: Scope = {
+  private currentScopeFilter = signal<Scope>({
     scopeType: ScopeType.All,
     value: "",
-  }
+  })
 
-  private subscriptions: Subscription[] = [];
+  private subscriptions = signal<Subscription[]>([]);
 
   readonly chart = viewChild(ChartComponent);
 
-  data: Chart<Date, number>[] = [];
+  data = signal<Chart<Date, number>[]>([]);
 
-  paginatorSettings = {
+  paginatorSettings = signal({
     length: 100,
     pageSize: 10,
     pageIndex: 0,
-  };
+  });
 
   chartOptions: Partial<ChartSettings> = TempareturChartOptions
 
@@ -67,27 +67,27 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.hubService.destroy();
     this.filterService.destroy();
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
+    this.subscriptions().forEach(sub => sub.unsubscribe());
+    this.subscriptions.set([]);
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.appSettingService.$commonSetting.subscribe(commonSetting => { 
-      this.paginatorSettings.pageSize = commonSetting.pageLength;
+    this.subscriptions().push(this.appSettingService.$commonSetting.subscribe(commonSetting => { 
+      this.paginatorSettings.update(p => ({ ...p, pageSize: commonSetting.pageLength }));
     }));
     this.filterService.scopeFilter().subscribe(filter => {
-      this.currentScopeFilter = filter;
+      this.currentScopeFilter.set(filter);
       this.loadChartData();
 
-      this.hubService.getTemperatureData(this.currentScopeFilter)
+      this.hubService.getTemperatureData(this.currentScopeFilter())
         .subscribe(hubResponse => {
-          this.data.forEach(item => {
+          this.data().forEach(item => {
             const series = hubResponse.find(d => d.name === item.name);
             item.series.splice(0, 0, ...series?.series!)
             item.series.pop();
           })
 
-          this.chartOptions.series = this.mapTemperature(this.data);
+          this.chartOptions.series = this.mapTemperature(this.data());
         });
     });
   }
@@ -107,17 +107,17 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
   }
 
   onPage(event: PageEvent) {
-    this.paginatorSettings = event;
+    this.paginatorSettings.set(event);
     this.loadChartData();
   }
 
   private createChartRequest(): TemperatureChartRequest {
     return {
-      scope: this.currentScopeFilter,
+      scope: this.currentScopeFilter(),
       pagination: {
-        length: this.paginatorSettings.length,
-        pageIndex: this.paginatorSettings.pageIndex,
-        pageSize: this.paginatorSettings.pageSize
+        length: this.paginatorSettings().length,
+        pageIndex: this.paginatorSettings().pageIndex,
+        pageSize: this.paginatorSettings().pageSize
       }
     };
   }
@@ -126,14 +126,14 @@ export class TemperatureValueChartsComponent implements OnInit, OnDestroy {
     const request = this.createChartRequest();
     this.chartService.getTemperatureChart(request)
       .pipe(map(val => {
-        this.data = val.temperatures;
+        this.data.set(val.temperatures);
         return {
           pageSetting: val.pagination,
           chart: this.mapTemperature(val.temperatures),
         }
       }))
       .subscribe(data => {
-        this.paginatorSettings = data.pageSetting;
+        this.paginatorSettings.set(data.pageSetting);
         this.chartOptions.series = data.chart;
       });
   }
