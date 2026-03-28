@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
@@ -44,10 +44,12 @@ export class DeviceSettingDetailsComponent implements OnInit {
   private deviceService = inject(DeviceService);
   private route = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
+  private device?: Device;
 
-  deviceStatus?: DeviceStatus;
+  deviceStatus = signal<DeviceStatus | undefined>(undefined);
 
   deviceForm = this.formBuilder.group({
+    id: this.formBuilder.control('', Validators.required),
     room: this.formBuilder.control('', Validators.required),
     name: this.formBuilder.control('', Validators.required),
     configuration: this.formBuilder.group({
@@ -59,7 +61,6 @@ export class DeviceSettingDetailsComponent implements OnInit {
     })
   });
 
-  private device?: Device;
   constructor() { }
 
   ngOnInit() {
@@ -71,7 +72,10 @@ export class DeviceSettingDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.deviceForm.value);
+    // this.deviceService.updateDeviceConfig(this.device!.id, updatedDevice).subscribe(device => {
+    //   this.device = device;
+    //   this.deviceForm.reset(device);
+    // });
   }
 
   onReset() {
@@ -80,7 +84,7 @@ export class DeviceSettingDetailsComponent implements OnInit {
 
   private loadDeviceStatus(id: string) {
     this.deviceService.getDeviceStatus(id).subscribe(status => {
-      this.deviceStatus = status;
+      this.deviceStatus.set(status);
     });
   }
 

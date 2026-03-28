@@ -11,7 +11,7 @@
       <div class="device-status-item">
         <p>
           <span>Verbindungsstatus WLAN:</span>
-          <app-connection-status [connectionStatus]="deviceStatus?.wifiConnectedStatus!"
+          <app-connection-status [connectionStatus]="deviceStatus()?.wifiConnectedStatus!"
             [icons]="{ on: 'wifi', off: 'wifi_off' }">
           </app-connection-status>
         </p>
@@ -19,7 +19,7 @@
       <div class="device-status-item">
         <p>
           <span>Verbindungsstatus MQTT:</span>
-          <app-connection-status [connectionStatus]="deviceStatus?.mqttConnectedStatus!"
+          <app-connection-status [connectionStatus]="deviceStatus()?.mqttConnectedStatus!"
             [icons]="{ on: 'link', off: 'link_off' }">
           </app-connection-status>
         </p>
@@ -27,11 +27,11 @@
       <div class="device-status-item">
         <p>
           <span>Batteriestatus:</span>
-          <app-battery-status [value]="deviceStatus?.batteryStatus!"></app-battery-status>
+          <app-battery-status [value]="deviceStatus()?.batteryStatus!"></app-battery-status>
         </p>
       </div>
       <div class="device-status-item">
-        <p>Aktuelle Temperatur: {{deviceStatus?.currentTemperature}}°C</p>
+        <p>Aktuelle Temperatur: {{deviceStatus()?.currentTemperature}}°C</p>
       </div>
     </div>
   </mat-card-content>
@@ -91,6 +91,6 @@
   </mat-card-content>
   <mat-card-actions class="device-form-actions-card" align="end">
     <button mat-button class="error" (click)="onReset()">Verwerfen</button>
-    <button mat-raised-button class="secondary" (click)="onSubmit()">Speichern</button>
+    <button mat-raised-button class="secondary" [disabled]="deviceForm.invalid" (click)="onSubmit()">Speichern</button>
   </mat-card-actions>
 </mat-card>
