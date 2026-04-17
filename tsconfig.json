@@ -2,8 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "strict": true,
@@ -25,22 +25,22 @@
     ],
     "paths": {
       "@models": [
-        "src/app/core/models"
+        "./src/app/core/models"
       ],
       "@services*": [
-        "src/app/core/services*"
+        "./src/app/core/services*"
       ],
       "@base*": [
-        "src/app/core/base*"
+        "./src/app/core/base*"
       ],
       "@shared": [
-        "src/app/shared"
+        "./src/app/shared"
       ],
       "@env": [
-        "src/environments"
+        "./src/environments"
       ],
       "@app": [
-        "src/app"
+        "./src/app"
       ]
     }
   },
