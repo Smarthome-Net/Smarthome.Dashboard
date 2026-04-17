@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { form, required, apply, min, max, FormField } from '@angular/forms/signals';
 import { ActivatedRoute } from '@angular/router';
 import { Device, DeviceStatus } from '@models';
 import { DeviceService, provideDeviceService } from '@services/device-service';
@@ -15,6 +15,7 @@ import { MatCard,
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { StorageManagerService } from '@services/storage-manager';
 
 @Component({
   selector: 'app-device-setting-details',
@@ -28,14 +29,12 @@ import { MatButton } from '@angular/material/button';
     MatCardContent,
     ConnectionStatusComponent,
     BatteryStatusComponent,
-    FormsModule,
-    ReactiveFormsModule,
     MatFormField,
     MatLabel,
     MatInput,
     MatCardActions,
-    MatButton
-  ],
+    MatButton, 
+    FormField],
   providers: [
     provideDeviceService()
   ]
@@ -43,23 +42,36 @@ import { MatButton } from '@angular/material/button';
 export class DeviceSettingDetailsComponent implements OnInit {
   private deviceService = inject(DeviceService);
   private route = inject(ActivatedRoute);
-  private formBuilder = inject(FormBuilder);
-  private device = signal<Device | undefined>(undefined);
+  private storageManager = inject(StorageManagerService);
+  private device = signal<Device>({
+    id: '',
+    name: '',
+    room: '',
+    topic: '',
+    configuration: {
+      measureInterval: 0,
+      mqttHost: '',
+      mqttPort: 0,
+      password: '',
+      ssid: ''
+    }
+  });
 
   deviceStatus = signal<DeviceStatus | undefined>(undefined);
 
-  deviceForm = this.formBuilder.group({
-    id: this.formBuilder.control('', Validators.required),
-    room: this.formBuilder.control('', Validators.required),
-    name: this.formBuilder.control('', Validators.required),
-    configuration: this.formBuilder.group({
-      measureInterval: this.formBuilder.control(1, [Validators.min(1), Validators.max(59)]),
-      mqttHost: this.formBuilder.control('', Validators.required),
-      mqttPort: this.formBuilder.control(1, Validators.max(65535)),
-      ssid: this.formBuilder.control('', Validators.required),
-      password: this.formBuilder.control(''),
+  deviceForm = form(this.device, (schemaPath) => {
+    required(schemaPath.id),
+    required(schemaPath.room),
+    required(schemaPath.name),
+    apply(schemaPath.configuration, (configurationPath) => {
+      min(configurationPath.measureInterval, 1),
+      max(configurationPath.measureInterval, 59),
+      min(configurationPath.measureInterval, 1),
+      max(configurationPath.measureInterval, 65535),
+      required(configurationPath.mqttHost),
+      required(configurationPath.ssid)
     })
-  });
+  })
 
   constructor() { }
 
@@ -79,7 +91,8 @@ export class DeviceSettingDetailsComponent implements OnInit {
   }
 
   onReset() {
-    this.deviceForm.reset(this.device()!);
+    const value = this.storageManager.getValue<Device>('deviceForm');
+    this.deviceForm().reset(value!)
   }
 
   private loadDeviceStatus(id: string) {
@@ -90,8 +103,8 @@ export class DeviceSettingDetailsComponent implements OnInit {
 
   private loadDeviceConfig(id: string) {
     this.deviceService.getDeviceConfig(id).subscribe(device => {
+      this.storageManager.setValue('deviceForm', device);
       this.device.set(device);
-      this.deviceForm.patchValue(device);
     })
   }
 }

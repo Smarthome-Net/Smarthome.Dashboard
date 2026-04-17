@@ -26,12 +26,12 @@ export const TempareturChartOptions: Partial<ChartSettings> = {
       text: "Uhrzeit"
     },
     labels: {
-      formatter(val) {
+      formatter(val: string | number, timestamp?: number, opts?: any) {
         if (val) {
           var date = new Date(val);
           return date.toLocaleString();
         }
-        return val;
+        return '';
       }
     }
   },

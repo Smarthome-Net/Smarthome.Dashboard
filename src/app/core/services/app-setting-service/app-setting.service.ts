@@ -3,12 +3,14 @@ import { AppSettingService } from './app-setting-service';
 import { SettingService } from '@services/setting-service';
 import { CommonSettingStorage } from '@models';
 import { Observable, ReplaySubject } from 'rxjs';
+import { StorageManagerService } from '@services/storage-manager';
 
 const CommonSettingKey = 'commonSetting';
 
 @Injectable()
 export class AppSettingServiceImpl extends AppSettingService {
   private settingService = inject(SettingService);
+  private localStorage = inject(StorageManagerService);
   private commonSetting;
 
   override $commonSetting: Observable<CommonSettingStorage>;
@@ -20,9 +22,9 @@ export class AppSettingServiceImpl extends AppSettingService {
   }
 
   override initSettings(): void {
-    const setting = localStorage.getItem(CommonSettingKey)
+    const setting = this.localStorage.getValue<CommonSettingStorage>(CommonSettingKey);
     if(setting) {
-      this.commonSetting.next(JSON.parse(setting));
+      this.commonSetting.next(setting);
       return;
     }
 
@@ -32,7 +34,7 @@ export class AppSettingServiceImpl extends AppSettingService {
   }
 
   override updateCommonSetting(commonSetting: CommonSettingStorage): void {
-    localStorage.setItem(CommonSettingKey, JSON.stringify(commonSetting));
+    this.localStorage.setValue(CommonSettingKey, commonSetting);
     this.commonSetting.next(commonSetting);
   }
 

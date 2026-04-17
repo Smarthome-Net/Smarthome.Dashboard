@@ -43,22 +43,22 @@
     <mat-card-title>Einstellungen</mat-card-title>
   </mat-card-header>
   <mat-card-content class="h-100">
-    <form [formGroup]="deviceForm">
+    <form>
       <h3>Allgemein</h3>
       <div class="device-settings-input-container">
         <mat-form-field>
           <mat-label>Raum</mat-label>
-          <input [formControl]="deviceForm.controls.room" matInput>
+          <input [formField]="deviceForm.room"  matInput>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Bezeichnung/Standort in Raum</mat-label>
-          <input [formControl]="deviceForm.controls.name" matInput>
+          <input [formField]="deviceForm.name" matInput>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Interval in Min.</mat-label>
-          <input [formControl]="deviceForm.controls.configuration.controls.measureInterval" matInput type="number">
+          <input [formField]="deviceForm.configuration.measureInterval" matInput type="number">
         </mat-form-field>
       </div>
 
@@ -66,12 +66,12 @@
       <div class="device-settings-input-container">
         <mat-form-field>
           <mat-label>MQTT Host</mat-label>
-          <input [formControl]="deviceForm.controls.configuration.controls.mqttHost" matInput>
+          <input [formField]="deviceForm.configuration.mqttHost" matInput>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>MQTT Port</mat-label>
-          <input [formControl]="deviceForm.controls.configuration.controls.mqttPort" matInput type="number">
+          <input [formField]="deviceForm.configuration.mqttPort" matInput type="number">
         </mat-form-field>
       </div>
 
@@ -79,18 +79,18 @@
       <div class="device-settings-input-container">
         <mat-form-field>
           <mat-label>Netzwerk Name</mat-label>
-          <input [formControl]="deviceForm.controls.configuration.controls.ssid" matInput>
+          <input [formField]="deviceForm.configuration.ssid" matInput>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Netzwerk Password</mat-label>
-          <input [formControl]="deviceForm.controls.configuration.controls.password" matInput type="password">
+          <input [formField]="deviceForm.configuration.password" matInput type="password">
         </mat-form-field>
       </div>
     </form>
   </mat-card-content>
   <mat-card-actions class="device-form-actions-card" align="end">
     <button mat-button class="error" (click)="onReset()">Verwerfen</button>
-    <button mat-raised-button class="secondary" [disabled]="deviceForm.invalid" (click)="onSubmit()">Speichern</button>
+    <button mat-raised-button class="secondary" [disabled]="deviceForm().invalid()" (click)="onSubmit()">Speichern</button>
   </mat-card-actions>
 </mat-card>
