@@ -1,22 +1,22 @@
-<form class="common-form" [formGroup]="commonSettingForm">
+<form class="common-form">
     <mat-form-field color="accent">
         <mat-label>Dashboard Titel</mat-label>
-        <input matInput [formControl]="commonSettingForm.controls.title">
+        <input matInput [formField]="commonSettingForm.title">
     </mat-form-field>
 
     <mat-form-field class="form-column-2" color="accent">
         <mat-label>Kurze Beschreibung</mat-label>
-        <input matInput [formControl]="commonSettingForm.controls.description">
+        <input matInput [formField]="commonSettingForm.description">
     </mat-form-field>
 
     <mat-form-field color="accent">
         <mat-label>Anzahl der angezeigten Elemente pro Seite</mat-label>
-        <input matInput [formControl]="commonSettingForm.controls.pageLength">
+        <input matInput type="number" [formField]="commonSettingForm.pageLength">
     </mat-form-field>
     
-    <app-color-preset-picker [formControl]="commonSettingForm.controls.theme"></app-color-preset-picker>
+    <app-color-preset-picker [formField]="commonSettingForm.theme"></app-color-preset-picker>
     <div class="form-actions">
         <button mat-button class="error" (click)="reset()">Änderungen verwerfen</button>
-        <button mat-raised-button class="secondary" type="submit" [disabled]="commonSettingForm.pristine && !commonSettingForm.dirty" (click)="updateSetting()">Änderungen speichern</button>
+        <button mat-raised-button class="secondary" type="submit" [disabled]="!commonSettingForm().dirty() && !commonSettingForm().touched()" (click)="updateSetting()">Änderungen speichern</button>
     </div>
 </form>

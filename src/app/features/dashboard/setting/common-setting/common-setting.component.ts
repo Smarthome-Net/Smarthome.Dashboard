@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 import { CommonSetting } from '@models';
 import { SettingService, } from '@services/setting-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -34,28 +34,29 @@ const Messages: { [key: number]: SnackMessage } = {
     selector: 'app-common-setting',
     templateUrl: './common-setting.component.html',
     styleUrls: ['./common-setting.component.scss'],
-    imports: [FormsModule, 
-      ReactiveFormsModule, 
-      MatFormField, 
-      MatLabel, 
+    imports: [
+      MatFormField,
+      MatLabel,
       MatInput,
       MatButton,
-      ColorPresetPickerComponent,
+      ColorPresetPickerComponent, 
+      FormField,
     ]
 })
 export class CommonSettingComponent implements OnInit {
   private settingService = inject(SettingService);
   private appSettingService = inject(AppSettingService);
-  private formBuilder = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
-
-
-  commonSettingForm = this.formBuilder.group({
-    title: this.formBuilder.control(""),
-    description: this.formBuilder.control(""),
-    pageLength: this.formBuilder.control(10),
-    theme: this.formBuilder.control<Theme>('lime-pink')
+  private commonSetting = signal<CommonSetting>({
+    id: '',
+    title: '',
+    description: '',
+    pageLength: 10,
+    theme: 'lime-pink',
+    type: ''
   });
+
+  commonSettingForm = form(this.commonSetting);
 
   private resetValue = signal<CommonSetting | undefined>(undefined);
 
@@ -63,27 +64,13 @@ export class CommonSettingComponent implements OnInit {
 
   ngOnInit() {
     this.settingService.getCommonSetting().subscribe(setting => {
+      this.commonSetting.set(setting);
       this.resetValue.set(setting);
-      
-      this.commonSettingForm.setValue({
-        title: setting.title,
-        description: setting.description,
-        pageLength: setting.pageLength,
-        theme: setting.theme
-      })
     })
   }
 
   updateSetting() {
-    const updated = this.commonSettingForm.value;
-    const commonSetting: CommonSetting = { 
-      title: updated.title!,
-      description: updated.description!,
-      pageLength: updated.pageLength!,
-      id: this.resetValue()!.id,
-      type: this.resetValue()!.type,
-      theme: updated.theme!
-    };
+    const commonSetting = this.commonSetting();
 
     this.settingService.updateCommonSetting(commonSetting).subscribe(result => {
       this.showNotification(result);
@@ -98,13 +85,7 @@ export class CommonSettingComponent implements OnInit {
   }
 
   reset() {
-    this.commonSettingForm.reset();
-    this.commonSettingForm.setValue({
-      title: this.resetValue()!.title,
-      description: this.resetValue()!.description,
-      pageLength: this.resetValue()!.pageLength,
-      theme: this.resetValue()!.theme
-    });
+    this.commonSetting.set(this.resetValue()!);
   }
 
   private showNotification(result: number) {
