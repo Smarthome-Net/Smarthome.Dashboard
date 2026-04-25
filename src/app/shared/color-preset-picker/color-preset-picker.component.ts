@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, forwardRef, OnInit, signal } from '@angular/core';
+import { Component, forwardRef, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormValueControl } from '@angular/forms/signals';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu, MatMenuItem, MatMenuContent, } from '@angular/material/menu';
@@ -24,61 +25,22 @@ type ThemePreview = {
     MatMenuItem,
     MatMenuContent,
     NgTemplateOutlet,
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ColorPresetPickerComponent),
-      multi: true
-    }
   ]
 })
-export class ColorPresetPickerComponent implements OnInit, ControlValueAccessor {
+export class ColorPresetPickerComponent implements FormValueControl<Theme> {
   private readonly themesList: ThemePreview[] = [
     { description: 'Grün & Pink', theme: 'lime-pink' },
     { description: 'Blau & Orange', theme: 'blue-orange' }
   ]
 
-  themes = signal<ThemePreview[]>([
-    { description: 'Grün & Pink', theme: 'lime-pink' },
-    { description: 'Blau & Orange', theme: 'blue-orange' }
-  ]);
+  themes = signal<ThemePreview[]>(this.themesList);
 
   selectedTheme = signal<ThemePreview>(this.themesList[0]);
-
-  controlValueAccessorChangeFn?: (theme: Theme) => { };
-  controlValueAccessorOnTouchedFn?: (theme: Theme) => { };
-
-  constructor() { }
-  
-  writeValue(obj: any): void {
-    var theme = obj as Theme;
-
-    var themePreview = this.themes().find(t => t.theme === theme);
-    if(!themePreview) {
-      return;
-    }
-
-    this.selectedTheme.set(themePreview);
-  }
-
-  registerOnChange(fn: any): void {
-    this.controlValueAccessorChangeFn = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.controlValueAccessorOnTouchedFn = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void { }
-
-  ngOnInit() {
-  }
+  value = model<Theme>(this.selectedTheme().theme);
 
   onThemeSelected(theme: ThemePreview) {
     this.selectedTheme.set(theme);
-    this.controlValueAccessorChangeFn!(theme.theme);
-    this.controlValueAccessorOnTouchedFn!(theme.theme);
+    this.value.set(theme.theme);
   }
 
 }

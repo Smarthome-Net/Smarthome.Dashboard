@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { form, FormField } from '@angular/forms/signals';
 import { CommonSetting } from '@models';
 import { SettingService, } from '@services/setting-service';
@@ -35,12 +36,13 @@ const Messages: { [key: number]: SnackMessage } = {
     templateUrl: './common-setting.component.html',
     styleUrls: ['./common-setting.component.scss'],
     imports: [
+      FormsModule,
       MatFormField,
       MatLabel,
       MatInput,
       MatButton,
       ColorPresetPickerComponent, 
-      FormField,
+      FormField
     ]
 })
 export class CommonSettingComponent implements OnInit {
